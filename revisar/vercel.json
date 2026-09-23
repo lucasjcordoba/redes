@@ -1,11 +1,26 @@
 {
-  "rewrites": [{ "source": "/p/:pr", "destination": "/api/pagina?pr=:pr" }],
+  "rewrites": [
+    {
+      "source": "/p/:pr",
+      "destination": "/api/pagina?pr=:pr"
+    },
+    {
+      "source": "/idea/:marca",
+      "destination": "/api/idea?marca=:marca"
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "X-Robots-Tag", "value": "noindex" },
-        { "key": "Referrer-Policy", "value": "no-referrer" }
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "no-referrer"
+        }
       ]
     }
   ]

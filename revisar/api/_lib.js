@@ -18,12 +18,19 @@ import { createHmac, timingSafeEqual } from "node:crypto";
 export const REPO = "lucasjcordoba/redes";
 
 export const MARCAS = {
-  raudal: { nombre: "Raudal Dev", usuario: "raudaldev", avatar: "/avatar-raudal.jpg" },
-  tecnoaid: { nombre: "TecnoAid", usuario: "tecno.aid", avatar: "/avatar-tecnoaid.jpg" },
+  // `hora`: la de su calendario (marcas/<marca>/marca.mjs), para las ideas nuevas.
+  raudal: { nombre: "Raudal Dev", usuario: "raudaldev", avatar: "/avatar-raudal.jpg", hora: "19:00" },
+  tecnoaid: { nombre: "TecnoAid", usuario: "tecno.aid", avatar: "/avatar-tecnoaid.jpg", hora: "18:30" },
 };
 
 /** Marca que deja en el PR un pedido de cambios hecho desde la página. */
 export const MARCA_CAMBIOS = "<!-- revisar:cambios -->";
+
+/** Marca de los issues de ideas para publicaciones nuevas. */
+export const MARCA_IDEA = "<!-- revisar:idea -->";
+
+/** Hoy en Argentina, AAAA-MM-DD. */
+export const hoyAR = () => new Date(Date.now() - 3 * 3600e3).toISOString().slice(0, 10);
 
 const COOKIE = "revision";
 export const DURACION_SESION = 365 * 86400; // segundos

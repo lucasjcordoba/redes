@@ -14,7 +14,7 @@ export default async function handler(req, res) {
   res.setHeader("Content-Type", "text/html; charset=utf-8");
   const { pr, error } = req.query;
   if (!/^\d+$/.test(String(pr))) return res.status(404).send(pagina("No encontrada", aviso("No encontré esta publicación.")));
-  if (!sesionValida(req)) return res.status(401).send(pagina("Entrar", entrar(pr, error)));
+  if (!sesionValida(req)) return res.status(401).send(pagina("Entrar", entrar(`/p/${pr}`, error)));
 
   let d;
   try {
@@ -94,7 +94,7 @@ function icono(d) {
   return `<svg class="icono" viewBox="0 0 24 24" aria-hidden="true"><path d="${d}"/></svg>`;
 }
 
-const esc = (s) =>
+export const esc = (s) =>
   String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
 /** Escapa y pinta los hashtags como Instagram. Los saltos de línea los resuelve el CSS. */
@@ -106,23 +106,23 @@ function fechaLarga(fecha) {
   return `${d} de ${MESES[m - 1]}`;
 }
 
-function entrar(pr, error) {
+export function entrar(volver, error) {
   return `
   <form class="entrar" method="post" action="/api/entrar">
     <h1>Revisión de publicaciones</h1>
     <p>Ingresá la contraseña. Este navegador la recuerda por un año.</p>
-    <input type="hidden" name="pr" value="${esc(pr)}">
+    <input type="hidden" name="volver" value="${esc(volver)}">
     <input type="password" name="password" autocomplete="current-password" required autofocus aria-label="Contraseña">
     ${error ? '<p class="mensaje error">Contraseña incorrecta.</p>' : ""}
     <button class="primario" type="submit">Entrar</button>
   </form>`;
 }
 
-function aviso(texto) {
+export function aviso(texto) {
   return `<p class="aviso">${esc(texto)}</p>`;
 }
 
-function pagina(titulo, cuerpo) {
+export function pagina(titulo, cuerpo) {
   return `<!doctype html>
 <html lang="es">
 <head>
@@ -205,6 +205,12 @@ button:disabled { opacity: .45; cursor: default; }
 .entrar { margin: 60px 16px; display: grid; gap: 12px; }
 .entrar h1 { font-size: 20px; margin: 0; }
 .entrar p { margin: 0; color: var(--tenue); }
+.idea { margin: 16px; display: grid; gap: 12px; }
+.idea h1 { font-size: 18px; margin: 0; }
+.idea p { margin: 0; color: var(--tenue); }
+.idea .cuando { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.idea input { font: inherit; font-size: 16px; color: inherit; background: var(--tarjeta); border: 1px solid var(--borde); border-radius: 8px; padding: 10px 12px; width: 100%; }
+.marca-cabecera { display: flex; align-items: center; gap: 10px; margin: 0 16px; }
 .entrar input[type=password] { font: inherit; font-size: 16px; color: inherit; background: var(--tarjeta); border: 1px solid var(--borde); border-radius: 8px; padding: 12px; }
 `;
 
