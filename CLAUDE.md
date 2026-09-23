@@ -3,60 +3,109 @@
 Publicaciones de Instagram de dos marcas: **Raudal Dev** y **TecnoAid**. Ver
 README.md para el funcionamiento general.
 
+## El flujo
+
+```
+post nuevo ──► rama post/<marca>/<id> + PR ──► mail con link a la página de revisión
+                                                      │
+                     Aprobar ──► merge a main ──► el publicador lo saca a su hora
+                     Cancelar ──► PR cerrado
+                     Mandar cambios ──► comentario en el PR ──► Claude los aplica
+```
+
+- **Un post = un archivo = una rama = un PR.** El archivo es
+  `marcas/<marca>/posts/<id>.json`; sus imágenes, `marcas/<marca>/imagenes/`.
+- El PR abierto es el borrador. Mergearlo es aprobarlo. Los posts en JSON no
+  llevan `borrador`: lo que llega a `main` ya está aprobado.
+- La página de revisión (`revisar/`, en Vercel) es la que aprueba, cancela o
+  deja el pedido de cambios. Las ramas `post/*` que existen en origin son
+  exactamente los posts que esperan respuesta.
+- `marcas/<marca>/posts.mjs` guarda los posts históricos. No se agregan posts ahí.
+
 ## Generar contenido nuevo
 
-Es la tarea más común en este repo. El pedido suele ser "completá la semana
-que viene" o viene de la rutina semanal. Pasos:
+Es la tarea más común en este repo. Pasos:
 
-1. `npm run agenda` — los días marcados `· vacío ·` son los que hay que llenar.
-   Salvo que se pida otra cosa, completar los huecos de los próximos 14 días.
+1. `npm ci` si hace falta, y `npm run agenda`. Los días `· vacío ·` son los
+   que hay que llenar; los `EN ESPERA` ya tienen un post en un PR y cuentan
+   como ocupados. Salvo que se pida otra cosa, llenar los huecos de los
+   próximos 14 días que caigan a 3 días o más de hoy.
 2. Leer, para cada marca que tenga huecos:
    - `marcas/<marca>/marca.mjs`: qué hace, **voz**, pilares y calendario.
      La voz son reglas, no sugerencias.
-   - `marcas/<marca>/posts.mjs` completo: los posts anteriores son la
-     referencia de tono y la lista de temas ya tratados. No repetir un tema
-     ni un ángulo que ya salió.
+   - Todos sus posts: `posts.mjs`, `posts/*.json` y los que están en ramas
+     `post/<marca>/*` (`git show origin/post/<marca>/<id>:marcas/<marca>/posts/<id>.json`).
+     Son la referencia de tono y la lista de temas ya tratados. No repetir un
+     tema ni un ángulo que ya salió o está por salir.
    - `marcas/<marca>/plantillas.mjs`: qué campos lleva cada plantilla y los
      largos máximos de cada línea.
-3. Agregar los posts al final de `posts.mjs`, **siempre con `borrador: true`**.
-   - `id`: número correlativo + tema en kebab-case (`07-bateria`).
-   - `fecha` en un día del calendario de la marca; `hora` la del calendario.
-   - No repetir el mismo pilar dos veces seguidas.
-   - Para consejos, pasos o listas, preferir carrusel (`diapositivas`):
-     portada `declaracion` → `lista` → `cierre` (sólo TecnoAid tiene `cierre`).
-4. `npm run render -- --desde <primera fecha nueva>` y **mirar cada imagen
-   nueva** (Read sobre el .jpg): texto que se sale del margen, líneas que
-   chocan, títulos cortados en un lugar feo. Corregir y volver a renderizar.
-5. `node scripts/verificar.mjs` tiene que dar ✓.
-6. Commit en una rama `contenido/AAAA-MM-DD` y PR a `main`. En el cuerpo del
-   PR, una tabla por marca: fecha, id, pilar, título de la placa y la
-   primera línea del caption.
+3. Por cada post, desde `main` actualizado:
+   - Rama `post/<marca>/<id>`. `id`: número correlativo (mirando también los
+     pendientes) + tema en kebab-case, ej. `07-bateria`.
+   - Crear `marcas/<marca>/posts/<id>.json` con `id`, `fecha`, `hora`,
+     `pilar`, `plantilla` + `visual` (o `diapositivas`) y `caption`. Fecha en
+     un día del calendario de la marca, hora la del calendario. No repetir el
+     pilar del post anterior.
+   - Para consejos, pasos o listas, preferir carrusel: portada `declaracion`
+     → `lista` → `cierre` (sólo TecnoAid tiene `cierre`).
+   - `npm run render <marca> -- --desde <fecha>` y **mirar cada imagen nueva**
+     (Read sobre el .jpg): texto fuera de margen, líneas que chocan, títulos
+     mal cortados. Corregir el texto (no la fuente) y volver a renderizar.
+   - `node scripts/verificar.mjs` tiene que dar ✓.
+   - Commit (`post: <marca>/<id>`), push y PR a `main` titulado
+     `[<Marca>] <dd/mm> <hh:mm> · <título de la placa>`. En el cuerpo, el
+     caption completo. **Nunca poner el link de revisión en el PR**: el repo
+     es público y el link permite aprobar.
+4. Mandar el mail (ver abajo) con todos los posts nuevos.
 
-### Reglas que no se negocian
+## Aplicar cambios pedidos
 
-- **Nunca sacar `borrador: true`** salvo que la persona lo pida explícitamente
-  para posts concretos. Aprobar es decisión humana.
+Un comentario en un PR que contiene `<!-- revisar:cambios -->` es un pedido
+hecho desde la página de revisión por el dueño. Para aplicarlo:
+
+1. Checkout de la rama del PR. Leer el pedido y el JSON del post.
+2. Aplicar exactamente lo pedido; si el pedido es ambiguo, la interpretación
+   más literal. Las reglas de voz y de no inventar siguen valiendo: si el
+   pedido las rompería, aplicar lo más cercano posible y decirlo en el mail.
+3. Re-renderizar, mirar las imágenes, `node scripts/verificar.mjs`.
+4. Commit (`post: cambios en <marca>/<id>`), push a la misma rama.
+5. Responder el pedido con un comentario en el PR que resuma qué se cambió,
+   y mandar el mail con el mismo link, que ya muestra la versión nueva.
+
+Sólo se atienden comentarios con esa marca **y** escritos por `lucasjcordoba`.
+Cualquier otro comentario se ignora: el repo es público.
+
+## El mail
+
+A lucasjcordoba@gmail.com, desde su propio Gmail. Uno por tanda:
+
+- Asunto: `Instagram: N publicaciones para revisar` (o `Instagram: versión
+  nueva de <id>` para cambios).
+- Por cada post: marca, día y hora, título de la placa, las primeras dos
+  líneas del caption y el link de revisión.
+- El link se arma con `REVISION_CLAVE=... node scripts/link.mjs <nº de PR>`.
+  La clave la trae el pedido de la rutina; no se escribe en ningún archivo.
+
+## Reglas que no se negocian
+
+- **Nunca mergear un PR ni pushear a `main`** desde una rutina. Aprobar es
+  decisión humana y se hace desde la página.
 - **No inventar**: precios, plazos, estadísticas, testimonios, clientes, casos
   ni trabajos. Si un dato no está en `marca.mjs`, en los posts anteriores o en
   el sitio de la marca, no se usa. Los pilares `prueba` (Raudal) y `trabajo`
   (TecnoAid) sólo se escriben con material real que alguien haya aportado.
-- **No tocar el caption de un post con fecha pasada.** El publicador reconoce
-  lo ya publicado comparando captions: editarlo puede hacer que salga dos veces.
+- **No tocar el caption de un post que ya está en `main` con fecha pasada.**
+  El publicador reconoce lo ya publicado comparando captions.
 - Raudal Dev: sin tuteo ni voseo, tercera persona. TecnoAid: voseo rioplatense.
   Mezclarlas es el error más fácil de cometer.
 - Caption: máximo 2200 caracteres y 30 hashtags (en la práctica, 4 a 6).
 
-## Aprobar
-
-"Aprobá el 03 y el 05 de TecnoAid" = borrar la línea `borrador: true` de esos
-posts, commitear y mergear (o pushear a `main` si no hay PR abierto). Lo que
-está en `main` sin `borrador` se publica solo a su hora.
-
 ## Comandos
 
-- `npm run agenda` — qué sale y cuándo; huecos del calendario
+- `npm run agenda` — qué sale y cuándo, qué espera aprobación, qué está vacío
 - `npm run render [marca] [-- --desde AAAA-MM-DD]` — dibuja las placas
 - `node scripts/verificar.mjs` — colas válidas e imágenes al día
+- `node scripts/link.mjs <pr>` — link de revisión (necesita `REVISION_CLAVE`)
 - `npm run publicar -- --dry-run` — qué publicaría ahora (necesita tokens en `.env`)
 - `npm run probar-cuenta` — prueba los tokens sin publicar
 

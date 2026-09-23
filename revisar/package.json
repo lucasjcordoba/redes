@@ -1,0 +1,6 @@
+{
+  "name": "redes-revisar",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22" }
+}
