@@ -1,0 +1,49 @@
+{
+  "id": "05-recalienta",
+  "fecha": "2026-10-07",
+  "hora": "18:30",
+  "pilar": "sintoma",
+  "diapositivas": [
+    {
+      "plantilla": "declaracion",
+      "visual": {
+        "etiqueta": "Síntoma",
+        "titulo": [
+          "¿Se recalienta",
+          "o suena como",
+          "un avión?"
+        ],
+        "destacar": 2,
+        "bajada": "Casi siempre es polvo y pasta térmica seca. Deslizá →"
+      }
+    },
+    {
+      "plantilla": "lista",
+      "visual": {
+        "etiqueta": "Señales",
+        "titulo": [
+          "Le falta una",
+          "limpieza si..."
+        ],
+        "items": [
+          "El ventilador suena fuerte aunque no estés haciendo nada pesado.",
+          "La base quema al apoyarla en las piernas.",
+          "Se pone lenta cuando le exigís un poco.",
+          "Se apaga sola, sin aviso.",
+          "No te acordás de la última vez que la limpiaron."
+        ]
+      }
+    },
+    {
+      "plantilla": "cierre",
+      "visual": {
+        "titulo": [
+          "Cada 3 a 6",
+          "meses."
+        ],
+        "bajada": "Limpieza interna y cambio de pasta térmica."
+      }
+    }
+  ],
+  "caption": "Con el uso, adentro de la notebook se junta polvo y la pasta térmica que ayuda a enfriar el procesador se seca. El equipo calienta más, el ventilador trabaja el doble y, en el peor caso, se apaga solo para protegerse.\n\nSeñales de que le falta una limpieza:\n\n🔊 El ventilador suena fuerte aunque no estés haciendo nada pesado.\n🔥 La base quema al apoyarla.\n🐢 Se pone lenta cuando le exigís un poco.\n⚠️ Se apaga sola, sin aviso.\n\nRecomendamos una limpieza interna cada 3 a 6 meses. Es mantenimiento, y sale mucho más barato que lo que viene después si no se hace.\n\n💬 Escribinos por WhatsApp: 11 2655-3546\n📍 Zona Norte (Vicente López y La Lucila) · a domicilio · remoto a todo el país\n\n#mantenimiento #notebook #serviciotecnico #vicentelopez #zonanorte"
+}
