@@ -3,8 +3,16 @@
 Publicación automática en Instagram para **Raudal Dev** y **TecnoAid**.
 
 ```
-Claude escribe borradores ──► PR ──► revisás y aprobás ──► main ──► GitHub Actions publica a su hora
+Claude escribe cada post en su PR ──► te llega un mail con el link
+        ──► lo ves como en Instagram y tocás Aprobar / Cancelar / Mandar cambios
+        ──► lo aprobado pasa a main ──► GitHub Actions lo publica a su hora
 ```
+
+- **Página de revisión:** https://redes-revisar.vercel.app (código en `revisar/`).
+  Pide contraseña una vez por navegador.
+- **Rutinas de Claude** (claude.ai/code/routines): *borradores semanales*
+  (miércoles 10:00) y *aplicar cambios pedidos* (se dispara con cada pedido
+  de cambios; además corre todos los días a las 9:00 por las dudas).
 
 - Cada marca tiene su carpeta en `marcas/` con su voz, sus plantillas y su cola
   de posts (`posts.mjs`).
@@ -13,7 +21,8 @@ Claude escribe borradores ──► PR ──► revisás y aprobás ──► m
   exactamente lo que sale.
 - Un workflow corre una vez por hora y publica lo aprobado que ya tiene la hora
   cumplida. Funciona aunque la Mac esté apagada.
-- **Nada con `borrador: true` se publica.**
+- **Nada se publica sin que lo apruebes**: un post espera en su PR hasta que
+  tocás Aprobar.
 
 ## Uso diario
 
@@ -23,8 +32,9 @@ npm run render                  # redibuja las placas después de editar posts.m
 node scripts/verificar.mjs      # chequea colas e imágenes antes de commitear
 ```
 
-Para aprobar un post, borrá su línea `borrador: true` y mergealo a `main`. O
-pedíselo a Claude: "aprobá el 03 y el 05 de TecnoAid".
+Los posts nuevos se aprueban desde la página de revisión (el link llega por
+mail). Cada post es un archivo en `marcas/<marca>/posts/<id>.json`; los de
+Raudal anteriores al 23/09/2026 siguen en `posts.mjs`.
 
 Para publicar algo ya mismo sin esperar la hora, cambiale `fecha` y `hora` a
 algo ya pasado. Después, en GitHub: Actions → Publicar → Run workflow,
