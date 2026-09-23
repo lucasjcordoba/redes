@@ -528,4 +528,32 @@ raudaldev.com
 
 #emprendedores #pymes #presupuesto #vicentelopez`,
   },
+
+  {
+    id: "19-apps",
+    fecha: "2026-10-08",
+    hora: "19:00",
+    pilar: "servicio",
+    borrador: true,
+    plantilla: "declaracion",
+    visual: {
+      eyebrow: "/ MÁS QUE UN SITIO",
+      titulo: ["Hay negocios", "que necesitan", "una app"],
+      destacar: 2,
+      bajada: "Turnos, pedidos y fidelización en el celular del cliente.",
+    },
+    caption: `No todo negocio necesita una aplicación. La necesita el que tiene clientes que vuelven seguido: sacan turno todas las semanas, hacen el mismo pedido, acumulan puntos por comprar.
+
+Para ese uso repetido, un sitio no alcanza igual. Cada vez hay que buscarlo, escribir la dirección o encontrarlo entre las pestañas guardadas. Una aplicación queda instalada en el teléfono y se abre con un toque, sin ese paso.
+
+📲 Pedidos y turnos, sin escribir por WhatsApp cada vez.
+🔔 Avisos cuando hace falta: un turno confirmado, un pedido listo, una promoción puntual.
+📶 Sigue funcionando con mala señal, algo que una página no siempre logra.
+
+No reemplaza al sitio ni a las redes: se suma cuando el negocio tiene ese tipo de uso frecuente y repetido.
+
+raudaldev.com
+
+#appmovil #desarrollodeapps #pymes #vicentelopez #zonanorte`,
+  },
 ];
