@@ -1,20 +1,20 @@
 /**
- * GET /p/<pr>?f=<firma>  — la publicación como se vería en Instagram, con los
- * botones para aprobarla, descartarla o pedir cambios.
+ * GET /p/<pr>  — la publicación como se vería en Instagram, con los botones
+ * para aprobarla, descartarla o pedir cambios. Sin sesión, pide la contraseña.
  *
  * Esta página no cambia nada por sí sola: los clientes de mail abren los links
  * para generar la vista previa, y un GET que aprobara publicaría sin que nadie
  * lo decidiera. Todo lo que modifica pasa por POST /api/accion.
  */
-import { MARCAS, cargar, firmaValida } from "./_lib.js";
+import { MARCAS, cargar, sesionValida } from "./_lib.js";
 import { cuando } from "./accion.js";
 
 export default async function handler(req, res) {
   res.setHeader("Cache-Control", "no-store");
   res.setHeader("Content-Type", "text/html; charset=utf-8");
-  const { pr, f } = req.query;
-
-  if (!firmaValida(pr, f)) return res.status(403).send(pagina("Link inválido", aviso("Este link no es válido o está incompleto.")));
+  const { pr, error } = req.query;
+  if (!/^\d+$/.test(String(pr))) return res.status(404).send(pagina("No encontrada", aviso("No encontré esta publicación.")));
+  if (!sesionValida(req)) return res.status(401).send(pagina("Entrar", entrar(pr, error)));
 
   let d;
   try {
@@ -25,7 +25,7 @@ export default async function handler(req, res) {
   }
 
   const m = MARCAS[d.marca];
-  const datos = { pr: d.pr, f, sha: d.sha };
+  const datos = { pr: d.pr, sha: d.sha };
   return res.send(pagina(`${m.nombre} · ${d.post.fecha}`, `
     <p class="programado">${estadoTexto(d)}</p>
     ${publicacion(m, d)}
@@ -104,6 +104,18 @@ const MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "
 function fechaLarga(fecha) {
   const [, m, d] = fecha.split("-").map(Number);
   return `${d} de ${MESES[m - 1]}`;
+}
+
+function entrar(pr, error) {
+  return `
+  <form class="entrar" method="post" action="/api/entrar">
+    <h1>Revisión de publicaciones</h1>
+    <p>Ingresá la contraseña. Este navegador la recuerda por un año.</p>
+    <input type="hidden" name="pr" value="${esc(pr)}">
+    <input type="password" name="password" autocomplete="current-password" required autofocus aria-label="Contraseña">
+    ${error ? '<p class="mensaje error">Contraseña incorrecta.</p>' : ""}
+    <button class="primario" type="submit">Entrar</button>
+  </form>`;
 }
 
 function aviso(texto) {
@@ -190,6 +202,10 @@ button:disabled { opacity: .45; cursor: default; }
 .nota { margin: 0; padding: 10px 12px; border-radius: 8px; background: var(--espera-fondo); color: var(--espera); }
 .pie { margin: 20px 16px 0; color: var(--tenue); font-size: 12px; text-align: center; }
 .aviso { margin: 40px 16px; text-align: center; color: var(--tenue); font-size: 16px; }
+.entrar { margin: 60px 16px; display: grid; gap: 12px; }
+.entrar h1 { font-size: 20px; margin: 0; }
+.entrar p { margin: 0; color: var(--tenue); }
+.entrar input[type=password] { font: inherit; font-size: 16px; color: inherit; background: var(--tarjeta); border: 1px solid var(--borde); border-radius: 8px; padding: 12px; }
 `;
 
 // Corre en el navegador. Sin dependencias: lo mínimo para los botones y los
@@ -234,7 +250,7 @@ const cliente = `
       const res = await fetch("/api/accion", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ pr: R.pr, f: R.f, sha: R.sha, accion, cambios: texto.value }),
+        body: JSON.stringify({ pr: R.pr, sha: R.sha, accion, cambios: texto.value }),
       });
       const r = await res.json();
       mensaje.textContent = r.mensaje;

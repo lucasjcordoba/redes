@@ -1,5 +1,5 @@
 /**
- * POST /api/accion  { pr, f, accion, sha, cambios? }
+ * POST /api/accion  { pr, accion, sha, cambios? }  — requiere sesión
  *
  *   aprobar   mergea el PR (squash) y borra la rama. Desde ese momento el post
  *             está en main y el publicador lo saca a su hora.
@@ -11,13 +11,14 @@
  * a GitHub, que rechaza el merge si el PR cambió mientras tanto: nunca se
  * aprueba una versión distinta de la que se revisó.
  */
-import { REPO, MARCA_CAMBIOS, cargar, firmaValida, gh } from "./_lib.js";
+import { REPO, MARCA_CAMBIOS, cargar, gh, sesionValida } from "./_lib.js";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).json({ ok: false, mensaje: "Método no permitido" });
 
-  const { pr, f, accion, sha, cambios } = req.body ?? {};
-  if (!firmaValida(pr, f)) return res.status(403).json({ ok: false, mensaje: "Link inválido" });
+  if (!sesionValida(req)) return res.status(401).json({ ok: false, mensaje: "La sesión venció. Recargá la página." });
+  const { pr, accion, sha, cambios } = req.body ?? {};
+  if (!/^\d+$/.test(String(pr))) return res.status(400).json({ ok: false, mensaje: "Publicación inválida" });
 
   try {
     const d = await cargar(pr);

@@ -1,13 +1,17 @@
 /**
- * Lo que comparten la página y las acciones: firmas, GitHub y el post de un PR.
+ * Lo que comparten la página y las acciones: sesión, GitHub y el post de un PR.
  *
  * Los archivos de api/ que empiezan con _ no se publican como endpoints.
  *
  * Variables de entorno (Vercel):
  *   GITHUB_TOKEN     token fine-grained con Contents, Pull requests e Issues
  *                    en lectura y escritura sobre el repo
- *   REVISION_CLAVE   clave con la que se firman los links (la misma que usa
- *                    scripts/link.mjs para armarlos)
+ *   REVISION_CLAVE   clave con la que se firma la cookie de sesión
+ *   REVISION_PASSWORD la contraseña para entrar, que elige el dueño
+ *
+ * Los links que llegan por mail no llevan ningún secreto: /p/<nº de PR>. Lo que
+ * protege las acciones es la sesión, que se abre una vez con la contraseña y
+ * dura un año en ese navegador.
  */
 import { createHmac, timingSafeEqual } from "node:crypto";
 
@@ -21,19 +25,41 @@ export const MARCAS = {
 /** Marca que deja en el PR un pedido de cambios hecho desde la página. */
 export const MARCA_CAMBIOS = "<!-- revisar:cambios -->";
 
+const COOKIE = "revision";
+export const DURACION_SESION = 365 * 86400; // segundos
+
+const iguales = (a, b) => {
+  const x = Buffer.from(String(a));
+  const y = Buffer.from(String(b));
+  return x.length === y.length && timingSafeEqual(x, y);
+};
+
 /**
- * Cada link vale para un solo PR: filtrar uno no permite aprobar otros. Es la
- * misma cuenta que scripts/link.mjs.
+ * El valor de la cookie depende de la contraseña: si se cambia
+ * REVISION_PASSWORD, todas las sesiones abiertas dejan de valer.
  */
-export function firmar(pr) {
-  return createHmac("sha256", process.env.REVISION_CLAVE).update(`pr:${pr}`).digest("hex").slice(0, 32);
+function tokenSesion() {
+  return createHmac("sha256", process.env.REVISION_CLAVE)
+    .update(`sesion:${process.env.REVISION_PASSWORD}`)
+    .digest("hex");
 }
 
-export function firmaValida(pr, firma) {
-  if (!process.env.REVISION_CLAVE || typeof firma !== "string" || !/^\d+$/.test(String(pr))) return false;
-  const a = Buffer.from(firmar(pr));
-  const b = Buffer.from(firma);
-  return a.length === b.length && timingSafeEqual(a, b);
+export function passwordCorrecta(intento) {
+  const real = process.env.REVISION_PASSWORD;
+  return Boolean(real && process.env.REVISION_CLAVE && typeof intento === "string" && iguales(intento, real));
+}
+
+export function cookieSesion() {
+  return `${COOKIE}=${tokenSesion()}; Path=/; Max-Age=${DURACION_SESION}; HttpOnly; Secure; SameSite=Lax`;
+}
+
+export function sesionValida(req) {
+  if (!process.env.REVISION_CLAVE || !process.env.REVISION_PASSWORD) return false;
+  const valor = (req.headers.cookie ?? "")
+    .split(";")
+    .map((c) => c.trim().split("="))
+    .find(([k]) => k === COOKIE)?.[1];
+  return Boolean(valor) && iguales(valor, tokenSesion());
 }
 
 export async function gh(metodo, ruta, cuerpo) {

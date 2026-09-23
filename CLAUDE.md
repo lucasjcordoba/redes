@@ -54,8 +54,7 @@ Es la tarea más común en este repo. Pasos:
    - `node scripts/verificar.mjs` tiene que dar ✓.
    - Commit (`post: <marca>/<id>`), push y PR a `main` titulado
      `[<Marca>] <dd/mm> <hh:mm> · <título de la placa>`. En el cuerpo, el
-     caption completo. **Nunca poner el link de revisión en el PR**: el repo
-     es público y el link permite aprobar.
+     caption completo. No poner el link de revisión en el PR.
 4. Mandar el mail (ver abajo) con todos los posts nuevos.
 
 ## Aplicar cambios pedidos
@@ -83,8 +82,8 @@ A lucasjcordoba@gmail.com, desde su propio Gmail. Uno por tanda:
   nueva de <id>` para cambios).
 - Por cada post: marca, día y hora, título de la placa, las primeras dos
   líneas del caption y el link de revisión.
-- El link se arma con `REVISION_CLAVE=... node scripts/link.mjs <nº de PR>`.
-  La clave la trae el pedido de la rutina; no se escribe en ningún archivo.
+- El link se arma con `node scripts/link.mjs <nº de PR>`. La página pide
+  contraseña, así que el link solo no alcanza para aprobar nada.
 
 ## Reglas que no se negocian
 
@@ -105,7 +104,7 @@ A lucasjcordoba@gmail.com, desde su propio Gmail. Uno por tanda:
 - `npm run agenda` — qué sale y cuándo, qué espera aprobación, qué está vacío
 - `npm run render [marca] [-- --desde AAAA-MM-DD]` — dibuja las placas
 - `node scripts/verificar.mjs` — colas válidas e imágenes al día
-- `node scripts/link.mjs <pr>` — link de revisión (necesita `REVISION_CLAVE`)
+- `node scripts/link.mjs <pr>` — link de revisión
 - `npm run publicar -- --dry-run` — qué publicaría ahora (necesita tokens en `.env`)
 - `npm run probar-cuenta` — prueba los tokens sin publicar
 
