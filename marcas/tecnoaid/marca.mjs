@@ -8,6 +8,8 @@ export const marca = {
   id: "tecnoaid",
   nombre: "TecnoAid",
   usuario: "@tecno.aid",
+  // El dominio vivo. tecnoaid/lib/site.ts todavía dice tecnoaid.com.ar, que no responde.
+  sitio: "tecnoaidar.com",
   token: "IG_TOKEN_TECNOAID",
 
   whatsapp: "11 2655-3546",
