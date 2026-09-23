@@ -1,0 +1,38 @@
+# Publica en Instagram lo que tiene la hora cumplida. Ver scripts/publicar.mjs.
+name: Publicar
+
+on:
+  schedule:
+    # Minuto 7 de cada hora: los horarios de los posts son en punto o y media,
+    # y GitHub suele atrasar los cron que caen justo en :00.
+    - cron: "7 * * * *"
+  workflow_dispatch:
+    inputs:
+      ensayo:
+        description: "Sólo mostrar qué publicaría"
+        type: boolean
+        default: true
+
+# Nunca dos corridas a la vez: la segunda vería el post todavía sin publicar.
+concurrency:
+  group: publicar
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: node scripts/publicar.mjs ${{ inputs.ensayo && '--dry-run' || '' }}
+        env:
+          IG_TOKEN_RAUDAL: ${{ secrets.IG_TOKEN_RAUDAL }}
+          IG_TOKEN_TECNOAID: ${{ secrets.IG_TOKEN_TECNOAID }}

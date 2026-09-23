@@ -1,0 +1,41 @@
+# Los tokens de Instagram vencen a los 60 días si no se refrescan. Esto los
+# extiende una vez por semana y guarda el nuevo en los secrets del repo.
+#
+# Necesita el secret GH_PAT_SECRETS: un token de GitHub (fine-grained) con
+# permiso "Secrets: read and write" sobre este repo. El GITHUB_TOKEN de las
+# Actions no puede escribir secrets.
+name: Refrescar tokens
+
+on:
+  schedule:
+    - cron: "17 12 * * 1" # lunes, 9:17 en Argentina
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  refrescar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Refrescar y guardar
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT_SECRETS }}
+          IG_TOKEN_RAUDAL: ${{ secrets.IG_TOKEN_RAUDAL }}
+          IG_TOKEN_TECNOAID: ${{ secrets.IG_TOKEN_TECNOAID }}
+        run: |
+          set -euo pipefail
+          for marca in raudal tecnoaid; do
+            secreto="IG_TOKEN_$(echo "$marca" | tr a-z A-Z)"
+            if [ -z "${!secreto:-}" ]; then echo "○ $marca: sin token, se saltea"; continue; fi
+            nuevo="$(node scripts/refrescar-token.mjs "$marca")"
+            echo "::add-mask::$nuevo"
+            gh secret set "$secreto" --body "$nuevo" --repo "$GITHUB_REPOSITORY"
+          done
