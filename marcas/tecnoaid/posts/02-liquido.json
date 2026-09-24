@@ -1,0 +1,48 @@
+{
+  "id": "02-liquido",
+  "fecha": "2026-09-28",
+  "hora": "18:30",
+  "pilar": "tip",
+  "diapositivas": [
+    {
+      "plantilla": "declaracion",
+      "visual": {
+        "etiqueta": "Emergencia",
+        "titulo": [
+          "Se volcó",
+          "líquido en",
+          "la notebook."
+        ],
+        "destacar": 2,
+        "bajada": "Lo que hagas en los primeros minutos importa. Deslizá →"
+      }
+    },
+    {
+      "plantilla": "lista",
+      "visual": {
+        "etiqueta": "Qué hacer",
+        "titulo": [
+          "Los primeros",
+          "minutos"
+        ],
+        "items": [
+          "Apagala de inmediato y desconectala de la corriente.",
+          "Si podés, quitale la batería.",
+          "No intentes prenderla hasta que esté completamente seca.",
+          "Llevala a revisión cuanto antes para evitar daños mayores."
+        ]
+      }
+    },
+    {
+      "plantilla": "cierre",
+      "visual": {
+        "titulo": [
+          "¿Ya te pasó?",
+          "Escribinos."
+        ],
+        "bajada": "Limpiamos y reparamos teclado y placa."
+      }
+    }
+  ],
+  "caption": "Café, agua, mate. Pasa más de lo que parece, y lo que se haga en los primeros minutos hace la diferencia.\n\n1️⃣ Apagala ya y desconectala de la corriente. No esperes a que se apague sola.\n2️⃣ Si la batería se puede sacar, sacala.\n3️⃣ No la prendas \"para ver si anda\". Aunque parezca seca por fuera, adentro puede no estarlo.\n4️⃣ Traela a revisión cuanto antes. Limpiamos y reparamos teclado y placa.\n\nGuardá este post: ojalá no lo necesites.\n\n💬 Escribinos por WhatsApp: 11 2655-3546\n📍 Zona Norte (Vicente López y La Lucila) · a domicilio · remoto a todo el país\n\n#serviciotecnico #notebook #reparaciondenotebooks #vicentelopez #zonanorte"
+}
