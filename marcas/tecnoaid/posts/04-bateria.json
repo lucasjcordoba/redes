@@ -1,12 +1,16 @@
 {
   "id": "04-bateria",
   "fecha": "2026-09-24",
-  "hora": "18:30",
+  "hora": "19:00",
   "pilar": "sintoma",
   "plantilla": "declaracion",
   "visual": {
     "etiqueta": "Síntoma",
-    "titulo": ["¿Tu notebook", "vive", "enchufada?"],
+    "titulo": [
+      "¿Tu notebook",
+      "vive",
+      "enchufada?"
+    ],
     "destacar": 2,
     "bajada": "Si la batería ya no dura nada, se cambia. Con repuesto de calidad y garantía."
   },
