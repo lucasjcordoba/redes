@@ -1,6 +1,6 @@
 /**
  * GET /p/<pr>  — la publicación como se vería en Instagram, con los botones
- * para aprobarla, descartarla o pedir cambios. Sin sesión, pide la contraseña.
+ * para aprobarla o descartarla. Sin sesión, pide la contraseña. Los cambios se piden en el chat.
  *
  * Esta página no cambia nada por sí sola: los clientes de mail abren los links
  * para generar la vista previa, y un GET que aprobara publicaría sin que nadie
@@ -75,17 +75,15 @@ function publicacion(m, d) {
 }
 
 function formulario(d) {
-  const enCurso = Boolean(d.cambiosPendientes);
+  // Los cambios se piden en el chat de la tarea diaria de Claude, que los
+  // aplica en el momento. Acá quedan las dos decisiones que no necesitan a nadie.
   return `
   <section class="revision" id="revision">
-    ${enCurso ? `<p class="nota">Pediste cambios y Claude los está aplicando. Cuando esté la versión nueva te llega un mail con este mismo link.</p>` : ""}
-    <label for="cambios">¿Algo para cambiar? <span>(opcional)</span></label>
-    <textarea id="cambios" rows="3" maxlength="2000" placeholder="Ej.: sacá la línea de la señal y cambiá el título por…" ${enCurso ? "disabled" : ""}></textarea>
+    <p class="nota-chat">¿Querés cambiar algo? Pedíselo a Claude en el chat de la tarea diaria.</p>
     <div class="botones">
-      <button type="button" data-accion="cambios" class="secundario" disabled>Mandar cambios</button>
-      <button type="button" data-accion="aprobar" class="primario" ${enCurso ? "disabled" : ""}>Aprobar</button>
+      <button type="button" data-accion="cancelar" class="secundario">Cancelar</button>
+      <button type="button" data-accion="aprobar" class="primario">Aprobar</button>
     </div>
-    <button type="button" data-accion="cancelar" class="texto">Cancelar publicación</button>
     <p class="mensaje" id="mensaje" role="status"></p>
   </section>`;
 }
@@ -199,6 +197,7 @@ button:disabled { opacity: .45; cursor: default; }
 .texto { background: none; color: var(--rojo); padding: 6px; justify-self: center; }
 .mensaje { margin: 0; min-height: 20px; text-align: center; }
 .mensaje.ok { color: var(--ok); } .mensaje.error { color: var(--rojo); }
+.nota-chat { margin: 0; color: var(--tenue); text-align: center; }
 .nota { margin: 0; padding: 10px 12px; border-radius: 8px; background: var(--espera-fondo); color: var(--espera); }
 .pie { margin: 20px 16px 0; color: var(--tenue); font-size: 12px; text-align: center; }
 .aviso { margin: 40px 16px; text-align: center; color: var(--tenue); font-size: 16px; }
@@ -232,22 +231,14 @@ const cliente = `
 
   const seccion = document.getElementById("revision");
   if (!seccion) return;
-  const texto = document.getElementById("cambios");
   const mensaje = document.getElementById("mensaje");
   const botones = seccion.querySelectorAll("button");
-  const btnCambios = seccion.querySelector('[data-accion="cambios"]');
-  texto.addEventListener("input", () => { btnCambios.disabled = !texto.value.trim(); });
-
-  const PREGUNTAS = {
-    cancelar: "¿Cancelar esta publicación? No se va a publicar.",
-    aprobar: () => texto.value.trim() ? "Escribiste cambios pero no los mandaste. ¿Aprobar igual, sin esos cambios?" : null,
-  };
+  const PREGUNTAS = { cancelar: "¿Cancelar esta publicación? No se va a publicar." };
 
   seccion.addEventListener("click", async (e) => {
     const accion = e.target.closest("button")?.dataset.accion;
     if (!accion) return;
-    const pregunta = typeof PREGUNTAS[accion] === "function" ? PREGUNTAS[accion]() : PREGUNTAS[accion];
-    if (pregunta && !confirm(pregunta)) return;
+    if (PREGUNTAS[accion] && !confirm(PREGUNTAS[accion])) return;
 
     botones.forEach((b) => (b.disabled = true));
     mensaje.className = "mensaje";
@@ -256,26 +247,17 @@ const cliente = `
       const res = await fetch("/api/accion", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ pr: R.pr, sha: R.sha, accion, cambios: texto.value }),
+        body: JSON.stringify({ pr: R.pr, sha: R.sha, accion }),
       });
       const r = await res.json();
       mensaje.textContent = r.mensaje;
       mensaje.className = "mensaje " + (r.ok ? "ok" : "error");
-      if (r.ok) {
-        texto.disabled = true;
-        seccion.querySelector("label").remove();
-        texto.remove();
-        seccion.querySelector(".botones").remove();
-        seccion.querySelector(".texto").remove();
-      } else {
-        botones.forEach((b) => (b.disabled = false));
-        btnCambios.disabled = !texto.value.trim();
-      }
+      if (r.ok) seccion.querySelector(".botones").remove();
+      else botones.forEach((b) => (b.disabled = false));
     } catch {
       mensaje.textContent = "No hubo conexión. Probá de nuevo.";
       mensaje.className = "mensaje error";
       botones.forEach((b) => (b.disabled = false));
-      btnCambios.disabled = !texto.value.trim();
     }
   });
 })();`;

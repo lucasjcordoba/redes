@@ -3,22 +3,19 @@
 Publicación automática en Instagram para **Raudal Dev** y **TecnoAid**.
 
 ```
-9:00, todos los días ──► mail con las dos marcas:
-    hay publicación hoy ──► link para revisarla
-    no hay nada         ──► link para proponer una idea ──► Claude la arma ──► link para revisarla
+9:00, todos los días ──► la tarea diaria de Claude escribe en su chat:
+    hay publicación hoy ──► link para verla como en Instagram
+    no hay nada         ──► pregunta si querés publicar algo
 
-En la página: Aprobar ──► pasa a main ──► GitHub Actions la publica a su hora
-              Mandar cambios ──► Claude los aplica ──► mail con el link de la versión nueva
-              Cancelar ──► no sale
+Contestás en ese chat: "aprobado", "cambiá X", "no la publiques" o una idea.
+Claude lo hace en el momento y te devuelve el link actualizado.
+Lo aprobado lo publica GitHub Actions a su hora.
 ```
 
 - **Página de revisión:** https://redes-revisar.vercel.app (código en `revisar/`).
-  Pide contraseña una vez por navegador.
-- **Rutinas de Claude** (claude.ai/code/routines):
-  - *revisión diaria*: 9:00, manda el mail del día.
-  - *cambios e ideas*: se dispara con cada pedido de cambios o idea nueva, y
-    además revisa cada hora de 9 a 21 por si el disparo no llegó.
-  - *borradores semanales*: en pausa. Llenaba el calendario sola.
+  Pide contraseña una vez por navegador. También tiene Aprobar y Cancelar.
+- **Rutinas de Claude** (claude.ai/code/routines): *revisión diaria* (9:00)
+  es la única activa. *cambios e ideas* y *borradores semanales* están en pausa.
 
 - Cada marca tiene su carpeta en `marcas/` con su voz, sus plantillas y su cola
   de posts (`posts.mjs`).
