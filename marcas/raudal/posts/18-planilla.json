@@ -1,0 +1,14 @@
+{
+  "id": "18-planilla",
+  "fecha": "2026-09-28",
+  "hora": "19:00",
+  "pilar": "dolor",
+  "plantilla": "declaracion",
+  "visual": {
+    "eyebrow": "/ SISTEMAS DE GESTIÓN",
+    "titulo": ["Cuando la", "planilla ya", "no alcanza"],
+    "destacar": 2,
+    "bajada": "Stock, clientes y pedidos en un solo lugar."
+  },
+  "caption": "Casi todos los negocios arrancan igual: una planilla para el stock, otra para los clientes, un cuaderno para los pedidos. Y funciona, hasta que deja de funcionar.\n\nEl quiebre suele llegar sin aviso. Dos personas editan el mismo archivo y una pisa el trabajo de la otra. Se vende algo que ya no había. Una fórmula se rompe y nadie sabe desde cuándo los números están mal.\n\nUn sistema de gestión a medida ordena eso: cada dato se carga una sola vez, todos ven la misma información actualizada y lo que hoy se hace a mano pasa a hacerse solo.\n\nNo hace falta tirar lo que existe. Muchas veces el primer paso es llevar esas mismas planillas a un sistema que respete la forma de trabajar del negocio.\n\nraudaldev.com\n\n#sistemasdegestion #pymes #emprendedores #vicentelopez"
+}
