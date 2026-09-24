@@ -41,6 +41,7 @@ export const marca = {
     trabajo: "Un trabajo real, con foto real. Sólo con material del taller: no se inventa.",
   },
 
-  // Lunes, miércoles y viernes: no se pisa con Raudal (martes, jueves, sábado).
-  calendario: { dias: ["lunes", "miercoles", "viernes"], hora: "18:30" },
+  // Todos los días a las 19:00, igual que la otra marca: los dos posts del día
+  // se revisan juntos en el chat de la tarea diaria.
+  calendario: { dias: ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"], hora: "19:00" },
 };

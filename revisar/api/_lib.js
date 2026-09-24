@@ -20,7 +20,7 @@ export const REPO = "lucasjcordoba/redes";
 export const MARCAS = {
   // `hora`: la de su calendario (marcas/<marca>/marca.mjs), para las ideas nuevas.
   raudal: { nombre: "Raudal Dev", usuario: "raudaldev", avatar: "/avatar-raudal.jpg", hora: "19:00" },
-  tecnoaid: { nombre: "TecnoAid", usuario: "tecno.aid", avatar: "/avatar-tecnoaid.jpg", hora: "18:30" },
+  tecnoaid: { nombre: "TecnoAid", usuario: "tecno.aid", avatar: "/avatar-tecnoaid.jpg", hora: "19:00" },
 };
 
 /** Marca que deja en el PR un pedido de cambios hecho desde la página. */

@@ -37,7 +37,7 @@ export const marca = {
     prueba: "Un trabajo entregado, con captura real. Sólo con material real: no se inventan casos.",
   },
 
-  // Martes, jueves y sábado. Alternar pilares para que la cuenta no se lea
-  // ni como catálogo ni como queja.
-  calendario: { dias: ["martes", "jueves", "sabado"], hora: "19:00" },
+  // Todos los días a las 19:00, igual que la otra marca: los dos posts del día
+  // se revisan juntos en el chat de la tarea diaria.
+  calendario: { dias: ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"], hora: "19:00" },
 };
