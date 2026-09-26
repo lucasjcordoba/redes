@@ -1,0 +1,18 @@
+{
+  "id": "16-despues-entrega",
+  "fecha": "2026-09-25",
+  "hora": "19:00",
+  "pilar": "proceso",
+  "plantilla": "declaracion",
+  "visual": {
+    "eyebrow": "/ LO QUE NADIE PROMETE",
+    "titulo": [
+      "Qué pasa",
+      "después de",
+      "la entrega"
+    ],
+    "destacar": 2,
+    "bajada": "La parte donde suele desaparecer todo el mundo."
+  },
+  "caption": "La queja más repetida sobre quien desarrolla no es el precio ni el plazo. Es que después de cobrar, desaparece.\n\nUn sitio no es un cuadro que se cuelga y queda. Cambian los precios, se suma un servicio, aparece un error en un navegador nuevo, hay que actualizar algo.\n\nQué incluye el acompañamiento, por escrito y desde la propuesta:\n\n🛟 Corrección de errores de lo entregado.\n📝 Cambios de textos, precios e imágenes.\n📊 Que el sitio siga rápido y visible en buscadores.\n\nY lo que se cobra aparte también está por escrito. La ambigüedad en este punto es la fuente número uno de discusiones después de la entrega.\n\nraudaldev.com\n\n#desarrolloweb #soporte #pymes #vicentelopez"
+}
