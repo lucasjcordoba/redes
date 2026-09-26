@@ -20,6 +20,9 @@ concurrency:
 
 permissions:
   contents: read
+  # Para dejar en el PR del post el link de lo publicado (ver publicar.mjs).
+  pull-requests: write
+  issues: write
 
 jobs:
   publicar:
@@ -36,3 +39,6 @@ jobs:
         env:
           IG_TOKEN_RAUDAL: ${{ secrets.IG_TOKEN_RAUDAL }}
           IG_TOKEN_TECNOAID: ${{ secrets.IG_TOKEN_TECNOAID }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          AVISAR_URL: https://redes-revisar.vercel.app/api/avisar
+          AVISAR_CLAVE: ${{ secrets.AVISAR_CLAVE }}

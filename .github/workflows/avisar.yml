@@ -1,0 +1,33 @@
+# Aviso push cuando hay algo nuevo para revisar: un post nuevo (PR abierto) o
+# una versión corregida (commit nuevo en el PR). Ver revisar/api/avisar.js.
+name: Avisar
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions: {}
+
+jobs:
+  avisar:
+    if: startsWith(github.head_ref, 'post/')
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Mandar el aviso
+        env:
+          AVISAR_CLAVE: ${{ secrets.AVISAR_CLAVE }}
+          ACCION: ${{ github.event.action }}
+          RAMA: ${{ github.head_ref }}
+          TITULO_PR: ${{ github.event.pull_request.title }}
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          marca=$(echo "$RAMA" | cut -d/ -f2)
+          case "$marca" in raudal) nombre="Raudal Dev";; tecnoaid) nombre="TecnoAid";; *) nombre="$marca";; esac
+          if [ "$ACCION" = "synchronize" ]; then titulo="$nombre: versión nueva para revisar"; else titulo="$nombre: nueva publicación para revisar"; fi
+          cuerpo=$(echo "$TITULO_PR" | sed -E 's/^\[[^]]*\] //')
+          jq -n --arg t "$titulo" --arg c "$cuerpo" --arg u "/p/$PR" --arg e "pr-$PR" \
+            '{titulo:$t, cuerpo:$c, url:$u, etiqueta:$e}' \
+          | curl -sf -X POST https://redes-revisar.vercel.app/api/avisar \
+              -H "Content-Type: application/json" -H "x-avisar-clave: $AVISAR_CLAVE" --data @- \
+          || echo "::warning::No se pudo mandar el aviso"

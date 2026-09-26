@@ -11,7 +11,7 @@ export default async function handler(req, res) {
   const { password } = req.body ?? {};
   // Sólo se vuelve a páginas propias, nunca a una URL que venga de afuera.
   const pedido = String(req.body?.volver ?? "");
-  const volver = /^\/(p\/\d+|idea\/[a-z]+(\?fecha=\d{4}-\d{2}-\d{2})?)$/.test(pedido) ? pedido : "/";
+  const volver = /^\/(p\/\d+)?$/.test(pedido) ? pedido : "/";
 
   if (!passwordCorrecta(password)) {
     await new Promise((r) => setTimeout(r, 1000));

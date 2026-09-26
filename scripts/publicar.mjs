@@ -92,6 +92,13 @@ for (const id of values.marca ? [values.marca] : MARCAS) {
     await comprobarImagenes(urls);
     const { permalink } = await ig.publicar(user_id, { urls, caption: post.caption });
     log(m, `✓ ${post.id} publicado en @${username}: ${permalink}`);
+    await registrarPublicacion(id, post, permalink).catch((e) => log(m, `(no se pudo registrar en el PR: ${e.message})`));
+    await avisar({
+      titulo: `Publicado en @${username}`,
+      cuerpo: post.caption.split("\n").find(Boolean).slice(0, 120),
+      url: "/",
+      etiqueta: `publicado-${id}-${post.id}`,
+    }).catch((e) => log(m, `(no se pudo avisar: ${e.message})`));
   } catch (e) {
     fallas++;
     log(m, `✗ ${e.message}`);
@@ -106,6 +113,45 @@ process.exit(fallas ? 1 : 0);
 function log(m, texto) {
   console.log(`[${m.nombre}] ${texto}`);
   resumen.push(`- **${m.nombre}**: ${texto}`);
+}
+
+/**
+ * Deja constancia de la publicación en el PR del post, con el link. La app de
+ * revisión lee ese comentario para mostrar el post como "publicado". Los posts
+ * viejos de posts.mjs no tienen PR: para ellos no hay nada que registrar.
+ */
+async function registrarPublicacion(marca, post, permalink) {
+  const token = process.env.GITHUB_TOKEN;
+  const repo = process.env.GITHUB_REPOSITORY;
+  if (!token || !repo) return;
+  const gh = (ruta, opciones = {}) =>
+    fetch(`https://api.github.com/repos/${repo}${ruta}`, {
+      ...opciones,
+      headers: { Authorization: `Bearer ${token}`, Accept: "application/vnd.github+json" },
+    }).then((r) => (r.ok ? r.json() : Promise.reject(new Error(`GitHub ${r.status}`))));
+
+  const rama = `post/${marca}/${post.id}`;
+  const prs = await gh(`/pulls?state=closed&per_page=100&sort=updated&direction=desc`);
+  const pr = prs.find((p) => p.head.ref === rama && p.merged_at);
+  if (!pr) return;
+  const datos = JSON.stringify({ permalink, fecha: new Date().toISOString() });
+  await gh(`/issues/${pr.number}/comments`, {
+    method: "POST",
+    body: JSON.stringify({ body: `<!-- publicado: ${datos} -->\n✅ Publicado en Instagram: ${permalink}` }),
+  });
+}
+
+/** Aviso push por la app de revisión (revisar/api/avisar.js). */
+async function avisar(aviso) {
+  const url = process.env.AVISAR_URL;
+  const clave = process.env.AVISAR_CLAVE;
+  if (!url || !clave) return;
+  const res = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "x-avisar-clave": clave },
+    body: JSON.stringify(aviso),
+  });
+  if (!res.ok) throw new Error(`aviso ${res.status}`);
 }
 
 /**

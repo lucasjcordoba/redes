@@ -27,6 +27,7 @@ export default async function handler(req, res) {
   const m = MARCAS[d.marca];
   const datos = { pr: d.pr, sha: d.sha };
   return res.send(pagina(`${m.nombre} · ${d.post.fecha}`, `
+    <a class="volver" href="/">‹ Redes</a>
     <p class="programado">${estadoTexto(d)}</p>
     ${publicacion(m, d)}
     ${d.estado === "abierto" ? formulario(d) : ""}
@@ -152,6 +153,7 @@ body {
   font: 14px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 main { max-width: 470px; margin: 0 auto; padding: 16px 0 40px; }
+.volver { display: inline-block; margin: 0 16px 8px; color: var(--azul); text-decoration: none; font-weight: 600; }
 .programado { margin: 0 16px 12px; color: var(--tenue); font-size: 13px; }
 .chip { display: inline-block; padding: 2px 8px; border-radius: 999px; font-weight: 600; font-size: 12px; margin-right: 4px; }
 .chip.ok { background: var(--ok-fondo); color: var(--ok); }
