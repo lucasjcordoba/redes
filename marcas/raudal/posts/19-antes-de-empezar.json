@@ -1,0 +1,19 @@
+{
+  "id": "19-antes-de-empezar",
+  "fecha": "2026-09-30",
+  "hora": "19:00",
+  "pilar": "proceso",
+  "plantilla": "pasos",
+  "visual": {
+    "eyebrow": "/ ANTES DE ARRANCAR",
+    "titulo": "Qué tener a mano",
+    "pasos": [
+      { "titulo": "Los textos", "texto": "Qué hace el negocio, con sus palabras." },
+      { "titulo": "Las fotos", "texto": "Del lugar, los productos, el equipo." },
+      { "titulo": "La marca", "texto": "Logo y colores, si ya existen." },
+      { "titulo": "Los accesos", "texto": "Dominio, redes y cuentas que ya se usan." }
+    ],
+    "bajada": "Si algo falta, se define en la primera charla."
+  },
+  "caption": "Una pregunta frecuente antes de empezar un sitio: ¿qué hay que tener preparado?\n\nMenos de lo que se suele pensar. Lo que más ayuda:\n\n1️⃣ Los textos. Qué hace el negocio y para quién, aunque sea en borrador. Nadie lo conoce mejor que quien lo lleva adelante.\n\n2️⃣ Las fotos. Del lugar, de los productos o del equipo. Una foto real dice más que cualquier imagen de archivo.\n\n3️⃣ La marca. Logo y colores, si ya existen.\n\n4️⃣ Los accesos. Dominio, redes y cuentas que el negocio ya usa, para no rehacer lo que ya está.\n\nSi algo de esto falta, no es motivo para esperar: en la primera charla se define cómo resolverlo.\n\nraudaldev.com\n\n#paginasweb #emprendedores #pymes #vicentelopez"
+}
