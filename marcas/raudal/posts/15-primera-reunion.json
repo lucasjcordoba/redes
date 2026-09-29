@@ -1,0 +1,31 @@
+{
+  "id": "15-primera-reunion",
+  "fecha": "2026-09-29",
+  "hora": "19:00",
+  "pilar": "claridad",
+  "plantilla": "pasos",
+  "visual": {
+    "eyebrow": "/ LA PRIMERA CHARLA",
+    "titulo": "Sin costo",
+    "bajada": "Media hora. Sin compromiso de contratar nada.",
+    "pasos": [
+      {
+        "titulo": "Qué problema hay",
+        "texto": "Qué no está funcionando hoy."
+      },
+      {
+        "titulo": "Qué se necesita",
+        "texto": "Y qué no, que suele ser más."
+      },
+      {
+        "titulo": "Qué se puede hacer",
+        "texto": "Opciones, con sus costos."
+      },
+      {
+        "titulo": "Cuánto sale",
+        "texto": "Por escrito, después de la charla."
+      }
+    ]
+  },
+  "caption": "Mucha gente no consulta porque asume que pedir un presupuesto ya la compromete a algo. No es así.\n\nLa primera charla son treinta minutos y sirve para cuatro cosas:\n\n1️⃣ Entender qué problema hay hoy. No qué tecnología usar: qué no está funcionando.\n\n2️⃣ Separar lo que se necesita de lo que no. Suele haber más de lo segundo, y decirlo es parte del trabajo.\n\n3️⃣ Ver qué opciones existen, con lo que cuesta cada una.\n\n4️⃣ Recién ahí, un presupuesto por escrito.\n\nSi después de eso la respuesta es que no, está perfecto. Cobrar por una charla que puede terminar en nada sería cobrar por vender.\n\nraudaldev.com\n\n#emprendedores #pymes #presupuesto #vicentelopez"
+}
