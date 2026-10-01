@@ -9,7 +9,7 @@
  * 4. El guion con los tiempos reales → reels/salida/<id>-guion.md.
  */
 import { pathToFileURL } from "node:url";
-import { writeFile } from "node:fs/promises";
+import { rm, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { RAIZ } from "../lib/rutas.mjs";
 import { locucion } from "./voz.mjs";
@@ -17,7 +17,8 @@ import { grabar } from "./grabador.mjs";
 import { componer } from "./componer.mjs";
 
 const id = process.argv[2];
-const soloComponer = process.argv.includes("--solo-componer"); // reusa la grabación (misma locución)
+// --solo-componer reusa una grabación anterior (hecha con --conservar).
+const soloComponer = process.argv.includes("--solo-componer");
 if (!id) { console.error("Uso: node reels/hacer.mjs <id> [--solo-componer]"); process.exit(2); }
 const { guion } = await import(pathToFileURL(join(RAIZ, "reels/guiones", `${id}.mjs`)).href);
 
@@ -47,3 +48,9 @@ const md = [
 ].join("\n");
 await writeFile(join(RAIZ, "reels/salida", `${id}-guion.md`), md);
 console.log("✓ guion", `reels/salida/${id}-guion.md`);
+
+// Los cuadros intermedios ocupan más de 1 GB por reel: se borran salvo que se
+// pida conservarlos (por ejemplo, para recomponer sin volver a grabar).
+if (!process.argv.includes("--conservar")) {
+  for (const d of ["escritorio", "celular", "final"]) await rm(join(RAIZ, "reels/tmp", id, d), { recursive: true, force: true });
+}
