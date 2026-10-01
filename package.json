@@ -14,5 +14,8 @@
   "dependencies": {
     "@resvg/resvg-js": "^2.6.2",
     "sharp": "^0.35.4"
+  },
+  "devDependencies": {
+    "playwright": "^1.63.0"
   }
 }

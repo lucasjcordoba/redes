@@ -2,3 +2,7 @@ node_modules/
 .env
 .DS_Store
 .vercel/
+reels/tmp/
+reels/salida/
+reels/.venv/
+reels/voces/
