@@ -63,7 +63,7 @@ const duracionDe = async (archivo) =>
  * `hablado` permite escribir cómo se dice algo sin cambiar el subtítulo. Las
  * correcciones de siempre (dominios, "online") ya las hace voz-azure.mjs.
  */
-export async function locucion(id, escenas, { voz: nombreVoz = "elena", ritmo = "+0%" } = {}) {
+export async function locucion(id, escenas, { voz: nombreVoz = "elena", ritmo = "+0%", tono = "+0%" } = {}) {
   const dir = join(RAIZ, "reels/tmp", id, "voz");
   await mkdir(dir, { recursive: true });
   let t = 0;
@@ -71,7 +71,7 @@ export async function locucion(id, escenas, { voz: nombreVoz = "elena", ritmo = 
   for (const [i, e] of escenas.entries()) {
     const audio = join(dir, `${String(i).padStart(2, "0")}.wav`);
     const texto = e.hablado ?? e.voz;
-    await sintetizar(texto, audio, { voz: VOCES[nombreVoz], ritmo });
+    await sintetizar(texto, audio, { voz: VOCES[nombreVoz], ritmo, tono });
     const voz = await duracionDe(audio);
     const duracion = +(ANTES + voz + DESPUES).toFixed(3);
 

@@ -50,14 +50,16 @@ export function paraHablar(texto) {
 /**
  * Genera un WAV (24 kHz, mono) con el texto.
  *   ritmo: velocidad relativa ("+0%", "-5%"...)
+ *   tono:  altura relativa ("+0%", "-4%"...): más grave suena más cálido,
+ *          más agudo, más enérgico
  */
-export async function sintetizar(texto, salida, { voz = VOCES.tomas, ritmo = "+0%" } = {}) {
+export async function sintetizar(texto, salida, { voz = VOCES.tomas, ritmo = "+0%", tono = "+0%" } = {}) {
   const clave = process.env.AZURE_SPEECH_KEY;
   const region = process.env.AZURE_SPEECH_REGION;
   if (!clave || !region) throw new Error("Faltan AZURE_SPEECH_KEY y AZURE_SPEECH_REGION en .env");
 
   const ssml = `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xml:lang="es-AR">
-  <voice name="${voz}"><prosody rate="${ritmo}">${escXml(paraHablar(texto))}</prosody></voice></speak>`;
+  <voice name="${voz}"><prosody rate="${ritmo}" pitch="${tono}">${escXml(paraHablar(texto))}</prosody></voice></speak>`;
 
   const res = await fetch(`https://${region}.tts.speech.microsoft.com/cognitiveservices/v1`, {
     method: "POST",

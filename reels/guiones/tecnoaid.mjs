@@ -3,7 +3,7 @@ export const guion = {
   titulo: "TecnoAid",
   dominio: "tecnoaidar.com",
   etiqueta: "/ TECNOAIDAR.COM",
-  voz: { voz: "tania", nombre: "Tania (Paraguay)" },
+  voz: { voz: "elena", ritmo: "+12%", nombre: "Elena (Argentina)" },
   url: "https://www.tecnoaidar.com",
   escenas: [
     {

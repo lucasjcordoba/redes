@@ -10,6 +10,7 @@ export const guion = {
   dominio: "raudaldev.com",
   etiqueta: "/ RAUDALDEV.COM",
   cierre: "CONSULTAS SIN CARGO",
+  voz: { voz: "elena", ritmo: "+12%", nombre: "Elena (Argentina)" },
   url: "https://www.raudaldev.com",
   escenas: [
     {

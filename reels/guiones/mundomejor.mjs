@@ -3,7 +3,7 @@ export const guion = {
   titulo: "Mundo Mejor",
   dominio: "mundomejorok.com",
   etiqueta: "/ MUNDOMEJOROK.COM",
-  voz: { voz: "valentina", nombre: "Valentina (Uruguay)" },
+  voz: { voz: "elena", ritmo: "+12%", nombre: "Elena (Argentina)" },
   url: "https://www.mundomejorok.com",
   escenas: [
     {
