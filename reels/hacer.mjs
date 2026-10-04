@@ -1,18 +1,21 @@
 /**
  * Hace un reel completo:
  *
- *   node reels/hacer.mjs <id>
+ *   node reels/hacer.mjs <id> [--voz] [--solo-componer] [--conservar]
  *
- * 1. Locución y subtítulos de cada escena (voz.mjs): de ahí salen las duraciones.
+ * 1. Tiempos y subtítulos de cada escena (voz.mjs): de ahí salen las
+ *    duraciones. Sin voz, al ritmo de una lectura natural, para grabar encima;
+ *    con --voz, con la locución de Azure del guion (`voz`).
  * 2. Grabación del mismo recorrido en escritorio y en celular (grabador.mjs).
- * 3. Composición, música y cierre (componer.mjs) → reels/salida/<id>.mp4 y .srt.
- * 4. El guion con los tiempos reales → reels/salida/<id>-guion.md.
+ * 3. Composición, música y cierre (componer.mjs) → reels/salida/<id>.mp4,
+ *    <id>.srt y <id>-musica.m4a (la música sola).
+ * 4. El guion para grabar la voz, con los tiempos → reels/salida/<id>-guion.md.
  */
 import { pathToFileURL } from "node:url";
 import { rm, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { RAIZ } from "../lib/rutas.mjs";
-import { locucion } from "./voz.mjs";
+import { locucion, tiempos } from "./voz.mjs";
 import { grabar } from "./grabador.mjs";
 import { componer } from "./componer.mjs";
 
@@ -22,8 +25,9 @@ const soloComponer = process.argv.includes("--solo-componer");
 if (!id) { console.error("Uso: node reels/hacer.mjs <id> [--solo-componer]"); process.exit(2); }
 const { guion } = await import(pathToFileURL(join(RAIZ, "reels/guiones", `${id}.mjs`)).href);
 
-console.log("1. Locución");
-const escenas = await locucion(id, guion.escenas, guion.voz);
+const conVoz = process.argv.includes("--voz");
+console.log(conVoz ? "1. Locución" : "1. Tiempos (sin voz)");
+const escenas = conVoz ? await locucion(id, guion.escenas, guion.voz) : tiempos(guion.escenas);
 
 console.log("2. Grabación");
 for (const formato of soloComponer ? [] : ["escritorio", "celular"]) {
@@ -40,10 +44,29 @@ const seg = (s) => `${Math.floor(s / 60)}:${(s % 60).toFixed(1).padStart(4, "0")
 const md = [
   `# Reel · ${guion.titulo}`,
   "",
-  `Duración: ${seg(total)} · Voz: ${guion.voz?.nombre ?? "Elena"} (Azure) · Música: generada (sin derechos)`,
+  `Duración: ${seg(total)} · Música: ${guion.musica} (generada, sin derechos)${conVoz ? ` · Voz: ${guion.voz?.nombre ?? "Elena"} (Azure)` : ""}`,
   "",
-  ...escenas.map((e) => `**${seg(e.inicio)} – ${seg(e.inicio + e.duracion)} · ${e.titulo}**\n> ${e.voz}\n`),
-  `**${seg(total - 3)} – ${seg(total)} · Cierre**\n> Placa de Raudal Dev: raudaldev.com — primera reunión y presupuesto sin cargo.`,
+  ...(conVoz ? [] : [
+    "El video va sin voz: los subtítulos marcan qué decir y cuándo. Cada bloque está",
+    "calculado para leerlo a un ritmo tranquilo; si se termina antes, queda aire, y",
+    "si se lee más lento, conviene recortar alguna palabra antes que apurarse. Cada",
+    "escena empieza con un respiro de un tercio de segundo antes de hablar.",
+    "",
+    "La música va también suelta (`" + id + "-musica.m4a`) para mezclarla con la voz:",
+    "con la voz encima, la música queda bien entre un 25 y un 35 % del volumen.",
+    "",
+  ]),
+  ...escenas.map((e) => [
+    `## ${seg(e.inicio)} – ${seg(e.inicio + e.duracion)} · ${e.titulo}`,
+    "",
+    `> ${e.voz}`,
+    "",
+    ...e.subtitulos.map((s) => `- \`${seg(s.desde)}\` ${s.texto}`),
+    "",
+  ].join("\n")),
+  `## ${seg(total - 3)} – ${seg(total)} · Cierre`,
+  "",
+  "Placa de Raudal Dev: raudaldev.com — primera reunión y presupuesto sin cargo (sin voz).",
   "",
 ].join("\n");
 await writeFile(join(RAIZ, "reels/salida", `${id}-guion.md`), md);

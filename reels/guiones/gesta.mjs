@@ -18,7 +18,7 @@ export const guion = {
   titulo: "Gesta Manager",
   dominio: "gestamanager.com",
   etiqueta: "/ GESTAMANAGER.COM",
-  voz: { voz: "elena", ritmo: "+12%", nombre: "Elena (Argentina)" },
+  musica: "gesta",
   iniciales: [limpiezaGesta],
   async preparar(page) {
     if (!process.env.GESTA_DEMO_PASS) throw new Error("Falta GESTA_DEMO_PASS en .env");

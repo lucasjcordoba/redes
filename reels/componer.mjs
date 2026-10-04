@@ -1,6 +1,6 @@
 /**
- * Compone el reel final (1080x1920) a partir de las dos grabaciones, la
- * locución y los subtítulos.
+ * Compone el reel final (1080x1920) a partir de las dos grabaciones, los
+ * subtítulos, la música del estilo del reel y, si la hay, la locución.
  *
  *   ┌──────────────────────────┐
  *   │ zona de Instagram        │  y 0–220: la tapa la interfaz
@@ -190,23 +190,26 @@ export async function componer({ id, guion, locucion }) {
       .jpeg({ quality: 93 }).toFile(join(dirSalida, `${String(n + j).padStart(5, "0")}.jpg`));
   }
 
-  // Audio: cada escena en su lugar, música por debajo.
-  await generarMusica(total, join(dir, "musica.m4a"));
-  const entradas = locucion.flatMap((e) => ["-i", e.audio]);
-  const retardos = locucion.map((e, i) => `[${i + 1}:a]adelay=${Math.round((e.inicio + ANTES) * 1000)}|${Math.round((e.inicio + ANTES) * 1000)},aresample=44100,aformat=channel_layouts=stereo[v${i}]`);
-  const mezclaVoz = `${locucion.map((_, i) => `[v${i}]`).join("")}amix=inputs=${locucion.length}:normalize=0,loudnorm=I=-16:TP=-1.5[voz]`;
-  const musicaIdx = locucion.length + 1;
-  const salida = join(RAIZ, "reels/salida", `${id}.mp4`);
+  // Música del estilo del reel, con un remate en cada cambio de escena y en
+  // la placa de cierre. Se entrega también suelta, para mezclar la voz aparte.
+  const musica = join(RAIZ, "reels/salida", `${id}-musica.m4a`);
   await mkdir(join(RAIZ, "reels/salida"), { recursive: true });
+  await generarMusica(total, musica, { estilo: guion.musica, marcas: [...locucion.slice(1).map((e) => e.inicio), duracion] });
+  const salida = join(RAIZ, "reels/salida", `${id}.mp4`);
+  const conVoz = locucion.every((e) => e.audio);
+  let audio = ["-map", "1:a"];
+  let entradas = [];
+  if (conVoz) {
+    // Cada escena en su lugar y la música por debajo.
+    entradas = locucion.flatMap((e) => ["-i", e.audio]);
+    const retardos = locucion.map((e, i) => `[${i + 2}:a]adelay=${Math.round((e.inicio + ANTES) * 1000)}|${Math.round((e.inicio + ANTES) * 1000)},aresample=44100,aformat=channel_layouts=stereo[v${i}]`);
+    const mezclaVoz = `${locucion.map((_, i) => `[v${i}]`).join("")}amix=inputs=${locucion.length}:normalize=0,loudnorm=I=-16:TP=-1.5[voz]`;
+    audio = ["-filter_complex", [...retardos, mezclaVoz, "[1:a]volume=0.30[mus]", "[voz][mus]amix=inputs=2:normalize=0:duration=longest,alimiter=limit=0.95[a]"].join(";"), "-map", "[a]"];
+  }
   await ejecutar("ffmpeg", [
     "-v", "error", "-y", "-framerate", String(FPS), "-i", join(dirSalida, "%05d.jpg"),
-    ...entradas, "-i", join(dir, "musica.m4a"),
-    "-filter_complex", [
-      ...retardos, mezclaVoz,
-      `[${musicaIdx}:a]volume=0.30[mus]`,
-      `[voz][mus]amix=inputs=2:normalize=0:duration=longest,alimiter=limit=0.95[a]`,
-    ].join(";"),
-    "-map", "0:v", "-map", "[a]", "-t", String(total),
+    "-i", musica, ...entradas,
+    "-map", "0:v", ...audio, "-t", String(total),
     "-c:v", "libx264", "-profile:v", "high", "-preset", "slow", "-crf", "18", "-pix_fmt", "yuv420p",
     "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", salida,
   ]);
