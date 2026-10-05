@@ -1,11 +1,12 @@
 /**
  * Hace un reel completo:
  *
- *   node reels/hacer.mjs <id> [--voz] [--solo-componer] [--conservar]
+ *   node reels/hacer.mjs <id> [--voz | --voz-propia <grabación>] [--solo-componer] [--conservar]
  *
  * 1. Tiempos y subtítulos de cada escena (voz.mjs): de ahí salen las
  *    duraciones. Sin voz, al ritmo de una lectura natural, para grabar encima;
- *    con --voz, con la locución de Azure del guion (`voz`).
+ *    con --voz, con la locución de Azure del guion (`voz`); con --voz-propia,
+ *    con una grabación del dueño (voz-propia.mjs).
  * 2. Grabación del mismo recorrido en escritorio y en celular (grabador.mjs).
  * 3. Composición, música y cierre (componer.mjs) → reels/salida/<id>.mp4,
  *    <id>.srt y <id>-musica.m4a (la música sola).
@@ -16,6 +17,7 @@ import { rm, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { RAIZ } from "../lib/rutas.mjs";
 import { locucion, tiempos } from "./voz.mjs";
+import { vozPropia } from "./voz-propia.mjs";
 import { grabar } from "./grabador.mjs";
 import { componer } from "./componer.mjs";
 
@@ -25,9 +27,12 @@ const soloComponer = process.argv.includes("--solo-componer");
 if (!id) { console.error("Uso: node reels/hacer.mjs <id> [--solo-componer]"); process.exit(2); }
 const { guion } = await import(pathToFileURL(join(RAIZ, "reels/guiones", `${id}.mjs`)).href);
 
-const conVoz = process.argv.includes("--voz");
-console.log(conVoz ? "1. Locución" : "1. Tiempos (sin voz)");
-const escenas = conVoz ? await locucion(id, guion.escenas, guion.voz) : tiempos(guion.escenas);
+const i = process.argv.indexOf("--voz-propia");
+const grabacion = i > 0 ? process.argv[i + 1] : null;
+const conVoz = !!grabacion || process.argv.includes("--voz");
+console.log(grabacion ? "1. Voz grabada" : conVoz ? "1. Locución" : "1. Tiempos (sin voz)");
+const escenas = grabacion ? await vozPropia(id, guion.escenas, grabacion)
+  : conVoz ? await locucion(id, guion.escenas, guion.voz) : tiempos(guion.escenas);
 
 console.log("2. Grabación");
 for (const formato of soloComponer ? [] : ["escritorio", "celular"]) {
@@ -44,7 +49,7 @@ const seg = (s) => `${Math.floor(s / 60)}:${(s % 60).toFixed(1).padStart(4, "0")
 const md = [
   `# Reel · ${guion.titulo}`,
   "",
-  `Duración: ${seg(total)} · Música: ${guion.musica} (generada, sin derechos)${conVoz ? ` · Voz: ${guion.voz?.nombre ?? "Elena"} (Azure)` : ""}`,
+  `Duración: ${seg(total)} · Música: ${guion.musica} (generada, sin derechos)${grabacion ? " · Voz: grabación propia" : conVoz ? ` · Voz: ${guion.voz?.nombre ?? "Elena"} (Azure)` : ""}`,
   "",
   ...(conVoz ? [] : [
     "El video va sin voz: los subtítulos marcan qué decir y cuándo. Cada bloque está",

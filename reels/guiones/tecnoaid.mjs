@@ -4,6 +4,7 @@ export const guion = {
   dominio: "tecnoaidar.com",
   etiqueta: "/ TECNOAIDAR.COM",
   musica: "tecnoaid",
+  diseno: "tecnoaid",
   url: "https://www.tecnoaidar.com",
   escenas: [
     {

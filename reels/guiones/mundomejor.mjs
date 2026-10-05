@@ -4,6 +4,7 @@ export const guion = {
   dominio: "mundomejorok.com",
   etiqueta: "/ MUNDOMEJOROK.COM",
   musica: "mundomejor",
+  diseno: "mundomejor",
   url: "https://www.mundomejorok.com",
   escenas: [
     {

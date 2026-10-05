@@ -19,6 +19,7 @@ export const guion = {
   dominio: "gestamanager.com",
   etiqueta: "/ GESTAMANAGER.COM",
   musica: "gesta",
+  diseno: "gesta",
   iniciales: [limpiezaGesta],
   async preparar(page) {
     if (!process.env.GESTA_DEMO_PASS) throw new Error("Falta GESTA_DEMO_PASS en .env");

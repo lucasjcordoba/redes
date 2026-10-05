@@ -11,6 +11,7 @@ export const guion = {
   etiqueta: "/ RAUDALDEV.COM",
   cierre: "CONSULTAS SIN CARGO",
   musica: "raudal",
+  diseno: "raudal",
   url: "https://www.raudaldev.com",
   escenas: [
     {
