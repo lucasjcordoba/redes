@@ -1,0 +1,25 @@
+{
+  "id": "09-limpiar",
+  "fecha": "2026-10-09",
+  "hora": "19:00",
+  "pilar": "tip",
+  "plantilla": "sino",
+  "visual": {
+    "etiqueta": "Tip",
+    "titulo": [
+      "Limpiar la compu",
+      "sin arruinarla"
+    ],
+    "si": [
+      "Apagada y desenchufada antes de empezar.",
+      "Paño de microfibra seco o apenas húmedo.",
+      "Pincel suave o aire para entre las teclas."
+    ],
+    "no": [
+      "Limpiavidrios, lavandina o alcohol en gel.",
+      "Rociar líquido directo sobre el equipo.",
+      "Servilletas o papel de cocina en la pantalla."
+    ]
+  },
+  "caption": "La pantalla llena de marcas de dedos y el teclado con migas. Limpiarlos está perfecto, pero hay formas de hacerlo que terminan en el técnico.\n\n✅ Sí:\n• Apagala y desenchufala antes de empezar.\n• Usá un paño de microfibra seco, o apenas húmedo con agua.\n• Para entre las teclas, un pincel suave o aire.\n\n❌ No:\n• Limpiavidrios, lavandina ni alcohol en gel: pueden dañar la pantalla.\n• Rociar líquido directo sobre el equipo: se mete por las ranuras.\n• Servilletas o papel de cocina en la pantalla: la rayan.\n\nY si ya se metió líquido adentro, apagala y escribinos.\n\n💬 Escribinos por WhatsApp: 11 2655-3546\n📍 Zona Norte (Vicente López y La Lucila) · a domicilio · remoto a todo el país\n\n#limpieza #notebook #tips #serviciotecnico #zonanorte"
+}
