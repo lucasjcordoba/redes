@@ -1,0 +1,32 @@
+{
+  "id": "15-arreglar-o-cambiar",
+  "fecha": "2026-10-15",
+  "hora": "19:00",
+  "pilar": "confianza",
+  "plantilla": "comparacion",
+  "visual": {
+    "etiqueta": "Sin chamuyo",
+    "titulo": [
+      "¿Arreglarla o",
+      "comprar otra?"
+    ],
+    "izquierda": {
+      "titulo": "Arreglarla",
+      "items": [
+        "Si falla una sola pieza.",
+        "Si el resto anda bien.",
+        "Si te sigue alcanzando."
+      ]
+    },
+    "derecha": {
+      "titulo": "Cambiarla",
+      "items": [
+        "Si arreglarla sale casi como otra.",
+        "Si ya no se banca lo que hacés.",
+        "Si son varias fallas juntas."
+      ]
+    },
+    "bajada": "Te lo decimos en el diagnóstico, que es sin cargo."
+  },
+  "caption": "Es la pregunta que todos se hacen cuando la compu falla. La respuesta honesta es: depende. Y está bien que te lo digamos así.\n\n🔧 Conviene arreglarla si falla una pieza puntual (pantalla, batería, teclado, disco), si el resto anda bien y si todavía te alcanza para lo que hacés.\n\n💻 Conviene cambiarla si la reparación sale casi lo mismo que otro equipo, si ya no se banca lo que necesitás o si tiene varias fallas a la vez.\n\nPor eso el diagnóstico es sin cargo: primero vemos qué tiene, después te decimos qué conviene. Y si conviene cambiarla, te buscamos un reacondicionado a medida.\n\n💬 Escribinos por WhatsApp: 11 2655-3546\n📍 Zona Norte (Vicente López y La Lucila) · a domicilio · remoto a todo el país\n\n#serviciotecnico #notebook #reacondicionados #vicentelopez #lalucila"
+}
