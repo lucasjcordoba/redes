@@ -1,0 +1,27 @@
+{
+  "id": "24-dominio-hosting",
+  "fecha": "2026-10-12",
+  "hora": "19:00",
+  "pilar": "claridad",
+  "plantilla": "pasos",
+  "visual": {
+    "eyebrow": "/ SIN TECNICISMOS",
+    "titulo": "Tres palabras",
+    "bajada": "Conviene que todo quede a nombre del negocio.",
+    "pasos": [
+      {
+        "titulo": "Dominio",
+        "texto": "La dirección: el nombre que se escribe."
+      },
+      {
+        "titulo": "Hosting",
+        "texto": "El lugar donde el sitio queda guardado."
+      },
+      {
+        "titulo": "Sitio",
+        "texto": "Lo que se ve al entrar: textos, fotos."
+      }
+    ]
+  },
+  "caption": "Dominio, hosting y sitio. Aparecen en cualquier presupuesto y casi nadie explica la diferencia.\n\nUna forma simple de verlo es pensar en un local:\n\n📍 EL DOMINIO es la dirección. Es el nombre que se escribe para llegar, como raudaldev.com. Se renueva por año y tiene un titular.\n\n🏠 EL HOSTING es el terreno. Es el servicio donde el sitio queda guardado y disponible las veinticuatro horas.\n\n🪟 EL SITIO es el local en sí: lo que la gente ve cuando entra, con sus textos, fotos y secciones.\n\nSe pueden contratar por separado y con proveedores distintos. Lo importante es saber dónde está cada uno y que todo quede a nombre del negocio, no de quien lo armó.\n\nraudaldev.com\n\n#paginasweb #dominio #hosting #emprendedores #zonanorte"
+}
