@@ -1,0 +1,19 @@
+{
+  "id": "08-joystick",
+  "fecha": "2026-10-08",
+  "hora": "19:00",
+  "pilar": "sintoma",
+  "plantilla": "ilustracion",
+  "visual": {
+    "etiqueta": "Consolas",
+    "dibujo": "joystick",
+    "titulo": [
+      "¿El muñeco",
+      "camina",
+      "solo?"
+    ],
+    "destacar": 2,
+    "bajada": "Es el drift del joystick, y tiene arreglo."
+  },
+  "caption": "Soltás el control y el personaje sigue caminando. O la cámara gira sola, despacito, y no hay forma de que se quede quieta.\n\nSe llama drift: con el uso, la pieza que lee el movimiento del stick se gasta y empieza a mandar señales aunque no lo estés tocando. Es una falla muy común, y no hace falta tirar el control.\n\n🎮 Revisamos el joystick y te decimos qué tiene. Diagnóstico sin cargo.\n📋 Te pasamos el presupuesto antes de tocar nada.\n🛠️ Repuestos de calidad y trabajo con garantía.\n\nY si el problema es la consola, también la revisamos.\n\n💬 Escribinos por WhatsApp: 11 2655-3546\n📍 Zona Norte (Vicente López y La Lucila) · a domicilio · remoto a todo el país\n\n#joystick #consolas #gamers #serviciotecnico #vicentelopez"
+}
