@@ -164,14 +164,14 @@ const DIBUJOS = {
   // Un joystick con el stick izquierdo "caminando solo".
   joystick: `
     <path d="M150 120 Q300 92 450 120 Q540 136 566 250 Q584 330 520 338 Q478 342 440 286 L410 248 H190 L160 286 Q122 342 80 338 Q16 330 34 250 Q60 136 150 120 Z" fill="${C.crema}" ${T}/>
-    <circle cx="200" cy="200" r="44" fill="${C.cremaClara}" ${T}/>
-    <circle cx="214" cy="190" r="20" fill="${C.rojo}" ${T}/>
-    <path d="M262 150 a70 70 0 0 1 18 64" fill="none" stroke="${C.rojo}" stroke-width="7" stroke-linecap="round"/>
-    <path d="M286 126 a100 100 0 0 1 24 96" fill="none" stroke="${C.rojo}" stroke-width="7" stroke-linecap="round" opacity="0.55"/>
-    <circle cx="380" cy="226" r="34" fill="${C.cremaClara}" ${T}/>
-    <circle cx="380" cy="226" r="12" fill="${C.tinta}"/>
-    <g fill="${C.tinta}"><circle cx="470" cy="168" r="13"/><circle cx="500" cy="196" r="13"/><circle cx="440" cy="196" r="13"/><circle cx="470" cy="224" r="13"/></g>
-    <path d="M110 214 h50 M135 189 v50" stroke="${C.tinta}" stroke-width="14" stroke-linecap="round"/>`,
+    <path d="M100 196 h56 M128 168 v56" stroke="${C.tinta}" stroke-width="16" stroke-linecap="round"/>
+    <circle cx="236" cy="226" r="40" fill="${C.cremaClara}" ${T}/>
+    <circle cx="250" cy="214" r="18" fill="${C.rojo}" ${T}/>
+    <path d="M280 168 a62 62 0 0 1 16 52" fill="none" stroke="${C.rojo}" stroke-width="7" stroke-linecap="round"/>
+    <path d="M302 146 a92 92 0 0 1 22 86" fill="none" stroke="${C.rojo}" stroke-width="7" stroke-linecap="round" opacity="0.5"/>
+    <circle cx="392" cy="232" r="32" fill="${C.cremaClara}" ${T}/>
+    <circle cx="392" cy="232" r="11" fill="${C.tinta}"/>
+    <g fill="${C.tinta}"><circle cx="474" cy="164" r="13"/><circle cx="504" cy="192" r="13"/><circle cx="444" cy="192" r="13"/><circle cx="474" cy="220" r="13"/></g>`,
 
   // Notebook abierta con la pantalla rajada y rayas.
   pantalla: `
@@ -203,18 +203,19 @@ const DIBUJOS = {
     </g>
     <circle cx="300" cy="322" r="9" fill="${C.tinta}"/>`,
 
-  // Teclado de notebook con una tecla rota.
+  // Teclado de notebook con una tecla que saltó.
   teclado: `
-    <rect x="20" y="40" width="560" height="270" rx="24" fill="${C.crema}" ${T}/>
+    <rect x="20" y="60" width="560" height="270" rx="24" fill="${C.crema}" ${T}/>
     ${[0, 1, 2].map((f) => Array.from({ length: 8 }, (_, c) => {
       const x = 56 + c * 60 + f * 10;
-      const y = 72 + f * 58;
-      const rota = f === 1 && c === 3;
-      return `<rect x="${x}" y="${y}" width="48" height="44" rx="8" fill="${rota ? C.rojo : C.cremaClara}"
-        stroke="${C.tinta}" stroke-width="5"${rota ? ` transform="rotate(16 ${x + 24} ${y + 22})"` : ""}/>`;
+      const y = 92 + f * 58;
+      const falta = f === 0 && c === 5;
+      return `<rect x="${x}" y="${y}" width="48" height="44" rx="8" fill="${falta ? C.tinta : C.cremaClara}"
+        stroke="${C.tinta}" stroke-width="5"/>`;
     }).join("")).join("")}
-    <rect x="170" y="246" width="260" height="44" rx="8" fill="${C.cremaClara}" stroke="${C.tinta}" stroke-width="5"/>
-    <g stroke="${C.rojo}" stroke-width="6" stroke-linecap="round"><path d="M304 134 l20 -12 M308 158 h24 M302 182 l20 12"/></g>`,
+    <rect x="170" y="266" width="260" height="44" rx="8" fill="${C.cremaClara}" stroke="${C.tinta}" stroke-width="5"/>
+    <rect x="392" y="-6" width="48" height="44" rx="8" fill="${C.rojo}" stroke="${C.tinta}" stroke-width="5" transform="rotate(-18 416 16)"/>
+    <g stroke="${C.rojo}" stroke-width="6" stroke-linecap="round"><path d="M376 46 l-18 10 M392 62 l-8 18 M452 40 l18 8"/></g>`,
 
   // Varios puestos con computadora: un aula o un local.
   institucion: `
@@ -278,24 +279,24 @@ export function sino({ etiqueta, titulo, si, no }) {
       font-weight="800" letter-spacing="-2" fill="${C.tinta}">${esc(l)}</text>`)
     .join("");
 
-  let y = 316 + (titulo.length - 1) * 80 + 100;
+  let y = 316 + (titulo.length - 1) * 80 + 76;
   const bloque = (rotulo, items, color, icono) => {
     let svg = `
       <circle cx="${M + 28}" cy="${y + 18}" r="28" fill="${color}"/>
       ${icono(M + 28, y + 18)}
       <text x="${M + 76}" y="${y + 30}" font-family="${MONO}" font-size="30" font-weight="700"
         letter-spacing="3" fill="${color}">${rotulo}</text>`;
-    y += 80;
+    y += 100;
     for (const texto of items) {
       const lineas = ajustar(texto, W - 2 * M - 76, 34, 0.48);
-      svg += `<rect x="${M + 22}" y="${y - 22}" width="12" height="12" rx="2" fill="${color}"/>`;
+      svg += `<rect x="${M + 22}" y="${y - 20}" width="12" height="12" rx="2" fill="${color}"/>`;
       svg += lineas
         .map((l, j) => `<text x="${M + 76}" y="${y + j * 44}" font-family="${TEXTO}" font-size="34"
           fill="${C.tinta}">${esc(l)}</text>`)
         .join("");
       y += lineas.length * 44 + 22;
     }
-    y += 36;
+    y += 24;
     return svg;
   };
   const tilde = (cx, cy) => `<path d="M${cx - 12} ${cy} l8 9 16 -18" fill="none" stroke="${C.cremaClara}" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>`;
@@ -320,15 +321,16 @@ export function comparacion({ etiqueta, titulo, izquierda, derecha, bajada }) {
   const gap = 28;
   const ancho = (W - 2 * M - gap) / 2;
   const y0 = 316 + (titulo.length - 1) * 80 + 76;
-  const yFin = bajada ? 960 : 1050;
+  const filas = (items) => items.map((it) => ajustar(it, ancho - 64, 30, 0.5));
+  const altoDe = (items) => 112 + filas(items).reduce((s, l) => s + l.length * 40 + 30, 0);
+  const yFin = y0 + Math.max(altoDe(izquierda.items), altoDe(derecha.items)) + 10;
 
   const columna = (x, { titulo: t, items }, oscura) => {
     const fondo = oscura ? C.tinta : C.crema;
     const texto = oscura ? C.cremaClara : C.tinta;
-    let y = y0 + 84;
-    const filas = items
-      .map((it) => {
-        const lineas = ajustar(it, ancho - 64, 30, 0.5);
+    let y = y0 + 112;
+    const svgFilas = filas(items)
+      .map((lineas) => {
         const svg = `<rect x="${x + 32}" y="${y - 20}" width="10" height="10" rx="2" fill="${C.rojo}"/>` +
           lineas
             .map((l, j) => `<text x="${x + 56}" y="${y + j * 40}" font-family="${TEXTO}" font-size="30"
@@ -342,12 +344,12 @@ export function comparacion({ etiqueta, titulo, izquierda, derecha, bajada }) {
       <rect x="${x}" y="${y0}" width="${ancho}" height="${yFin - y0}" rx="24" fill="${fondo}" stroke="${C.tinta}" stroke-width="5"/>
       <text x="${x + 32}" y="${y0 + 56}" font-family="${MONO}" font-size="24" font-weight="700"
         letter-spacing="2" fill="${oscura ? C.crema : C.rojo}">${esc(t.toUpperCase())}</text>
-      ${filas}`;
+      ${svgFilas}`;
   };
 
   const lineasBajada = bajada ? ajustar(bajada, W - 2 * M, 34, 0.48) : [];
   const bajadaSvg = lineasBajada
-    .map((l, i) => `<text x="${M}" y="${1014 + i * 46}" font-family="${TEXTO}" font-size="34"
+    .map((l, i) => `<text x="${M}" y="${yFin + 80 + i * 46}" font-family="${TEXTO}" font-size="34"
       fill="${C.tintaSuave}">${esc(l)}</text>`)
     .join("");
 

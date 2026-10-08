@@ -9,7 +9,7 @@
  * controlar cada salto es justamente lo que hace que los títulos queden bien
  * cortados. Por eso `titulo` es un array de líneas.
  */
-import { esc, ajustar } from "../../lib/render.mjs";
+import { esc, ajustar, anchoTexto } from "../../lib/render.mjs";
 
 const W = 1080;
 const H = 1350;
@@ -179,10 +179,10 @@ export function mito({ eyebrow, numero, mito, realidad }) {
   const mitos = mito
     .map((l, i) => {
       const y = yMito + i * 66;
-      const largo = Math.min(W - 2 * M, l.length * 52 * 0.52);
-      return `<text x="${M}" y="${y}" fill="${C.muted}" font-family="${SANS}" font-size="52"
-        font-weight="700" letter-spacing="-1.5">${esc(l)}</text>
-      <line x1="${M - 6}" y1="${y - 17}" x2="${M + largo + 6}" y2="${y - 17}" stroke="${C.violet}" stroke-width="5" stroke-linecap="round"/>`;
+      const attrs = `font-family="${SANS}" font-size="52" font-weight="700" letter-spacing="-1.5"`;
+      const largo = anchoTexto(l, attrs);
+      return `<text x="${M}" y="${y}" fill="${C.muted}" ${attrs}>${esc(l)}</text>
+      <line x1="${M - 4}" y1="${y - 17}" x2="${M + largo + 4}" y2="${y - 17}" stroke="${C.violet}" stroke-width="4" stroke-linecap="round"/>`;
     })
     .join("");
 
@@ -215,12 +215,11 @@ export function chat({ eyebrow, mensajes, titulo, destacar, bajada }) {
     .map((m, i) => {
       const y = 236 + i * 116;
       const x = M + (i % 2) * 70;
-      const ancho = Math.min(W - 2 * M - 70, m.length * 34 * 0.5 + 76);
+      const ancho = Math.min(W - 2 * M - 70, anchoTexto(m, `font-family="${SANS}" font-size="34"`) + 76);
       return `
       <rect x="${x}" y="${y}" width="${ancho}" height="88" rx="26" fill="#0f1828" stroke="${C.line}" stroke-width="2"/>
       <path d="M${x + 4} ${y + 62} l-18 26 34 -12 z" fill="#0f1828"/>
-      <text x="${x + 38}" y="${y + 56}" fill="${C.text}" font-family="${SANS}" font-size="34">${esc(m)}</text>
-      <text x="${x + ancho + 20}" y="${y + 80}" fill="${C.muted}" font-family="${MONO}" font-size="20">✓✓</text>`;
+      <text x="${x + 38}" y="${y + 56}" fill="${C.text}" font-family="${SANS}" font-size="34">${esc(m)}</text>`;
     })
     .join("");
 
@@ -254,13 +253,14 @@ export function comparacion({ eyebrow, titulo, izquierda, derecha, bajada }) {
       font-size="76" font-weight="700" letter-spacing="-3">${esc(l)}</text>`)
     .join("");
   const y0 = 300 + (titulo.length - 1) * 86 + 80;
-  const yFin = 1090;
+  const filas = (items) => items.map((it) => ajustar(it, ancho - 80, 30, 0.5));
+  const altoDe = (items) => 130 + filas(items).reduce((s, l) => s + l.length * 40 + 34, 0);
+  const yFin = y0 + Math.max(altoDe(izquierda.items), altoDe(derecha.items)) + 6;
 
   const columna = (x, { titulo: t, items }, color) => {
     let y = y0 + 130;
-    const filas = items
-      .map((it) => {
-        const lineas = ajustar(it, ancho - 80, 30, 0.5);
+    const svgFilas = filas(items)
+      .map((lineas) => {
         const svgFila = `<rect x="${x + 36}" y="${y - 20}" width="12" height="12" fill="${color}" transform="rotate(45 ${x + 42} ${y - 14})"/>` +
           lineas
             .map((l, j) => `<text x="${x + 66}" y="${y + j * 40}" fill="${C.text}" font-family="${SANS}" font-size="30">${esc(l)}</text>`)
@@ -274,32 +274,38 @@ export function comparacion({ eyebrow, titulo, izquierda, derecha, bajada }) {
       <rect x="${x}" y="${y0}" width="${ancho}" height="6" rx="3" fill="${color}"/>
       <text x="${x + 36}" y="${y0 + 72}" fill="${color}" font-family="${MONO}" font-size="30"
         font-weight="700" letter-spacing="3">${esc(t.toUpperCase())}</text>
-      ${filas}`;
+      ${svgFilas}`;
   };
 
+  // Título, columnas y bajada se centran juntos entre el encabezado y el pie.
+  const dy = Math.max(0, (1130 - (yFin + 90) - (300 - 76 - 210)) / 2 - 10);
   return svg(`
     ${encabezado(eyebrow, M)}
+    <g transform="translate(0 ${dy})">
     ${titulos}
     ${columna(M, izquierda, C.cyan)}
     ${columna(M + ancho + gap, derecha, C.violet)}
-    <text x="${M}" y="1170" fill="${C.muted}" font-family="${SANS}" font-size="32">${esc(bajada)}</text>
+    <text x="${M}" y="${yFin + 90}" fill="${C.muted}" font-family="${SANS}" font-size="34">${esc(bajada)}</text>
+    </g>
+    <line x1="${M}" y1="1180" x2="${W - M}" y2="1180" stroke="${C.line}" stroke-width="2"/>
     ${pie(M)}`);
 }
 
 /**
  * Una frase grande entre comillas: lo que dice alguien en la escena del post.
  *   visual: { eyebrow, frase: [líneas], destacar, bajada }
- * Hasta 4 líneas de ~16 caracteres. Las comillas las pone la plantilla.
+ * Hasta 4 líneas de ~16 caracteres. La comilla grande la pone la plantilla.
  */
 export function frase({ eyebrow, frase, destacar, bajada }) {
   const M = 96;
   const size = 90;
   const leading = 106;
   const alto = (frase.length - 1) * leading;
-  const y0 = 700 - alto / 2;
+  // Bloque (comilla + frase + bajada) centrado entre el encabezado y el pie.
+  const y0 = 675 - (alto + 380) / 2 + 270;
   const lineas = frase
     .map((l, i) => {
-      const texto = `${i === 0 ? "“" : ""}${l}${i === frase.length - 1 ? "”" : ""}`;
+      const texto = l;
       return `<text x="${M}" y="${y0 + i * leading}" fill="${i === destacar ? C.cyan : C.text}"
         font-family="${SANS}" font-size="${size}" font-weight="700" letter-spacing="-3">${esc(texto)}</text>`;
     })
@@ -308,7 +314,7 @@ export function frase({ eyebrow, frase, destacar, bajada }) {
 
   return svg(`
     ${encabezado(eyebrow, M)}
-    <text x="${M - 10}" y="${y0 - 120}" fill="${C.cyan}" font-family="${SANS}" font-size="300" font-weight="700" opacity="0.18">“</text>
+    <text x="${M - 12}" y="${y0 - 40}" fill="${C.cyan}" font-family="${SANS}" font-size="320" font-weight="700">“</text>
     ${lineas}
     <rect x="${M}" y="${yBajada - 30}" width="6" height="40" fill="${C.violet}"/>
     <text x="${M + 30}" y="${yBajada}" fill="${C.muted}" font-family="${SANS}" font-size="36">${esc(bajada)}</text>
