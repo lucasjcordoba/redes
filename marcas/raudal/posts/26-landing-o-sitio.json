@@ -1,0 +1,32 @@
+{
+  "id": "26-landing-o-sitio",
+  "fecha": "2026-10-14",
+  "hora": "19:00",
+  "pilar": "claridad",
+  "plantilla": "comparacion",
+  "visual": {
+    "eyebrow": "/ POR DÓNDE EMPEZAR",
+    "titulo": [
+      "¿Landing o",
+      "sitio completo?"
+    ],
+    "izquierda": {
+      "titulo": "Landing",
+      "items": [
+        "Una sola página.",
+        "Un producto, un servicio o un evento.",
+        "Lista en 1 a 2 semanas."
+      ]
+    },
+    "derecha": {
+      "titulo": "Sitio",
+      "items": [
+        "Varias secciones.",
+        "Catálogo, servicios y formulario.",
+        "Listo en 3 a 4 semanas."
+      ]
+    },
+    "bajada": "Se puede empezar por la primera y crecer después."
+  },
+  "caption": "Antes de pedir un presupuesto conviene saber qué se necesita. No siempre es un sitio de muchas secciones.\n\n📄 LANDING\nUna sola página con un objetivo: presentar un producto, un servicio o un evento, y llevar al contacto. Sirve para profesionales independientes, lanzamientos o negocios que recién arrancan. Plazo: 1 a 2 semanas.\n\n🗂️ SITIO INSTITUCIONAL\nVarias secciones: quiénes son, servicios o catálogo, formulario, ubicación. Sirve cuando hay más de una cosa para mostrar o cuando importa aparecer en buscadores por distintos temas. Plazo: 3 a 4 semanas.\n\nNo es una decisión para siempre: una landing puede ser el primer paso de un sitio más grande.\n\nraudaldev.com\n\n#paginasweb #landingpage #emprendedores #pymes #vicentelopez"
+}
