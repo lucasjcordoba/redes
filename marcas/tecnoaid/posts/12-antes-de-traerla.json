@@ -1,0 +1,48 @@
+{
+  "id": "12-antes-de-traerla",
+  "fecha": "2026-10-12",
+  "hora": "19:00",
+  "pilar": "tip",
+  "diapositivas": [
+    {
+      "plantilla": "declaracion",
+      "visual": {
+        "etiqueta": "Tip",
+        "titulo": [
+          "Antes de",
+          "traer la",
+          "compu"
+        ],
+        "destacar": 2,
+        "bajada": "Cuatro cosas que ayudan y ahorran tiempo. Deslizá →"
+      }
+    },
+    {
+      "plantilla": "lista",
+      "visual": {
+        "etiqueta": "Checklist",
+        "titulo": [
+          "Antes de",
+          "traerla..."
+        ],
+        "items": [
+          "Si podés, hacé copia de tus archivos importantes.",
+          "Traé el cargador: muchas fallas se prueban con él.",
+          "Anotá los mensajes de error, o sacales una foto.",
+          "Contanos qué pasó y desde cuándo."
+        ]
+      }
+    },
+    {
+      "plantilla": "cierre",
+      "visual": {
+        "titulo": [
+          "Del resto",
+          "nos ocupamos."
+        ],
+        "bajada": "Diagnóstico sin cargo."
+      }
+    }
+  ],
+  "caption": "Cuando la compu falla, lo único que querés es que alguien la mire. Cuatro cosas que ayudan antes de traerla:\n\n1️⃣ Si todavía prende, hacé una copia de tus archivos importantes en un pendrive o en la nube. Es por las dudas, y te da tranquilidad.\n2️⃣ Traé el cargador. Muchas fallas se prueban con él, y a veces el problema es justamente ese.\n3️⃣ Si aparece un mensaje de error, anotalo o sacale una foto.\n4️⃣ Contanos qué pasó y desde cuándo: si se cayó, si se mojó, si fue de a poco. Cualquier detalle ayuda al diagnóstico.\n\nDel resto nos ocupamos nosotros.\n\n💬 Escribinos por WhatsApp: 11 2655-3546\n📍 Zona Norte (Vicente López y La Lucila) · a domicilio · remoto a todo el país\n\n#serviciotecnico #notebook #tips #vicentelopez #zonanorte"
+}
