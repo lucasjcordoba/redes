@@ -1,0 +1,76 @@
+{
+  "id": "21-tres-mitos",
+  "fecha": "2026-10-09",
+  "hora": "19:00",
+  "pilar": "claridad",
+  "diapositivas": [
+    {
+      "plantilla": "declaracion",
+      "visual": {
+        "eyebrow": "/ TRES MITOS",
+        "titulo": [
+          "Tres mitos",
+          "sobre tener",
+          "un sitio"
+        ],
+        "destacar": 2,
+        "bajada": "Y lo que pasa en la práctica.  →"
+      }
+    },
+    {
+      "plantilla": "mito",
+      "visual": {
+        "eyebrow": "/ TRES MITOS",
+        "numero": 1,
+        "mito": [
+          "Un sitio es cosa",
+          "de empresas",
+          "grandes."
+        ],
+        "realidad": [
+          "Un negocio de barrio",
+          "también recibe",
+          "búsquedas. Una página",
+          "alcanza para empezar."
+        ]
+      }
+    },
+    {
+      "plantilla": "mito",
+      "visual": {
+        "eyebrow": "/ TRES MITOS",
+        "numero": 2,
+        "mito": [
+          "Para cambiar un",
+          "precio hay que llamar",
+          "al programador."
+        ],
+        "realidad": [
+          "Un sitio bien hecho",
+          "deja editar textos,",
+          "precios y fotos sin",
+          "depender de nadie."
+        ]
+      }
+    },
+    {
+      "plantilla": "mito",
+      "visual": {
+        "eyebrow": "/ TRES MITOS",
+        "numero": 3,
+        "mito": [
+          "Se hace una vez",
+          "y queda para",
+          "siempre."
+        ],
+        "realidad": [
+          "Cambian precios,",
+          "servicios y",
+          "navegadores. Conviene",
+          "saber quién lo cuida."
+        ]
+      }
+    }
+  ],
+  "caption": "Tres ideas que se escuchan seguido antes de encarar un sitio, y lo que pasa en la práctica.\n\n1️⃣ \"Un sitio es cosa de empresas grandes.\"\nUn negocio de barrio también recibe búsquedas: alguien que quiere saber el horario, la dirección o si tienen lo que busca. Para empezar, una sola página con esa información alcanza.\n\n2️⃣ \"Para cambiar un precio hay que llamar al programador.\"\nUn sitio bien hecho deja editar textos, precios y fotos sin depender de nadie. Si no es así, conviene preguntarlo antes de contratar.\n\n3️⃣ \"Se hace una vez y queda para siempre.\"\nCambian los precios, se suman servicios, aparecen navegadores nuevos. Conviene saber desde el principio quién lo va a mantener y qué incluye ese mantenimiento.\n\nraudaldev.com\n\n#paginasweb #emprendedores #pymes #mitos #vicentelopez"
+}
