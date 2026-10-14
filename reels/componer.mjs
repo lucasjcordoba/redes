@@ -114,7 +114,7 @@ export async function componer({ id, guion, locucion }) {
     const clave = `${k}|${opTitulo}|${sub?.texto}|${opSub}`;
     if (!cacheTextos.has(clave)) {
       cacheTextos.set(clave, svgPng(D.textos({
-        etiqueta: escena.etiqueta ?? guion.etiqueta, titulo: escena.titulo, opTitulo, subtitulo: sub?.texto, opSub, k: Math.max(0, k), n: locucion.length,
+        etiqueta: escena.etiqueta ?? guion.etiqueta, titulo: escena.titulo, opTitulo, subtitulo: sub?.texto, opSub, k: Math.max(0, k), n: locucion.length, titulos: locucion.map((e) => e.titulo),
       })));
     }
     const [esc_, cel] = await Promise.all([

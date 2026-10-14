@@ -26,7 +26,8 @@ import { join } from "node:path";
 import { RAIZ } from "../lib/rutas.mjs";
 
 export const FPS = 30;
-const CHROME = `${process.env.HOME}/Library/Caches/ms-playwright/chromium-1223/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing`;
+// CHROME en el entorno, para grabar fuera de la Mac.
+const CHROME = process.env.CHROME ?? `${process.env.HOME}/Library/Caches/ms-playwright/chromium-1223/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing`;
 
 /**
  * Formatos. `escala` es la densidad de píxeles: con 1.5 y 2 la captura tiene
@@ -84,6 +85,8 @@ const suaveLargo = (k) => 0.5 - Math.cos(Math.PI * k) / 2;
  *   margen   aire por encima de la sección, en px CSS
  *   deriva   px CSS que baja lentamente mientras dura la escena (por defecto,
  *            lo que dé la sección hasta un máximo razonable)
+ *   sigue    sigue bajando desde donde quedó la escena anterior, sin volver a
+ *            ubicarse (para contar dos cosas de la misma pantalla)
  */
 export async function grabar({ id, formato, url, escenas, iniciales = [], preparar, transicion = 1.1 }) {
   const f = FORMATOS[formato];
@@ -164,7 +167,12 @@ export async function grabar({ id, formato, url, escenas, iniciales = [], prepar
     }
     // Playwright entiende :has-text; querySelector no. Se resuelve con locator.
     let info;
-    if (e.sel) {
+    if (e.sigue) {
+      info = await page.evaluate(() => {
+        const s = window.__scroller();
+        return { destino: s.scrollTop, max: s.scrollHeight - s.clientHeight, alto: s.scrollHeight - s.scrollTop };
+      });
+    } else if (e.sel) {
       const loc = page.locator(e.sel).first();
       await loc.evaluate((el) => el.setAttribute("data-reel-objetivo", "1")).catch(() => {});
       info = await medir('[data-reel-objetivo="1"]', e.margen ?? 70);

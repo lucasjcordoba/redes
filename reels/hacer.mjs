@@ -38,7 +38,7 @@ console.log("2. Grabación");
 for (const formato of soloComponer ? [] : ["escritorio", "celular"]) {
   await grabar({
     id, formato, url: guion.url, iniciales: guion.iniciales, preparar: guion.preparar,
-    escenas: escenas.map((e) => ({ duracion: e.duracion, url: e.url, sel: e[formato]?.sel ?? e.sel, margen: e[formato]?.margen ?? e.margen, deriva: e[formato]?.deriva ?? e.deriva })),
+    escenas: escenas.map((e) => ({ duracion: e.duracion, url: e.url, sel: e[formato]?.sel ?? e.sel, margen: e[formato]?.margen ?? e.margen, deriva: e[formato]?.deriva ?? e.deriva, sigue: e.sigue })),
   });
 }
 
