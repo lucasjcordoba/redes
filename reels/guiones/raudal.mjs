@@ -11,7 +11,7 @@ export const guion = {
   etiqueta: "/ RAUDALDEV.COM",
   cierre: "CONSULTAS SIN CARGO",
   musica: "raudal",
-  diseno: "raudal",
+  diseno: "terminal",
   url: "https://www.raudaldev.com",
   escenas: [
     {
@@ -21,22 +21,22 @@ export const guion = {
     {
       titulo: "Qué hacemos",
       sel: 'h2:has-text("Qué hacemos")',
-      voz: "Trabajamos en cinco áreas: desde la presencia online de un negocio hasta el sistema con el que se organiza por dentro.",
+      voz: "Desde la presencia online de un negocio hasta el sistema con el que se organiza por dentro.",
     },
     {
       titulo: "Cómo trabajamos",
       sel: 'h2:has-text("Cómo trabajamos")',
-      voz: "Cada proyecto sigue cuatro etapas: relevamiento, propuesta, desarrollo, y lanzamiento, con soporte después de la entrega.",
+      voz: "Cuatro etapas: relevamiento, propuesta, desarrollo y lanzamiento, con soporte después.",
     },
     {
       titulo: "Claridad en cada etapa",
       sel: 'h2:has-text("Claridad en cada etapa")',
-      voz: "El presupuesto es cerrado y por escrito, hablamos sin tecnicismos, y el trato es directo con quien desarrolla.",
+      voz: "Presupuesto cerrado y por escrito, sin tecnicismos, y trato directo con quien desarrolla.",
     },
     {
       titulo: "Conversemos",
       sel: 'h2:has-text("Conversemos")',
-      voz: "La primera reunión y el presupuesto no tienen costo. Más información en raudaldev.com.",
+      voz: "La primera reunión y el presupuesto son sin cargo, en raudaldev.com.",
     },
   ],
 };

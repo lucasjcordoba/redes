@@ -15,13 +15,21 @@
  *   gesta       Escenario: negro, haces de luz y ámbar. El escritorio ocupa
  *               todo el ancho como una pantalla de show, títulos en mayúscula
  *               de cartel y la sección como un tema del setlist.
+ *   entrada     La landing de Gesta: una entrada de show. Los subtítulos van
+ *               arriba, en el ticket (con su talón numerado); abajo, escritorio
+ *               a la izquierda y celular a la derecha, y el número de función.
+ *   terminal    Raudal Dev como editor de código: celular grande a la
+ *               izquierda, ventana a la derecha y debajo el índice de
+ *               secciones como un `ls`; los subtítulos se escriben en una
+ *               terminal a todo el ancho.
  *
  * Cada diseño define:
  *   esc       pantalla de escritorio { x, y, w, h, radio, soloAbajo }
  *   cel       pantalla del celular { x, y, w, h } y su carcasa { borde, radio }
  *   fondo()   todo lo que va detrás de las pantallas (incluida la ventana)
  *   celular() lo que va entre el escritorio y la pantalla del celular
- *   textos()  título de la sección y subtítulo
+ *   textos()  título de la sección y subtítulo (recibe también `titulos`,
+ *             los de todas las escenas)
  *
  * Zonas que tapa Instagram: y 0–220 y y 1600–1920. No se pone nada que haga
  * falta leer ahí.
@@ -236,4 +244,106 @@ const gesta = (() => {
   };
 })();
 
-export const DISENOS = { raudal, mundomejor, tecnoaid, gesta };
+// ---------- Gesta Manager · landing ----------
+
+const entrada = (() => {
+  const C = { fondo: "#0b0905", papel: "#14110c", oro: "#f6c919", oroOscuro: "#ddb227", crema: "#edebe7", tenue: "#8f8778", linea: "#2c261c" };
+  const TICKET = { x: 40, y: 400, w: 1000, h: 300, talon: 210 };
+  const escP = pantallaEsc(40, 760, 620, 12);
+  const cel = pantallaCel(1040 - 336, 760, 310, 13, 48);
+  const fSub = `font-family="Archivo" font-weight="800" font-size="44" letter-spacing="-.5"`;
+  const anchoSub = TICKET.w - TICKET.talon - 100;
+  // Silueta del ticket: muescas semicirculares a los lados y en la línea del talón.
+  const xCorte = TICKET.x + TICKET.w - TICKET.talon;
+  const ticket = () => {
+    const { x, y, w, h } = TICKET, r = 26;
+    return `M${x} ${y} H${xCorte - r} a${r} ${r} 0 0 0 ${r * 2} 0 H${x + w} V${y + h / 2 - r} a${r} ${r} 0 0 0 0 ${r * 2} V${y + h}
+      H${xCorte + r} a${r} ${r} 0 0 0 -${r * 2} 0 H${x} V${y + h / 2 + r} a${r} ${r} 0 0 0 0 -${r * 2} Z`;
+  };
+  return {
+    esc: escP, cel,
+    fondo: (guion) => svg(`<defs>
+        <radialGradient id="o" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="${C.oro}" stop-opacity=".18"/><stop offset="1" stop-color="${C.oro}" stop-opacity="0"/></radialGradient>
+        <filter id="s" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="22"/></filter></defs>
+      <rect width="${W}" height="${H}" fill="${C.fondo}"/>
+      <ellipse cx="540" cy="560" rx="700" ry="360" fill="url(#o)"/>
+      <ellipse cx="200" cy="1500" rx="520" ry="300" fill="url(#o)" opacity=".7"/>
+      <path d="${ticket()}" fill="${C.papel}" stroke="${C.oroOscuro}" stroke-opacity=".55" stroke-width="2"/>
+      <line x1="${xCorte}" y1="${TICKET.y + 34}" x2="${xCorte}" y2="${TICKET.y + TICKET.h - 34}" stroke="${C.oroOscuro}" stroke-opacity=".6" stroke-width="3" stroke-dasharray="4 12" stroke-linecap="round"/>
+      <text x="${TICKET.x + 48}" y="${TICKET.y + 52}" font-family="JetBrains Mono" font-size="18" letter-spacing="4" fill="${C.tenue}">PASE · ${esc(guion.titulo.split(" · ")[0].toUpperCase())}</text>
+      <rect x="${escP.x}" y="${escP.y + 18}" width="${escP.w}" height="${escP.h}" rx="14" fill="#000" opacity=".7" filter="url(#s)"/>
+      <rect x="${escP.x - 4}" y="${escP.y - 4}" width="${escP.w + 8}" height="${escP.h + 8}" rx="15" fill="none" stroke="${C.oro}" stroke-opacity=".5" stroke-width="2"/>`),
+    celular: () => svg(carcasa(cel, { color: "#0d0b08", borde: "#3a3224", sombra: "#000", opSombra: 0.8 })),
+    textos({ etiqueta, titulo, opTitulo, subtitulo, opSub, k, n }) {
+      const lineas = subtitulo ? ajustar(subtitulo, anchoSub, 44, 0.56) : [];
+      const alto = lineas.length * 58;
+      const y0 = TICKET.y + 70 + (TICKET.h - 70 - alto) / 2 + 36;
+      const xTalon = xCorte + TICKET.talon / 2;
+      const yPie = cel.marco.y + cel.marco.h - 38;
+      return svg(`<g opacity="${opTitulo}">
+          <text x="44" y="268" font-family="JetBrains Mono" font-weight="700" font-size="24" letter-spacing="5" fill="${C.oro}">${esc(etiqueta.replace(/^\/\s*/, ""))}</text>
+          <text x="44" y="352" font-family="Archivo" font-weight="800" font-size="70" letter-spacing="-1.5" fill="${C.crema}">${esc(titulo)}</text>
+          <text x="${xTalon}" y="${TICKET.y + 110}" text-anchor="middle" font-family="JetBrains Mono" font-size="18" letter-spacing="4" fill="${C.tenue}">ESCENA</text>
+          <text x="${xTalon}" y="${TICKET.y + 200}" text-anchor="middle" font-family="Archivo" font-weight="800" font-size="92" fill="${C.oro}">${dos(k + 1)}</text>
+          <text x="${xTalon}" y="${TICKET.y + 244}" text-anchor="middle" font-family="JetBrains Mono" font-size="20" letter-spacing="3" fill="${C.tenue}">DE ${dos(n)}</text>
+          <text x="${escP.x}" y="${yPie}" font-family="JetBrains Mono" font-size="20" letter-spacing="4" fill="${C.tenue}">ESCRITORIO · CELULAR</text>
+          ${Array.from({ length: n }, (_, i) => `<rect x="${escP.x + i * 46}" y="${yPie + 30}" width="34" height="8" rx="4" fill="${i <= k ? C.oro : C.linea}"/>`).join("")}</g>
+        ${lineas.length ? `<g opacity="${opSub}">
+          ${lineas.map((l, i) => `<text x="${TICKET.x + 48}" y="${y0 + i * 58}" ${fSub} fill="${C.crema}">${esc(l)}</text>`).join("")}</g>` : ""}`);
+    },
+  };
+})();
+
+// ---------- Raudal Dev · terminal ----------
+
+const terminal = (() => {
+  const C = { fondo: "#060a12", panel: "#0c1220", texto: "#f1f3f8", tenue: "#8b96ad", cian: "#24dfe1", violeta: "#9079fe", linea: "#1f2838", verde: "#28c840" };
+  const cel = pantallaCel(40, 400, 330, 13, 50);
+  const xDer = cel.marco.x + cel.marco.w + 40;
+  const barra = 40;
+  const escP = pantallaEsc(xDer, 400 + barra, 1040 - xDer, 14, true);
+  const LS = { x: xDer, y: escP.y + escP.h + 30, w: 1040 - xDer, h: cel.marco.y + cel.marco.h - (escP.y + escP.h + 30) };
+  const TERM = { x: 40, y: cel.marco.y + cel.marco.h + 36, w: 1000, h: 280 };
+  const fMono = `font-family="JetBrains Mono" font-size="46"`;
+  const ventana = (x, y, w, h, nombre) => `
+      <rect x="${x}" y="${y + 16}" width="${w}" height="${h}" rx="16" fill="#000" opacity=".55" filter="url(#s)"/>
+      <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="14" fill="${C.panel}" stroke="#ffffff" stroke-opacity=".1" stroke-width="2"/>
+      <circle cx="${x + 24}" cy="${y + 20}" r="6" fill="#ff5f57"/><circle cx="${x + 44}" cy="${y + 20}" r="6" fill="#febc2e"/><circle cx="${x + 64}" cy="${y + 20}" r="6" fill="${C.verde}"/>
+      <text x="${x + w / 2}" y="${y + 26}" text-anchor="middle" font-family="JetBrains Mono" font-size="16" fill="${C.tenue}">${esc(nombre)}</text>`;
+  return {
+    esc: escP, cel,
+    fondo: (guion) => svg(`<defs>
+        <radialGradient id="g1" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="${C.violeta}" stop-opacity=".24"/><stop offset="1" stop-color="${C.violeta}" stop-opacity="0"/></radialGradient>
+        <radialGradient id="g2" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="${C.cian}" stop-opacity=".2"/><stop offset="1" stop-color="${C.cian}" stop-opacity="0"/></radialGradient>
+        <filter id="s" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="20"/></filter></defs>
+      <rect width="${W}" height="${H}" fill="${C.fondo}"/>
+      <ellipse cx="220" cy="420" rx="560" ry="420" fill="url(#g1)"/>
+      <ellipse cx="900" cy="1500" rx="560" ry="420" fill="url(#g2)"/>
+      ${ventana(xDer, 400, escP.w, barra + escP.h, guion.dominio)}
+      ${ventana(LS.x, LS.y, LS.w, LS.h, "secciones")}
+      ${ventana(TERM.x, TERM.y, TERM.w, TERM.h, "zsh — raudal")}`),
+    celular: () => svg(carcasa(cel, { color: "#0b0f16", borde: "#3a4456", sombra: "#000", opSombra: 0.7 })),
+    textos({ titulo, opTitulo, subtitulo, opSub, k, titulos = [] }) {
+      const lineas = subtitulo ? ajustar(subtitulo, TERM.w - 140, 46, 0.6) : [];
+      const yT = TERM.y + 110;
+      const filas = Math.max(1, Math.floor((LS.h - 60) / 44));
+      const desde = Math.max(0, Math.min(k - Math.floor(filas / 2), titulos.length - filas));
+      const lista = titulos.slice(desde, desde + filas);
+      const slug = (t) => t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+      const cursor = lineas.length ? ancho(lineas.at(-1), fMono) : 0;
+      return svg(`<g opacity="${opTitulo}">
+          <text x="44" y="272" font-family="JetBrains Mono" font-size="26" fill="${C.tenue}"><tspan fill="${C.cian}">~/raudaldev</tspan> $ open #${esc(slug(titulo))}</text>
+          <text x="44" y="352" font-family="Geist" font-weight="700" font-size="64" letter-spacing="-2" fill="${C.texto}">${esc(titulo)}</text>
+          ${lista.map((t, i) => {
+            const actual = desde + i === k;
+            return `<text x="${LS.x + 28}" y="${LS.y + 78 + i * 44}" font-family="JetBrains Mono" font-size="24" fill="${actual ? C.cian : C.tenue}">${actual ? "▸" : " "} ${dos(desde + i + 1)} ${esc(slug(t))}</text>`;
+          }).join("")}</g>
+        <g opacity="${opSub}">
+          ${lineas.length ? `<text x="${TERM.x + 36}" y="${yT}" ${fMono} fill="${C.violeta}">›</text>` : ""}
+          ${lineas.map((l, i) => `<text x="${TERM.x + 84}" y="${yT + i * 66}" ${fMono} fill="${C.texto}">${esc(l)}</text>`).join("")}
+          ${lineas.length ? `<rect x="${TERM.x + 96 + cursor}" y="${yT + (lineas.length - 1) * 66 - 37}" width="25" height="46" fill="${C.cian}" opacity=".85"/>` : ""}</g>`);
+    },
+  };
+})();
+
+export const DISENOS = { raudal, mundomejor, tecnoaid, gesta, entrada, terminal };

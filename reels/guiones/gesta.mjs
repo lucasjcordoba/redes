@@ -30,10 +30,25 @@ export const guion = {
     await page.waitForURL(/dashboard/, { timeout: 30000 });
   },
   url: `${B}/dashboard`,
+  // Unos dos minutos: es el sistema con más para mostrar. Lo que se cuenta
+  // sale de gestamanager.com; las escenas con `sigue` siguen bajando por la
+  // misma pantalla. Las rutas /giras, /agenda y /equipo son las de las
+  // capturas de la landing (inicio, giras, agenda, equipo): confirmarlas en
+  // la copia local antes de grabar.
   escenas: [
     {
       titulo: "Panel de control",
-      voz: "Gesta Manager es un sistema que desarrollamos para organizar giras musicales. El panel muestra el estado de toda la organización de un vistazo.",
+      voz: "Gesta Manager es un sistema de gestión que desarrollamos para producciones en vivo: giras musicales, obras de teatro y rodajes.",
+    },
+    {
+      titulo: "Todo en un lugar",
+      sigue: true,
+      voz: "Lo que antes vivía en diez planillas y tres grupos de WhatsApp, ahora vive acá. El panel muestra toda la organización de un vistazo.",
+    },
+    {
+      titulo: "Giras y fechas",
+      url: `${B}/giras`,
+      voz: "La gira, la temporada o el plan de rodaje se organiza una sola vez: giras completas o fechas sueltas.",
     },
     {
       titulo: "Cada gira",
@@ -41,24 +56,54 @@ export const guion = {
       voz: "Cada gira reúne sus fechas, el equipo y las finanzas en una sola pantalla.",
     },
     {
-      titulo: "La hoja del show",
-      url: `${GIRA}/shows/a0bcb19c-db83-4520-a0f2-5fa6d1c90a55`,
-      voz: "Y cada fecha tiene su hoja: el lugar, el cachet, el balance del show y todo lo que falta resolver.",
+      titulo: "En tiempo real",
+      sigue: true,
+      voz: "Cuando algo cambia, cambia para todos al instante: músicos, técnicos y producción ven la misma información.",
     },
     {
-      titulo: "Itinerario",
+      titulo: "La hoja del show",
+      url: `${GIRA}/shows/a0bcb19c-db83-4520-a0f2-5fa6d1c90a55`,
+      voz: "Cada fecha tiene su hoja: el venue, los horarios, los contactos y el estado de lo que falta resolver.",
+    },
+    {
+      titulo: "Finanzas del show",
+      sigue: true,
+      voz: "Y sus números: borderó, gastos, per diems y la liquidación del show, en pesos, dólares o euros.",
+    },
+    {
+      titulo: "Cronograma del día",
       url: `${GIRA}/itinerario`,
-      voz: "El itinerario ordena los horarios del día: pruebas de sonido, puertas, shows y traslados.",
+      voz: "El cronograma ordena la jornada: citación, prueba de sonido, apertura de puertas y show. Se comparte con el venue con un link.",
+    },
+    {
+      titulo: "Hoteles y traslados",
+      sigue: true,
+      voz: "En la misma hoja de ruta van los hoteles, los vuelos y los traslados. El rooming se genera solo, listo para mandar.",
+    },
+    {
+      titulo: "Agenda",
+      url: `${B}/agenda`,
+      voz: "La agenda junta todas las fechas en un mismo calendario, que además se puede exportar.",
     },
     {
       titulo: "Chat de la gira",
       url: `${GIRA}/chat`,
-      voz: "Cada gira tiene su propio chat, en lugar del grupo de WhatsApp de siempre.",
+      voz: "Cada gira tiene su chat, con notas de voz, fotos y archivos, en lugar del grupo de WhatsApp de siempre.",
+    },
+    {
+      titulo: "Equipo y roles",
+      url: `${B}/equipo`,
+      voz: "Cada rol ve lo suyo: el artista su itinerario, el técnico su rider y producción todo. Al equipo se lo invita por email o con un código.",
     },
     {
       titulo: "Reportes",
       url: `${B}/analytics`,
-      voz: "Y los reportes comparan cada año y cada ciudad. Gesta funciona en la web, en iOS y en Android.",
+      voz: "Los reportes muestran cómo viene la gira, y comparan cada año y cada ciudad.",
+    },
+    {
+      titulo: "Web, iOS y Android",
+      sigue: true,
+      voz: "Cada cambio de horario, tarea o mensaje llega como notificación al instante. Gesta funciona en la web, en iOS y en Android.",
     },
   ],
 };
