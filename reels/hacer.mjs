@@ -37,7 +37,7 @@ const escenas = grabacion ? await vozPropia(id, guion.escenas, grabacion)
 console.log("2. Grabación");
 for (const formato of soloComponer ? [] : ["escritorio", "celular"]) {
   await grabar({
-    id, formato, url: guion.url, iniciales: guion.iniciales, preparar: guion.preparar,
+    id, formato, url: guion.url, iniciales: guion.iniciales, preparar: guion.preparar, sesion: guion.sesion,
     escenas: escenas.map((e) => ({ duracion: e.duracion, url: e.url, sel: e[formato]?.sel ?? e.sel, margen: e[formato]?.margen ?? e.margen, deriva: e[formato]?.deriva ?? e.deriva })),
   });
 }

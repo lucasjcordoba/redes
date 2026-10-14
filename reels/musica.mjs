@@ -15,6 +15,15 @@
  *   gesta       Gira, escenario, energía en vivo. 124 bpm, Mi menor: guitarras
  *               saturadas en corcheas, guitarra limpia con eco, batería de rock
  *               y platillos.
+ *   estreno     Lanzamiento, cinematográfico. 100 bpm, Re menor: colchón que
+ *               crece, ostinato grave en corcheas, toms y después batería
+ *               completa con un motivo de piano.
+ *   confianza   Profesional, sereno, confiable. 96 bpm, Sol mayor: piano
+ *               eléctrico a contratiempo, bajo cálido, aro y shaker suaves.
+ *   deporte     Deportivo, con energía. 124 bpm, La mayor: bombo en negras,
+ *               aplausos, acordes cortos sincopados y bajo en octavas.
+ *   industria   Industrial, preciso. 110 bpm, Mi menor: golpes metálicos,
+ *               ostinato grave en semicorcheas, tic de reloj y colchón.
  *   lofi        El lo-fi tranquilo de antes (90 bpm).
  *
  * Los cambios de escena (`marcas`) se acentúan con un remate propio de cada
@@ -375,6 +384,130 @@ const ESTILOS = {
       platillo(m, t, 0.08);
     },
     fx: "highpass=f=30,aecho=0.8:0.5:50|95:0.15|0.08",
+  },
+
+  estreno: {
+    bpm: 100,
+    acordes: [
+      { notas: [50, 57, 62, 65, 69], bajo: 38 }, // Dm
+      { notas: [46, 53, 58, 62, 65], bajo: 34 }, // Bb
+      { notas: [53, 57, 60, 65, 69], bajo: 41 }, // F
+      { notas: [48, 55, 60, 64, 67], bajo: 36 }, // C
+    ],
+    compas(m, { c, t, B, notas, bajo: b }) {
+      const C = B * 4;
+      notas.forEach((nt, k) => sinte(m, t, hz(nt), 0.024, C, { voces: 3, desafino: 10, corte: 900 + Math.min(c, 6) * 150, ataque: 0.7, caida: 1.2, sostener: 0.85, soltar: 0.7, pan: k % 2 ? 0.45 : -0.45 }));
+      for (let k = 0; k < 8; k++) sinte(m, t + k * (B / 2), hz(b + 12), k % 2 ? 0.06 : 0.085, B * 0.4, { voces: 2, desafino: 6, corte: 500, envCorte: 1100, caidaCorte: 16, caida: 0.15, sostener: 0.2, soltar: 0.05 });
+      bajo(m, t, hz(b), 0.2, C * 0.9, { brillo: 0.1, caida: 0.6 });
+      if (c >= 2 && c < 4) { tom(m, t, 0.2, 80); tom(m, t + 2 * B, 0.2, 80); tom(m, t + 3.5 * B, 0.12, 100); }
+      if (c >= 4) {
+        bombo(m, t, 0.36, { tono: 46, golpe: 80 });
+        bombo(m, t + 2.5 * B, 0.26, { tono: 46, golpe: 80 });
+        caja(m, t + B, 0.24);
+        caja(m, t + 3 * B, 0.24);
+        for (let k = 0; k < 8; k++) hat(m, t + k * (B / 2), k % 2 ? 0.03 : 0.05);
+        [[0, 4], [1.5, 3], [3, 2]].forEach(([tb, i]) => piano(m, t + tb * B, hz(notas[i % notas.length] + 12), 0.06, B * 2, { trem: 0.04, caida: 1.2, pan: 0.15 }));
+      }
+      if (c === 4 || (c > 4 && c % 8 === 4)) platillo(m, t, 0.07);
+    },
+    acento(m, t, B) {
+      barrido(m, t, 0.08, B * 2);
+      bombo(m, t, 0.24, { tono: 36, golpe: 40, caida: 3 });
+      platillo(m, t, 0.05);
+    },
+    fx: "highpass=f=30,aecho=0.8:0.6:80|150|240:0.25|0.15|0.1",
+  },
+
+  confianza: {
+    bpm: 96,
+    acordes: [
+      { notas: [55, 59, 62, 67], bajo: 31 }, // G
+      { notas: [54, 57, 62, 66], bajo: 30 }, // D/F#
+      { notas: [52, 55, 59, 62], bajo: 28 }, // Em7
+      { notas: [52, 55, 60, 64], bajo: 36 }, // Cadd9
+    ],
+    compas(m, { c, t, B, notas, bajo: b }) {
+      // Piano eléctrico en el "y" de cada tiempo: avanza sin apurarse.
+      for (let k = 0; k < 4; k++) notas.forEach((nt, i) => piano(m, t + k * B + B / 2 + i * 0.006, hz(nt), k === 0 ? 0.05 : 0.04, B * 0.9, { trem: 0.06, caida: 2.6, pan: i % 2 ? 0.25 : -0.25 }));
+      bajo(m, t, hz(b), 0.24, B * 1.7, { brillo: 0.12, caida: 1.4 });
+      bajo(m, t + 2 * B, hz(b), 0.18, B * 1.5, { brillo: 0.12, caida: 1.6 });
+      if (c >= 1) {
+        bombo(m, t, 0.26, { tono: 50, golpe: 50, caida: 10 });
+        bombo(m, t + 2 * B, 0.2, { tono: 50, golpe: 50, caida: 10 });
+        aro(m, t + B, 0.11);
+        aro(m, t + 3 * B, 0.11);
+        for (let k = 0; k < 16; k++) shaker(m, t + k * (B / 4), k % 4 === 2 ? 0.05 : 0.025);
+      }
+      if (c >= 4 && c % 2 === 0) [[0, 0], [1, 1], [2.5, 2]].forEach(([tb, i]) => fm(m, t + tb * B, hz(notas[i] + 24), 0.03, 1.5, { razon: 3.5, indice: 1.4, caidaIndice: 8, caida: 2.2, pan: 0.3 }));
+    },
+    acento(m, t) {
+      fm(m, t, hz(86), 0.04, 2, { razon: 3.5, indice: 1.6, caidaIndice: 6, caida: 1.6, pan: -0.3 });
+    },
+    fx: "highpass=f=35,lowpass=f=10000,aecho=0.8:0.55:70|130:0.2|0.12",
+  },
+
+  deporte: {
+    bpm: 124,
+    acordes: [
+      { notas: [57, 61, 64, 69], bajo: 33 }, // A
+      { notas: [54, 57, 61, 66], bajo: 30 }, // F#m
+      { notas: [50, 54, 57, 62], bajo: 38 }, // D
+      { notas: [52, 56, 59, 64], bajo: 40 }, // E
+    ],
+    compas(m, { c, t, B, notas, bajo: b }) {
+      // Acordes cortos sincopados (como un golpe de raqueta).
+      for (const tb of [0.5, 1.25, 2.5, 3.25]) notas.forEach((nt, i) => sinte(m, t + tb * B, hz(nt + 12), 0.03, B * 0.2, { voces: 2, desafino: 8, corte: 1600, envCorte: 2600, caidaCorte: 22, caida: 0.12, sostener: 0, soltar: 0.06, pan: i % 2 ? 0.35 : -0.35 }));
+      if (c >= 1) for (let k = 0; k < 8; k++) {
+        const nt = b + (k % 2 ? 12 : 0);
+        sinte(m, t + k * (B / 2), hz(nt), 0.08, B * 0.35, { corte: 450, envCorte: 1400, caidaCorte: 22, caida: 0.15, sostener: 0.3, soltar: 0.04 });
+        bajo(m, t + k * (B / 2), hz(nt), 0.1, B * 0.35, { brillo: 0.08, caida: 4 });
+      }
+      for (let k = 0; k < 4; k++) bombo(m, t + k * B, c >= 1 ? 0.36 : 0.22, { tono: 50, golpe: 95 });
+      if (c >= 2) {
+        aplauso(m, t + B, 0.22);
+        aplauso(m, t + 3 * B, 0.22);
+        for (let k = 0; k < 4; k++) hat(m, t + k * B + B / 2, 0.06, true);
+        for (let k = 0; k < 16; k++) hat(m, t + k * (B / 4), 0.018);
+      }
+      if (c >= 4) [[0, 3], [0.75, 2], [1.5, 3], [3, 1]].forEach(([tb, i]) => fm(m, t + tb * B, hz(notas[i] + 12), 0.045, 0.6, { razon: 2, indice: 2.5, caidaIndice: 18, caida: 5, pan: 0.2 }));
+    },
+    acento(m, t, B) {
+      barrido(m, t, 0.06, B);
+      aplauso(m, t, 0.2);
+      platillo(m, t, 0.04);
+    },
+    fx: "highpass=f=30,aecho=0.8:0.45:60|110:0.15|0.08",
+  },
+
+  industria: {
+    bpm: 110,
+    acordes: [
+      { notas: [52, 59, 64, 67], bajo: 28 }, // Em
+      { notas: [48, 55, 60, 64], bajo: 36 }, // C
+      { notas: [50, 57, 62, 66], bajo: 38 }, // D
+      { notas: [47, 54, 59, 62], bajo: 35 }, // Bm
+    ],
+    compas(m, { c, t, B, notas, bajo: b }) {
+      const C = B * 4;
+      notas.forEach((nt, k) => sinte(m, t, hz(nt), 0.02, C, { voces: 2, desafino: 7, corte: 1100, ataque: 0.4, caida: 1, sostener: 0.8, soltar: 0.5, pan: k % 2 ? 0.4 : -0.4 }));
+      // Ostinato grave en semicorcheas, como una máquina.
+      for (let k = 0; k < 16; k++) sinte(m, t + k * (B / 4), hz(b + (k % 8 === 6 ? 12 : 0)), k % 4 === 0 ? 0.08 : 0.05, B * 0.18, { corte: 420, envCorte: 1000, caidaCorte: 30, caida: 0.08, sostener: 0.1, soltar: 0.03, drive: 1.5 });
+      // Tic de reloj y golpes metálicos.
+      for (let k = 0; k < 16; k++) fm(m, t + k * (B / 4), 3200, k % 4 === 0 ? 0.02 : 0.01, 0.04, { razon: 1.41, indice: 4, caidaIndice: 80, caida: 90, pan: 0.4 });
+      if (c >= 2) {
+        bombo(m, t, 0.34, { tono: 45, golpe: 70 });
+        bombo(m, t + 1.5 * B, 0.22, { tono: 45, golpe: 70 });
+        bombo(m, t + 2.5 * B, 0.28, { tono: 45, golpe: 70 });
+        caja(m, t + B, 0.2, { tono: 220 });
+        caja(m, t + 3 * B, 0.2, { tono: 220 });
+        fm(m, t + 3.5 * B, 420, 0.06, 0.8, { razon: 1.41, indice: 6, caidaIndice: 10, caida: 6, pan: -0.3 });
+      }
+    },
+    acento(m, t) {
+      fm(m, t, 260, 0.09, 1.6, { razon: 1.41, indice: 7, caidaIndice: 5, caida: 3, pan: 0.2 });
+      bombo(m, t, 0.22, { tono: 34, golpe: 30, caida: 3 });
+    },
+    fx: "highpass=f=30,aecho=0.8:0.5:70|140:0.18|0.1",
   },
 
   lofi: {

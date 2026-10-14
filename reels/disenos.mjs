@@ -236,4 +236,82 @@ const gesta = (() => {
   };
 })();
 
-export const DISENOS = { raudal, mundomejor, tecnoaid, gesta };
+// ---------- Gesta Manager · sitio ----------
+
+const gestaSitio = (() => {
+  const C = { fondo: "#070b14", ambar: "#f5b301", blanco: "#f4f1ea", tenue: "#8d97ab", ventana: "#0e1626" };
+  const barra = 40;
+  const escP = pantallaEsc(40, 580 + barra, 1000, 18, true);
+  const cel = pantallaCel((W - 276) / 2, 1030, 250, 13, 44);
+  const fTitulo = `font-family="Geist" font-weight="700" font-size="64" letter-spacing="-2"`;
+  const fSub = `font-family="Geist" font-weight="700" font-size="44" letter-spacing="-.5"`;
+  let puntos = "";
+  for (let y = 60; y < H; y += 48) for (let x = 24; x < W; x += 48) puntos += `<circle cx="${x}" cy="${y}" r="1.6" fill="#ffffff" opacity=".07"/>`;
+  return {
+    esc: escP, cel,
+    fondo: (guion) => svg(`<defs>
+        <linearGradient id="b" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${C.ambar}" stop-opacity=".22"/><stop offset="1" stop-color="${C.ambar}" stop-opacity=".02"/></linearGradient>
+        <radialGradient id="r" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="${C.ambar}" stop-opacity=".25"/><stop offset="1" stop-color="${C.ambar}" stop-opacity="0"/></radialGradient>
+        <filter id="s" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="24"/></filter></defs>
+      <rect width="${W}" height="${H}" fill="${C.fondo}"/>
+      ${puntos}
+      <polygon points="0,1180 ${W},760 ${W},1060 0,1480" fill="url(#b)"/>
+      <ellipse cx="540" cy="900" rx="620" ry="360" fill="url(#r)"/>
+      <rect x="40" y="598" width="1000" height="${barra + escP.h}" rx="18" fill="#000" opacity=".6" filter="url(#s)"/>
+      <rect x="40" y="580" width="1000" height="${barra + escP.h}" rx="18" fill="${C.ventana}" stroke="${C.ambar}" stroke-opacity=".55" stroke-width="2"/>
+      <rect x="380" y="590" width="320" height="22" rx="11" fill="#ffffff" fill-opacity=".06"/>
+      <text x="540" y="606" text-anchor="middle" font-family="JetBrains Mono" font-size="14" fill="${C.tenue}">${esc(guion.dominio)}</text>`),
+    celular: () => svg(carcasa(cel, { color: "#05070c", borde: C.ambar, sombra: "#000", opSombra: 0.8 })),
+    textos({ etiqueta, titulo, opTitulo, subtitulo, opSub }) {
+      const lineas = subtitulo ? ajustar(subtitulo, 940, 44, 0.52) : [];
+      const y0 = 470 - ((lineas.length - 1) * 56) / 2 + 16;
+      return svg(`<g opacity="${opTitulo}">
+          <text x="540" y="262" text-anchor="middle" font-family="JetBrains Mono" font-size="24" letter-spacing="6" fill="${C.ambar}">${esc(etiqueta.replace(/^\/\s*/, ""))}</text>
+          <text x="540" y="340" text-anchor="middle" ${fTitulo} fill="${C.blanco}">${esc(titulo)}</text></g>
+        ${lineas.length ? `<g opacity="${opSub}">
+          ${lineas.map((l, i) => `<text x="540" y="${y0 + i * 56}" text-anchor="middle" ${fSub} fill="${C.blanco}">${esc(l)}</text>`).join("")}</g>` : ""}`);
+    },
+  };
+})();
+
+// ---------- UP gestiones ----------
+
+const upgestiones = (() => {
+  const C = { fondo: "#efefed", tinta: "#161616", naranja: "#f07f2e", gris: "#8a8f8c", verde: "#9fb3ad", blanco: "#ffffff" };
+  const barra = 44;
+  const escP = pantallaEsc(40, 400 + barra, 1000, 16, true);
+  const cel = pantallaCel(40, 905, 300, 12, 46);
+  const BANDA = { x: cel.marco.x + cel.marco.w + 34, y: 1170, h: 330 };
+  BANDA.w = W - BANDA.x;
+  const fSub = `font-family="Archivo" font-weight="800" font-size="44" letter-spacing="-.5"`;
+  let puntos = "";
+  for (let y = 0; y < 8; y++) for (let x = 0; x < 8; x++) puntos += `<circle cx="${880 + x * 18}" cy="${190 + y * 18}" r="3" fill="${C.tinta}" opacity=".55"/>`;
+  return {
+    esc: escP, cel,
+    fondo: (guion) => svg(`<defs><filter id="s" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="24"/></filter></defs>
+      <rect width="${W}" height="${H}" fill="${C.fondo}"/>
+      <circle cx="-40" cy="30" r="190" fill="none" stroke="${C.naranja}" stroke-width="22"/>
+      ${puntos}
+      <circle cx="1010" cy="300" r="70" fill="${C.naranja}"/>
+      <circle cx="930" cy="1600" r="120" fill="${C.verde}" opacity=".7"/>
+      <rect x="40" y="420" width="1000" height="${barra + escP.h}" rx="16" fill="#3a3a3a" opacity=".22" filter="url(#s)"/>
+      <rect x="40" y="400" width="1000" height="${barra + escP.h}" rx="16" fill="${C.blanco}" stroke="#d9d9d6" stroke-width="2"/>
+      ${[0, 1, 2].map((i) => `<circle cx="${66 + i * 22}" cy="422" r="7" fill="#d4d4d0"/>`).join("")}
+      <rect x="330" y="409" width="420" height="27" rx="13.5" fill="#f1f1ef"/>
+      <text x="540" y="428" text-anchor="middle" font-family="Inter" font-size="16" fill="${C.gris}">${esc(guion.dominio)}</text>
+      <rect x="${BANDA.x}" y="${BANDA.y}" width="${BANDA.w + 40}" height="${BANDA.h}" rx="34" fill="${C.naranja}"/>`),
+    celular: () => svg(carcasa(cel, { color: "#111", borde: "#2a2a2a", sombra: "#3a3a3a", opSombra: 0.35 })),
+    textos({ etiqueta, titulo, opTitulo, subtitulo, opSub, k, n }) {
+      const lineas = subtitulo ? ajustar(subtitulo, BANDA.w - 90, 44, 0.56) : [];
+      const alto = lineas.length * 58;
+      const y0 = BANDA.y + (BANDA.h - alto) / 2 + 42;
+      return svg(`<g opacity="${opTitulo}">
+          <text x="44" y="262" font-family="Archivo" font-size="24" letter-spacing="5" fill="${C.naranja}">${esc(etiqueta.replace(/^\/\s*/, ""))}  ·  ${dos(k + 1)}/${dos(n)}</text>
+          <text x="44" y="346" font-family="Archivo" font-weight="800" font-size="64" letter-spacing="-1.5" fill="${C.tinta}">${esc(titulo)}</text></g>
+        ${lineas.length ? `<g opacity="${opSub}">
+          ${lineas.map((l, i) => `<text x="${BANDA.x + 48}" y="${y0 + i * 58}" ${fSub} fill="${C.blanco}">${esc(l)}</text>`).join("")}</g>` : ""}`);
+    },
+  };
+})();
+
+export const DISENOS = { raudal, mundomejor, tecnoaid, gesta, gestaSitio, upgestiones };

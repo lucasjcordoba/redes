@@ -13,25 +13,21 @@ export const guion = {
   musica: "raudal",
   diseno: "raudal",
   url: "https://www.raudaldev.com",
+  // Versión corta (~30 s): es una landing.
   escenas: [
     {
       titulo: "Raudal Dev",
-      voz: "En Raudal Dev, desarrollamos sitios web, sistemas de gestión y aplicaciones a medida, para personas y empresas.",
+      voz: "En Raudal Dev, desarrollamos sitios web, sistemas de gestión y aplicaciones a medida.",
     },
     {
       titulo: "Qué hacemos",
       sel: 'h2:has-text("Qué hacemos")',
-      voz: "Trabajamos en cinco áreas: desde la presencia online de un negocio hasta el sistema con el que se organiza por dentro.",
-    },
-    {
-      titulo: "Cómo trabajamos",
-      sel: 'h2:has-text("Cómo trabajamos")',
-      voz: "Cada proyecto sigue cuatro etapas: relevamiento, propuesta, desarrollo, y lanzamiento, con soporte después de la entrega.",
+      voz: "Desde la presencia online de un negocio hasta el sistema con el que se organiza por dentro.",
     },
     {
       titulo: "Claridad en cada etapa",
       sel: 'h2:has-text("Claridad en cada etapa")',
-      voz: "El presupuesto es cerrado y por escrito, hablamos sin tecnicismos, y el trato es directo con quien desarrolla.",
+      voz: "Con presupuesto cerrado, sin tecnicismos y trato directo con quien desarrolla.",
     },
     {
       titulo: "Conversemos",

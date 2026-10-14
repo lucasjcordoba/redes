@@ -1,11 +1,13 @@
-/** mundomejorok.com: el sitio de la productora Mundo Mejor, en escritorio y celular. */
+/** mundomejorok.com: el sitio de la productora Mundo Mejor, en escritorio y celular (~1 min). */
+const B = "https://www.mundomejorok.com";
+
 export const guion = {
   titulo: "Mundo Mejor",
   dominio: "mundomejorok.com",
   etiqueta: "/ MUNDOMEJOROK.COM",
   musica: "mundomejor",
   diseno: "mundomejor",
-  url: "https://www.mundomejorok.com",
+  url: B,
   escenas: [
     {
       titulo: "Mundo Mejor",
@@ -19,18 +21,27 @@ export const guion = {
     {
       titulo: "Servicios",
       sel: 'h2:has-text("Servicios")',
-      voz: "Cada servicio tiene su lugar: booking, tour management, gestión de merch, equipo técnico y residencias.",
+      voz: "Cada servicio tiene su lugar: booking, tour management, soluciones digitales, merch, equipo técnico y residencias.",
+    },
+    {
+      titulo: "Quiénes somos",
+      url: `${B}/quienes-somos`,
+      voz: "Quiénes son y los valores que los guían: diversidad, independencia y cuidado.",
     },
     {
       titulo: "Artistas",
-      url: "https://www.mundomejorok.com/artistas",
-      voz: "Y el catálogo de artistas, con una página propia para cada uno.",
+      url: `${B}/artistas`,
+      voz: "El catálogo de artistas, con una página propia para cada uno,",
     },
     {
-      titulo: "Trabajamos juntos",
-      url: "https://www.mundomejorok.com",
-      sel: 'h2:has-text("¿Trabajamos juntos?")',
-      voz: "Con un contacto directo para quien quiera sumarse a la productora.",
+      titulo: "Cada artista",
+      url: `${B}/eli-almic`,
+      voz: "con su biografía y su recorrido.",
+    },
+    {
+      titulo: "Contacto",
+      url: `${B}/contacto`,
+      voz: "Y un contacto directo para quien quiera sumarse o proponer algo.",
     },
   ],
 };

@@ -22,11 +22,15 @@
  */
 import { chromium } from "playwright";
 import { mkdir, rm } from "node:fs/promises";
+import { readdirSync } from "node:fs";
 import { join } from "node:path";
 import { RAIZ } from "../lib/rutas.mjs";
 
 export const FPS = 30;
-const CHROME = `${process.env.HOME}/Library/Caches/ms-playwright/chromium-1223/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing`;
+// El Chrome completo que instala Playwright (no el headless shell), la versión que haya.
+const CACHE = `${process.env.HOME}/Library/Caches/ms-playwright`;
+const version = readdirSync(CACHE).filter((d) => /^chromium-\d+$/.test(d)).sort().at(-1);
+export const CHROME = `${CACHE}/${version}/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing`;
 
 /**
  * Formatos. `escala` es la densidad de píxeles: con 1.5 y 2 la captura tiene
@@ -85,7 +89,7 @@ const suaveLargo = (k) => 0.5 - Math.cos(Math.PI * k) / 2;
  *   deriva   px CSS que baja lentamente mientras dura la escena (por defecto,
  *            lo que dé la sección hasta un máximo razonable)
  */
-export async function grabar({ id, formato, url, escenas, iniciales = [], preparar, transicion = 1.1 }) {
+export async function grabar({ id, formato, url, escenas, iniciales = [], preparar, sesion, transicion = 1.1 }) {
   const f = FORMATOS[formato];
   const dir = join(RAIZ, "reels/tmp", id, formato);
   await rm(dir, { recursive: true, force: true });
@@ -99,6 +103,8 @@ export async function grabar({ id, formato, url, escenas, iniciales = [], prepar
     hasTouch: f.hasTouch,
     locale: "es-AR",
     timezoneId: "America/Argentina/Buenos_Aires",
+    // Sesión iniciada a mano con sesion.mjs (sistemas con login de terceros).
+    ...(sesion ? { storageState: join(RAIZ, "reels/tmp/sesiones", `${sesion}.json`) } : {}),
   });
   for (const s of [relojEscalado, scroller, ...iniciales]) await ctx.addInitScript(s);
   const page = await ctx.newPage();
