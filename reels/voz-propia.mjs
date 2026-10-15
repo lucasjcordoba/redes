@@ -79,11 +79,18 @@ function alinear(guion, dichas) {
   return par.map((k) => (k == null ? { desde: ultimo.hasta, hasta: ultimo.hasta } : (ultimo = dichas[k])));
 }
 
-async function transcribir(audio, dir) {
+/**
+ * Whisper con un glosario como contexto (initial_prompt): los nombres propios
+ * y números del guion. Ayuda a que no se saltee frases ni escriba mal los
+ * nombres; con oraciones enteras, en cambio, tiende a inventar texto en los
+ * silencios.
+ */
+async function transcribir(audio, dir, contexto = "") {
   const json = join(dir, "transcripcion.json");
   try { await access(json); } catch {
     await ejecutar("whisper", [audio, "--model", "small", "--language", "es", "--word_timestamps", "True",
-      "--output_format", "json", "--output_dir", dir, "--fp16", "False", "--verbose", "False"], { maxBuffer: 1 << 26 });
+      "--output_format", "json", "--output_dir", dir, "--fp16", "False", "--verbose", "False",
+      ...(contexto ? ["--initial_prompt", contexto.slice(0, 600)] : [])], { maxBuffer: 1 << 26 });
     const base = audio.split("/").pop().replace(/\.[^.]+$/, "");
     await writeFile(json, await readFile(join(dir, `${base}.json`)));
   }
@@ -97,7 +104,8 @@ export async function vozPropia(id, escenas, grabacion) {
   const mejorada = join(dir, "mejorada.wav");
   await ejecutar("ffmpeg", ["-v", "error", "-y", "-i", grabacion, "-af", MEJORA, "-ar", "48000", "-ac", "1", mejorada]);
 
-  const dichas = await transcribir(mejorada, dir);
+  const glosario = [...new Set(escenas.flatMap((e) => e.voz.match(/\b(?:[A-ZÁÉÍÓÚÑ][\wáéíóúñ]+(?:\s[A-Z][\w]+)*|\d+)\b/g) ?? []))].join(", ");
+  const dichas = await transcribir(mejorada, dir, glosario);
   const porEscena = escenas.map((e) => palabrasDe(e.voz));
   const tiempos = alinear(porEscena.flat(), dichas);
 
