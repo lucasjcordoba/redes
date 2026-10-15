@@ -1,0 +1,27 @@
+{
+  "id": "29-tres-pruebas",
+  "fecha": "2026-10-18",
+  "hora": "19:00",
+  "pilar": "claridad",
+  "plantilla": "pasos",
+  "visual": {
+    "eyebrow": "/ PRUEBA DE CINCO MINUTOS",
+    "titulo": "Tres pruebas",
+    "bajada": "Desde el celular, sin saber nada técnico.",
+    "pasos": [
+      {
+        "titulo": "Buscar el negocio",
+        "texto": "Por nombre, y por rubro más zona. ¿Aparece?"
+      },
+      {
+        "titulo": "Abrir la web en el celular",
+        "texto": "¿Se lee sin zoom? ¿Los botones andan?"
+      },
+      {
+        "titulo": "Mandarse una consulta",
+        "texto": "Por el formulario o el botón. ¿Llega?"
+      }
+    ]
+  },
+  "caption": "No hace falta saber de tecnología para saber si una web está haciendo su trabajo. Alcanzan cinco minutos y un celular.\n\n1️⃣ Buscar el negocio. Primero por el nombre, después por el rubro y la zona, como lo buscaría alguien que todavía no lo conoce. ¿Aparece? ¿Los datos que muestra son los de hoy?\n\n2️⃣ Abrir la web en el celular, que es desde donde se busca un negocio en la calle. ¿Se lee sin hacer zoom? ¿Los botones responden? ¿El teléfono se puede tocar para llamar?\n\n3️⃣ Mandarse una consulta. Por el formulario, el botón de WhatsApp o el mail que figura. ¿Llega? ¿A quién?\n\nSi alguna de las tres falla, ya hay por dónde empezar.\n\nraudaldev.com\n\n#paginasweb #emprendedores #pymes #tips #zonanorte"
+}
