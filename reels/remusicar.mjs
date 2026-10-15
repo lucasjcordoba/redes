@@ -23,9 +23,10 @@ for (const id of process.argv.slice(2)) {
   const { guion } = await import(pathToFileURL(join(RAIZ, "reels/guiones", `${id}.mjs`)).href);
   const escenas = tiempos(guion.escenas);
   const duracion = escenas.reduce((a, e) => a + e.duracion, 0);
+  const CIERRE_ = guion.cierreSegundos ?? CIERRE;
   const video = join(RAIZ, "reels/salida", `${id}.mp4`);
   const total = Number((await ejecutar("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", video])).stdout);
-  if (Math.abs(total - (duracion + CIERRE)) > 0.2) throw new Error(`${id}: el video dura ${total.toFixed(1)} s y el guion ${(duracion + CIERRE).toFixed(1)} s; cambió el guion, hay que rehacerlo`);
+  if (Math.abs(total - (duracion + CIERRE_)) > 0.2) throw new Error(`${id}: el video dura ${total.toFixed(1)} s y el guion ${(duracion + CIERRE_).toFixed(1)} s; cambió el guion, hay que rehacerlo`);
   const musica = join(RAIZ, "reels/salida", `${id}-musica.m4a`);
   await generarMusica(total, musica, { estilo: guion.musica, marcas: [...escenas.slice(1).map((e) => e.inicio), duracion] });
   const tmp = video.replace(/\.mp4$/, ".tmp.mp4");

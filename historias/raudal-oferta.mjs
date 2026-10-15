@@ -25,7 +25,7 @@ for (let y = 90; y < H; y += 90) grilla += `<line x1="0" y1="${y}" x2="${W}" y2=
 
 const attrsMarca = `font-family="Geist" font-weight="700" font-size="60" letter-spacing="-2"`;
 const xMarca = (W - (88 + 14 + ancho("Raudal.dev", attrsMarca))) / 2;
-const chip = "OFERTA · 4 CUPOS POR MES";
+const chip = "OFERTA · LANDING PAGE";
 const aChip = ancho(chip, `font-family="JetBrains Mono" font-weight="700" font-size="26" letter-spacing="4"`) + 64;
 const items = [
   ["Boceto de la portada sin cargo", "en 48 horas, antes de decidir"],

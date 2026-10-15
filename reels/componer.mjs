@@ -60,6 +60,25 @@ const mascara = (w, h, r, soloAbajo = false) => svgPng(`<svg xmlns="http://www.w
   ${soloAbajo ? `<path d="M0 0 H${w} V${h - r} a${r} ${r} 0 0 1 -${r} ${r} H${r} a${r} ${r} 0 0 1 -${r} -${r} Z" fill="#fff"/>` : `<rect width="${w}" height="${h}" rx="${r}" fill="#fff"/>`}</svg>`);
 
 /** Placa de cierre de Raudal Dev (misma que las placas del feed). */
+/** Placa de cierre de una oferta: qué es, el precio grande y dónde pedirla. */
+function capaCierreOferta({ arriba, linea, precio, detalle, url, pie }, opacidad) {
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}">${brillos}
+    <defs><linearGradient id="pr" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="${C.cian}"/><stop offset="1" stop-color="${C.violeta}"/></linearGradient></defs>
+    <g opacity="${opacidad}">
+    <rect width="${W}" height="${H}" fill="${C.fondo}"/>
+    <g mask="url(#m)">${grilla()}</g>
+    <ellipse cx="880" cy="620" rx="600" ry="460" fill="url(#g1)"/>
+    <ellipse cx="160" cy="1500" rx="520" ry="440" fill="url(#g2)"/>
+    <text x="${W / 2}" y="470" text-anchor="middle" font-family="JetBrains Mono" font-weight="700" font-size="30" letter-spacing="6" fill="${C.cian}">${esc(arriba)}</text>
+    <text x="${W / 2}" y="600" text-anchor="middle" font-family="Geist" font-weight="700" font-size="88" letter-spacing="-3" fill="${C.texto}">${esc(linea)}</text>
+    <text x="${W / 2}" y="830" text-anchor="middle" font-family="Geist" font-weight="700" font-size="230" letter-spacing="-10" fill="url(#pr)">${esc(precio)}</text>
+    <text x="${W / 2}" y="920" text-anchor="middle" font-family="Geist" font-size="42" fill="${C.texto}">${esc(detalle)}</text>
+    <rect x="${W / 2 - 320}" y="1010" width="640" height="104" rx="52" fill="${C.cian}"/>
+    <text x="${W / 2}" y="1078" text-anchor="middle" font-family="JetBrains Mono" font-weight="700" font-size="42" fill="${C.fondo}">${esc(url)}</text>
+    <text x="${W / 2}" y="1200" text-anchor="middle" font-family="Geist" font-size="34" fill="${C.tenue}">${esc(pie)}</text>
+  </g></svg>`;
+}
+
 function capaCierre(arriba, opacidad) {
   const attrs = `font-family="Geist" font-weight="700" font-size="112" letter-spacing="-4"`;
   const xMarca = (W - (160 + 28 + ancho("Raudal.dev", attrs))) / 2;
@@ -92,7 +111,8 @@ export async function componer({ id, guion, locucion }) {
   const cuadrosCel = readdirSync(join(dir, "celular")).filter((f) => f.endsWith(".jpg")).sort();
   const n = Math.min(cuadrosEsc.length, cuadrosCel.length);
   const duracion = n / FPS;
-  const total = duracion + CIERRE;
+  const cierre = guion.cierreSegundos ?? CIERRE;
+  const total = duracion + cierre;
 
   const D = DISENOS[guion.diseno ?? "raudal"];
   // El fondo lleva el dominio en la barra de la ventana; una escena puede
@@ -120,7 +140,7 @@ export async function componer({ id, guion, locucion }) {
     const clave = `${k}|${opTitulo}|${sub?.texto}|${opSub}`;
     if (!cacheTextos.has(clave)) {
       cacheTextos.set(clave, svgPng(D.textos({
-        etiqueta: escena.etiqueta ?? guion.etiqueta, titulo: escena.titulo, opTitulo, subtitulo: sub?.texto, opSub, k: Math.max(0, k), n: locucion.length,
+        etiqueta: escena.etiqueta ?? guion.etiqueta, titulo: escena.titulo, opTitulo, subtitulo: sub?.texto, opSub, k: Math.max(0, k), n: locucion.length, banner: guion.banner,
       })));
     }
     const [esc_, cel] = await Promise.all([
@@ -137,9 +157,10 @@ export async function componer({ id, guion, locucion }) {
     if (i % 150 === 0) console.log(`  componiendo ${i}/${n}`);
   }
   // Cierre: se funde encima del último cuadro.
-  for (let j = 0; j < CIERRE * FPS; j++) {
+  for (let j = 0; j < cierre * FPS; j++) {
     const op = Math.min(1, j / (0.5 * FPS));
-    await sharp(ultimo).composite([{ input: svgPng(capaCierre(guion.cierre ?? "DESARROLLADO POR", op)), left: 0, top: 0 }])
+    const placa = guion.cierreOferta ? capaCierreOferta(guion.cierreOferta, op) : capaCierre(guion.cierre ?? "DESARROLLADO POR", op);
+    await sharp(ultimo).composite([{ input: svgPng(placa), left: 0, top: 0 }])
       .jpeg({ quality: 93 }).toFile(join(dirSalida, `${String(n + j).padStart(5, "0")}.jpg`));
   }
 

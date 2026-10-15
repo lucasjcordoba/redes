@@ -94,11 +94,14 @@ const raudal = (() => {
       <rect x="340" y="410" width="400" height="26" rx="13" fill="#ffffff" fill-opacity=".07"/>
       <text x="540" y="429" text-anchor="middle" font-family="JetBrains Mono" font-size="16" fill="${C.tenue}">${esc(guion.dominio)}</text>`),
     celular: () => svg(carcasa(cel, { color: "#0b0f16", borde: "#3a4456", sombra: "#000", opSombra: 0.7 })),
-    textos({ etiqueta, titulo, opTitulo, subtitulo, opSub }) {
+    textos({ etiqueta, titulo, opTitulo, subtitulo, opSub, banner }) {
       const lineas = subtitulo ? ajustar(subtitulo, SUB.w, 46, 0.5) : [];
       const alto = lineas.length * 58;
       const y0 = SUB.y + (SUB.h - alto) / 2 + 42;
-      return svg(`<g opacity="${opTitulo}">
+      // Franja fija (por ejemplo, la oferta): debajo de los subtítulos, todo el reel.
+      const franja = banner ? `<rect x="${SUB.x - 22}" y="1530" width="${1040 - SUB.x + 22}" height="64" rx="32" fill="${C.cian}"/>
+          <text x="${(SUB.x - 22 + 1040) / 2}" y="1572" text-anchor="middle" font-family="JetBrains Mono" font-weight="700" font-size="26" letter-spacing="1" fill="${C.fondo}">${esc(banner)}</text>` : "";
+      return svg(`${franja}<g opacity="${opTitulo}">
           <text x="44" y="276" font-family="JetBrains Mono" font-size="26" letter-spacing="5" fill="${C.cian}">${esc(etiqueta)}</text>
           <text x="44" y="352" font-family="Geist" font-weight="700" font-size="62" letter-spacing="-2" fill="${C.texto}">${esc(titulo)}</text></g>
         ${lineas.length ? `<g opacity="${opSub}">

@@ -69,9 +69,9 @@ const md = [
     ...e.subtitulos.map((s) => `- \`${seg(s.desde)}\` ${s.texto}`),
     "",
   ].join("\n")),
-  `## ${seg(total - 3)} – ${seg(total)} · Cierre`,
+  `## ${seg(total - (guion.cierreSegundos ?? 3))} – ${seg(total)} · Cierre`,
   "",
-  "Placa de Raudal Dev: raudaldev.com — primera reunión y presupuesto sin cargo (sin voz).",
+  guion.cierreOferta ? `Placa de la oferta: ${guion.cierreOferta.linea} · ${guion.cierreOferta.precio} · ${guion.cierreOferta.url} (sin voz).` : "Placa de Raudal Dev: raudaldev.com — primera reunión y presupuesto sin cargo (sin voz).",
   "",
 ].join("\n");
 await writeFile(join(RAIZ, "reels/salida", `${id}-guion.md`), md);
