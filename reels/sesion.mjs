@@ -4,9 +4,10 @@
  *
  *   node reels/sesion.mjs <id> <url de login>
  *
- * Abre un Chrome visible en la página de login. Iniciás sesión vos; cuando la
- * dirección deja de ser la del login, se guardan las cookies y el
- * localStorage en reels/tmp/sesiones/<id>.json (fuera de git) y se cierra.
+ * Abre un Chrome visible en la página de login. Iniciás sesión vos (con mail
+ * o con Google); cuando volvés al sitio, fuera del login, y ya hay una cookie
+ * de sesión, se guardan las cookies y el localStorage en
+ * reels/tmp/sesiones/<id>.json (fuera de git) y se cierra.
  * El grabador las usa si el guion tiene `sesion: "<id>"`.
  */
 import { chromium } from "playwright";
@@ -24,9 +25,23 @@ const ctx = await browser.newContext({ viewport: { width: 1100, height: 800 }, l
 const page = await ctx.newPage();
 await page.goto(url);
 console.log("Iniciá sesión en la ventana de Chrome que se abrió…");
-const login = new URL(url).pathname;
-await page.waitForURL((u) => !u.pathname.startsWith(login) && !/login|auth/.test(u.pathname), { timeout: 15 * 60 * 1000 });
+// Listo cuando se vuelve al mismo sitio, fuera del login, con cookie de sesión
+// (las de Supabase se llaman sb-<proyecto>-auth-token; el code-verifier del
+// login con Google no cuenta).
+const origen = new URL(url).origin;
+const conSesion = async () => {
+  const u = new URL(page.url());
+  if (u.origin !== origen || /login|auth|registro/.test(u.pathname)) return false;
+  const cookies = await ctx.cookies(origen);
+  return cookies.some((c) => /auth-token(\.\d+)?$|session/i.test(c.name));
+};
+const limite = Date.now() + 15 * 60 * 1000;
+while (!(await conSesion().catch(() => false))) {
+  if (Date.now() > limite) throw new Error("No se inició sesión en 15 minutos");
+  await new Promise((r) => setTimeout(r, 1000));
+}
 await page.waitForLoadState("networkidle").catch(() => {});
+await new Promise((r) => setTimeout(r, 2000));
 await ctx.storageState({ path: join(dir, `${id}.json`) });
 await browser.close();
 console.log(`✓ sesión guardada: reels/tmp/sesiones/${id}.json`);

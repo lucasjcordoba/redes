@@ -90,6 +90,34 @@ const equipo = [["Marina", "Costa", "compras", "Jefa de compras"], ["Diego", "Fe
 equipo.forEach(([n, a, rol, cargo], i) => {
   sql += `insert into perfil (id, email, nombre, apellido, rol, permiso, activo, cargo) values (gen_random_uuid(), ${q(`${n.toLowerCase()}@argentecnica.demo`)}, ${q(n)}, ${q(a)}, ${q(rol)}, 'edicion', true, ${q(cargo)});\n`;
 });
+// Tareas y avisos del equipo. "yo" es el usuario con el que se inicia sesión
+// para grabar (el único que no es @argentecnica.demo); su nombre en la app
+// pasa a ser uno ficticio para que no aparezca el real.
+sql += `
+update perfil set nombre = 'Andrés', apellido = 'Molina', cargo = 'Gerente de operaciones' where email not like '%@argentecnica.demo';
+with yo as (select id from perfil where email not like '%@argentecnica.demo' limit 1), p as (select id, nombre from perfil where email like '%@argentecnica.demo')
+insert into tarea (titulo, descripcion, creada_por, asignada_a, ot_id, vence, estado)
+select t.titulo, t.descr, (select id from yo), (select id from p where nombre = t.quien), t.ot, current_date + t.vence, t.estado::tarea_estado from (values
+ ('Pedir presupuesto de rodamientos para la 7103', 'Dos proveedores como mínimo.', 'Marina', 3, 2, 'pendiente'),
+ ('Revisar plano 7103-03 antes de enviarlo al cliente', null, 'Tomás', 3, 1, 'en_curso'),
+ ('Confirmar fecha de despacho de la 7105', 'El cliente retira en planta.', 'Diego', 5, 0, 'pendiente'),
+ ('Pasar a mecanizado las piezas de la 7107', null, 'Lucía', 7, 3, 'en_curso'),
+ ('Cerrar OC de aluminio para la 7110', null, 'Marina', 10, -1, 'hecha')
+) as t(titulo, descr, quien, ot, vence, estado) where exists (select 1 from yo);
+with yo as (select id from perfil where email not like '%@argentecnica.demo' limit 1)
+insert into tarea (titulo, creada_por, asignada_a, ot_id, vence, estado)
+select t.titulo, (select id from perfil where nombre = t.de), (select id from yo), t.ot, current_date + t.vence, 'pendiente' from (values
+ ('Aprobar compra de acero inoxidable para la 7108', 'Marina', 8, 1),
+ ('Definir prioridad entre la 7101 y la 7107', 'Diego', 1, 2)
+) as t(titulo, de, ot, vence) where exists (select 1 from yo);
+insert into aviso (de, para, titulo, texto, ot_id)
+select (select id from perfil where nombre = a.de), null, a.titulo, a.texto, a.ot from (values
+ ('Diego', 'Llegó el material de la 7101', 'Ya está en Munro, se puede arrancar mecanizado.', 1),
+ ('Lucía', 'Torno 2 en mantenimiento hasta el jueves', 'Las piezas de Bragado pueden demorarse un día.', null)
+) as a(de, titulo, texto, ot);
+insert into tarea_comentario (tarea_id, autor, texto)
+select t.id, t.asignada_a, 'Pedí a Aceros Famatina y a Bronces Aconquija, espero respuesta mañana.' from tarea t where t.titulo like 'Pedir presupuesto%';
+`;
 sql += "commit;\n";
 
 const conexion = `host=aws-1-sa-east-1.pooler.supabase.com port=5432 user=reels_demo.ufsoblglnbhybnlzvbei dbname=postgres sslmode=require`;

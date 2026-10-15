@@ -12,7 +12,7 @@
  *   tecnoaid    Taller: fondo cálido oscuro con pistas de circuito y el rojo
  *               de la marca. Ventana chica a la izquierda, celular grande a la
  *               derecha, número de sección y subtítulos en una tarjeta ancha.
- *   gesta       Escenario: negro, haces de luz y ámbar. El escritorio ocupa
+ *   gesta       Escenario: negro, brillos suaves y ámbar. El escritorio ocupa
  *               todo el ancho como una pantalla de show, títulos en mayúscula
  *               de cartel y la sección como un tema del setlist.
  *
@@ -209,15 +209,12 @@ const gesta = (() => {
   const SUB = { x: 48, y: escP.y + escP.h + 40, w: cel.marco.x - 48 - 40, h: 480 };
   const fTitulo = `font-family="Archivo" font-weight="800" font-size="68" letter-spacing="-1"`;
   const fSub = `font-family="Archivo" font-weight="800" font-size="46" letter-spacing="0"`;
-  // Haces de luz desde arriba, como los de un escenario.
-  const haz = (x, a, b, op) => `<polygon points="${x - 18},0 ${x + 18},0 ${b},${H} ${a},${H}" fill="url(#h)" opacity="${op}"/>`;
   return {
     esc: escP, cel,
     fondo: () => svg(`<defs>
-        <linearGradient id="h" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${C.ambar}" stop-opacity=".32"/><stop offset=".75" stop-color="${C.ambar}" stop-opacity="0"/></linearGradient>
         <radialGradient id="p" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="${C.ambar}" stop-opacity=".2"/><stop offset="1" stop-color="${C.ambar}" stop-opacity="0"/></radialGradient></defs>
       <rect width="${W}" height="${H}" fill="${C.fondo}"/>
-      ${haz(180, -200, 700, 0.9)}${haz(900, 300, 1400, 0.8)}${haz(540, 100, 980, 0.5)}
+      <ellipse cx="900" cy="260" rx="520" ry="360" fill="url(#p)" opacity=".8"/>
       <ellipse cx="540" cy="1640" rx="700" ry="200" fill="url(#p)"/>`),
     celular: () => svg(`<rect x="0" y="${escP.y - 4}" width="${W}" height="4" fill="${C.ambar}"/>
       <rect x="0" y="${escP.y + escP.h}" width="${W}" height="4" fill="${C.ambar}"/>
@@ -314,4 +311,57 @@ const upgestiones = (() => {
   };
 })();
 
-export const DISENOS = { raudal, mundomejor, tecnoaid, gesta, gestaSitio, upgestiones };
+// ---------- Argentecnica ----------
+
+const argentecnica = (() => {
+  const C = { fondo: "#0b2342", linea: "#7fb2e5", blanco: "#eef4fb", tenue: "#8fb0d3", naranja: "#ff9f1c", ventana: "#0f2b50" };
+  const barra = 40;
+  const escP = pantallaEsc(40, 430 + barra, 1000, 6, true);
+  const cel = pantallaCel(1040 - 342, 890, 316, 13, 40);
+  const R = { x: 40, y: 1150, w: cel.marco.x - 40 - 36, h: 410 };
+  const fSub = `font-family="Archivo" font-weight="800" font-size="42" letter-spacing="-.3"`;
+  let grilla = "";
+  for (let x = 0; x <= W; x += 30) grilla += `<line x1="${x}" y1="0" x2="${x}" y2="${H}" stroke="${C.linea}" stroke-opacity="${x % 150 ? 0.07 : 0.16}"/>`;
+  for (let y = 0; y <= H; y += 30) grilla += `<line x1="0" y1="${y}" x2="${W}" y2="${y}" stroke="${C.linea}" stroke-opacity="${y % 150 ? 0.07 : 0.16}"/>`;
+  // Cota: línea con flechas y la medida al medio.
+  const cota = (x1, y1, x2, y2, texto, vertical = false) => {
+    const mx = (x1 + x2) / 2, my = (y1 + y2) / 2;
+    return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${C.blanco}" stroke-opacity=".7" stroke-width="1.5" marker-start="url(#f)" marker-end="url(#f)"/>
+      <rect x="${vertical ? mx - 14 : mx - 34}" y="${vertical ? my - 34 : my - 12}" width="${vertical ? 28 : 68}" height="${vertical ? 68 : 24}" fill="${C.fondo}"/>
+      <text x="${mx}" y="${my + 6}" text-anchor="middle" font-family="JetBrains Mono" font-size="16" fill="${C.blanco}" ${vertical ? `transform="rotate(-90 ${mx} ${my})"` : ""}>${texto}</text>`;
+  };
+  return {
+    esc: escP, cel,
+    fondo: (guion) => svg(`<defs><marker id="f" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 1 L10 5 L0 9 Z" fill="${C.blanco}" fill-opacity=".7"/></marker></defs>
+      <rect width="${W}" height="${H}" fill="${C.fondo}"/>
+      ${grilla}
+      ${cota(40, 405, 1040, 405, "1280")}
+      ${cota(1060, 470, 1060, 470 + escP.h, "800", true)}
+      <rect x="40" y="430" width="1000" height="${barra + escP.h}" rx="6" fill="${C.ventana}" stroke="${C.blanco}" stroke-opacity=".8" stroke-width="2"/>
+      <text x="60" y="456" font-family="JetBrains Mono" font-size="15" fill="${C.tenue}">VISTA 1 · ESCRITORIO</text>
+      <text x="1020" y="456" text-anchor="end" font-family="JetBrains Mono" font-size="15" fill="${C.tenue}">${esc(guion.dominio)}</text>
+      <rect x="${R.x}" y="${R.y}" width="${R.w}" height="${R.h}" fill="${C.fondo}" stroke="${C.blanco}" stroke-opacity=".85" stroke-width="2"/>
+      <line x1="${R.x}" y1="${R.y + 56}" x2="${R.x + R.w}" y2="${R.y + 56}" stroke="${C.blanco}" stroke-opacity=".6"/>
+      <line x1="${R.x}" y1="${R.y + R.h - 56}" x2="${R.x + R.w}" y2="${R.y + R.h - 56}" stroke="${C.blanco}" stroke-opacity=".6"/>
+      <line x1="${R.x + R.w - 200}" y1="${R.y}" x2="${R.x + R.w - 200}" y2="${R.y + 56}" stroke="${C.blanco}" stroke-opacity=".6"/>
+      <line x1="${R.x + R.w - 200}" y1="${R.y + R.h - 56}" x2="${R.x + R.w - 200}" y2="${R.y + R.h}" stroke="${C.blanco}" stroke-opacity=".6"/>
+      <text x="${R.x + 20}" y="${R.y + 36}" font-family="JetBrains Mono" font-size="17" letter-spacing="3" fill="${C.tenue}">DESCRIPCIÓN</text>
+      <text x="${R.x + 20}" y="${R.y + R.h - 20}" font-family="JetBrains Mono" font-size="17" letter-spacing="3" fill="${C.tenue}">ARGENTECNICA · GESTIÓN DE OTs</text>
+      <text x="${R.x + R.w - 180}" y="${R.y + R.h - 20}" font-family="JetBrains Mono" font-size="17" letter-spacing="3" fill="${C.tenue}">ESC 1:1</text>
+      ${cota(cel.marco.x, cel.marco.y + cel.marco.h + 24, cel.marco.x + cel.marco.w, cel.marco.y + cel.marco.h + 24, "390")}`),
+    celular: () => svg(carcasa(cel, { color: "#081a33", borde: C.blanco, sombra: "#000", opSombra: 0.6 })),
+    textos({ titulo, opTitulo, subtitulo, opSub, k, n }) {
+      const lineas = subtitulo ? ajustar(subtitulo, R.w - 50, 42, 0.56) : [];
+      const alto = lineas.length * 56;
+      const y0 = R.y + 56 + (R.h - 112 - alto) / 2 + 40;
+      return svg(`<g opacity="${opTitulo}">
+          <text x="44" y="262" font-family="JetBrains Mono" font-weight="700" font-size="24" letter-spacing="5" fill="${C.naranja}">PLANO Nº ${dos(k + 1)} · ARGENTECNICA</text>
+          <text x="44" y="346" font-family="Archivo" font-weight="800" font-size="64" letter-spacing="-1.5" fill="${C.blanco}">${esc(titulo)}</text>
+          <text x="${R.x + R.w - 180}" y="${R.y + 36}" font-family="JetBrains Mono" font-size="17" letter-spacing="3" fill="${C.blanco}">HOJA ${dos(k + 1)}/${dos(n)}</text></g>
+        ${lineas.length ? `<g opacity="${opSub}">
+          ${lineas.map((l, i) => `<text x="${R.x + 24}" y="${y0 + i * 56}" ${fSub} fill="${C.blanco}">${esc(l)}</text>`).join("")}</g>` : ""}`);
+    },
+  };
+})();
+
+export const DISENOS = { raudal, mundomejor, tecnoaid, gesta, gestaSitio, upgestiones, argentecnica };
