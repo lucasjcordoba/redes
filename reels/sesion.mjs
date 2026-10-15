@@ -28,11 +28,12 @@ console.log("Iniciá sesión en la ventana de Chrome que se abrió…");
 // Listo cuando se vuelve al mismo sitio, fuera del login, con cookie de sesión
 // (las de Supabase se llaman sb-<proyecto>-auth-token; el code-verifier del
 // login con Google no cuenta).
-const origen = new URL(url).origin;
+// El sitio puede volver de Google a otro dominio (el de producción), así que
+// vale cualquier origen que no sea el del proveedor de identidad.
 const conSesion = async () => {
   const u = new URL(page.url());
-  if (u.origin !== origen || /login|auth|registro/.test(u.pathname)) return false;
-  const cookies = await ctx.cookies(origen);
+  if (/google\.|apple\.|supabase\.co|facebook\./.test(u.hostname) || /login|auth|registro/.test(u.pathname)) return false;
+  const cookies = await ctx.cookies(u.origin);
   return cookies.some((c) => /auth-token(\.\d+)?$|session/i.test(c.name));
 };
 const limite = Date.now() + 15 * 60 * 1000;
@@ -42,6 +43,7 @@ while (!(await conSesion().catch(() => false))) {
 }
 await page.waitForLoadState("networkidle").catch(() => {});
 await new Promise((r) => setTimeout(r, 2000));
+const final = page.url();
 await ctx.storageState({ path: join(dir, `${id}.json`) });
 await browser.close();
-console.log(`✓ sesión guardada: reels/tmp/sesiones/${id}.json`);
+console.log(`✓ sesión guardada: reels/tmp/sesiones/${id}.json (sitio: ${new URL(final).origin})`);

@@ -364,4 +364,55 @@ const argentecnica = (() => {
   };
 })();
 
-export const DISENOS = { raudal, mundomejor, tecnoaid, gesta, gestaSitio, upgestiones, argentecnica };
+// ---------- BsAs Tennis Tour ----------
+
+const tennis = (() => {
+  const C = { fondo: "#0c0f14", cancha: "#123a5c", linea: "#ffffff", amarillo: "#ffd11a", cian: "#29abe2", blanco: "#f4f6f8", tenue: "#8d99a8", tablero: "#06080b" };
+  // El celular manda: es como lo usan jugadores y organizadores en el club.
+  const cel = pantallaCel(40, 410, 400, 13, 54);
+  const barra = 34;
+  const x = cel.marco.x + cel.marco.w + 34;
+  const escP = pantallaEsc(x, 410 + barra, 1040 - x, 12, true);
+  const T = { x, y: escP.y + escP.h + 40, w: 1040 - x, h: cel.marco.y + cel.marco.h - (escP.y + escP.h + 40) };
+  const fSub = `font-family="Archivo" font-weight="800" font-size="40" letter-spacing="-.3"`;
+  // Cancha vista desde arriba, abajo de todo.
+  const cy = cel.marco.y + cel.marco.h + 40;
+  const cancha = `<g opacity=".55">
+    <rect x="40" y="${cy}" width="1000" height="${H - cy + 200}" rx="6" fill="${C.cancha}"/>
+    <g fill="none" stroke="${C.linea}" stroke-opacity=".55" stroke-width="4">
+      <rect x="80" y="${cy + 40}" width="920" height="600"/>
+      <line x1="80" y1="${cy + 110}" x2="1000" y2="${cy + 110}"/>
+      <line x1="230" y1="${cy + 110}" x2="230" y2="${cy + 640}"/><line x1="850" y1="${cy + 110}" x2="850" y2="${cy + 640}"/>
+      <line x1="540" y1="${cy + 110}" x2="540" y2="${cy + 640}"/>
+    </g>
+    <circle cx="760" cy="${cy + 70}" r="16" fill="#d8f24a"/></g>`;
+  return {
+    esc: escP, cel,
+    fondo: (guion) => svg(`<defs><filter id="s" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="22"/></filter>
+        <radialGradient id="r" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="${C.cian}" stop-opacity=".22"/><stop offset="1" stop-color="${C.cian}" stop-opacity="0"/></radialGradient></defs>
+      <rect width="${W}" height="${H}" fill="${C.fondo}"/>
+      <ellipse cx="860" cy="240" rx="520" ry="320" fill="url(#r)"/>
+      ${cancha}
+      <rect x="${x}" y="428" width="${escP.w}" height="${barra + escP.h}" rx="12" fill="#000" opacity=".6" filter="url(#s)"/>
+      <rect x="${x}" y="410" width="${escP.w}" height="${barra + escP.h}" rx="12" fill="#151a21" stroke="${C.cian}" stroke-opacity=".6" stroke-width="2"/>
+      <circle cx="${x + 20}" cy="427" r="6" fill="${C.amarillo}"/>
+      <text x="${x + 36}" y="433" font-family="Inter" font-size="15" fill="${C.tenue}">${esc(guion.dominio)}</text>
+      <rect x="${T.x}" y="${T.y}" width="${T.w}" height="${T.h}" rx="18" fill="${C.tablero}" stroke="${C.amarillo}" stroke-opacity=".8" stroke-width="3"/>
+      <line x1="${T.x}" y1="${T.y + 64}" x2="${T.x + T.w}" y2="${T.y + 64}" stroke="${C.amarillo}" stroke-opacity=".5" stroke-width="2"/>`),
+    celular: () => svg(carcasa(cel, { color: "#05070a", borde: C.amarillo, sombra: "#000", opSombra: 0.8 })),
+    textos({ titulo, opTitulo, subtitulo, opSub, k, n }) {
+      const lineas = subtitulo ? ajustar(subtitulo, T.w - 60, 40, 0.56) : [];
+      const alto = lineas.length * 54;
+      const y0 = T.y + 64 + (T.h - 64 - alto) / 2 + 38;
+      return svg(`<g opacity="${opTitulo}">
+          <text x="44" y="262" font-family="JetBrains Mono" font-weight="700" font-size="24" letter-spacing="5" fill="${C.amarillo}">BSAS TENNIS TOUR · SET ${dos(k + 1)}</text>
+          <text x="44" y="346" font-family="Archivo" font-weight="800" font-size="64" letter-spacing="-1.5" fill="${C.blanco}">${esc(titulo)}</text>
+          <text x="${T.x + 28}" y="${T.y + 42}" font-family="JetBrains Mono" font-weight="700" font-size="22" letter-spacing="3" fill="${C.amarillo}">SET ${dos(k + 1)}</text>
+          <text x="${T.x + T.w - 28}" y="${T.y + 42}" text-anchor="end" font-family="JetBrains Mono" font-weight="700" font-size="22" letter-spacing="3" fill="${C.cian}">${dos(k + 1)} — ${dos(n)}</text></g>
+        ${lineas.length ? `<g opacity="${opSub}">
+          ${lineas.map((l, i) => `<text x="${T.x + 30}" y="${y0 + i * 54}" ${fSub} fill="${C.blanco}">${esc(l)}</text>`).join("")}</g>` : ""}`);
+    },
+  };
+})();
+
+export const DISENOS = { raudal, mundomejor, tecnoaid, gesta, gestaSitio, upgestiones, argentecnica, tennis };
