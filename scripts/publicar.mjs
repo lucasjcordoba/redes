@@ -90,7 +90,7 @@ for (const id of values.marca ? [values.marca] : MARCAS) {
     }
 
     await comprobarImagenes(urls);
-    const { permalink } = await ig.publicar(user_id, { urls, caption: post.caption });
+    const { permalink } = await ig.publicar(user_id, { urls, caption: post.caption, etiquetas: post.etiquetas });
     log(m, `✓ ${post.id} publicado en @${username}: ${permalink}`);
     await registrarPublicacion(id, post, permalink).catch((e) => log(m, `(no se pudo registrar en el PR: ${e.message})`));
     await avisar({
