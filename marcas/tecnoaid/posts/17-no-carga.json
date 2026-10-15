@@ -1,0 +1,21 @@
+{
+  "id": "17-no-carga",
+  "fecha": "2026-10-17",
+  "hora": "19:00",
+  "pilar": "sintoma",
+  "plantilla": "lista",
+  "visual": {
+    "etiqueta": "Síntoma",
+    "titulo": [
+      "¿No carga o",
+      "carga a veces?"
+    ],
+    "items": [
+      "Probá en otro enchufe, directo a la pared.",
+      "Mirá el cable cerca de las puntas: ahí es donde más se corta.",
+      "Si con otro cargador anda, el problema era el cargador.",
+      "Si hay que sostener la ficha para que cargue, no la fuerces."
+    ]
+  },
+  "caption": "La notebook dice que no está cargando, o carga sólo si dejás el cable en cierta posición. Antes de pensar lo peor, hay cosas que podés revisar en casa:\n\n1️⃣ Probá en otro enchufe, directo a la pared, sin zapatilla ni alargue.\n2️⃣ Mirá el cable cerca de las dos puntas: ahí es donde más se dobla y se corta.\n3️⃣ Si conseguís otro cargador compatible, probalo. Si con ese anda, ya sabés dónde está el problema.\n4️⃣ Si la ficha entra floja o tenés que sostenerla para que cargue, puede ser el conector de la notebook. Tiene arreglo, pero conviene no forzarlo.\n\nY si nada de esto lo resuelve, puede ser la batería. El diagnóstico es sin cargo, así que salís de la duda sin gastar.\n\n💬 Escribinos por WhatsApp: 11 2655-3546\n📍 Zona Norte (Vicente López y La Lucila) · a domicilio · remoto a todo el país\n\n#serviciotecnico #notebook #cargador #vicentelopez #zonanorte"
+}
