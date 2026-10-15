@@ -1,0 +1,18 @@
+{
+  "id": "22-domicilio",
+  "fecha": "2026-10-22",
+  "hora": "19:00",
+  "pilar": "servicio",
+  "plantilla": "declaracion",
+  "visual": {
+    "etiqueta": "A domicilio",
+    "titulo": [
+      "Si no podés",
+      "traerla,",
+      "vamos."
+    ],
+    "destacar": 2,
+    "bajada": "En Zona Norte: Vicente López y La Lucila."
+  },
+  "caption": "No siempre es fácil llevar la compu al taller. Es una PC de escritorio con todo conectado, son varias en una oficina, o simplemente no tenés cómo moverte.\n\nPara eso está el servicio a domicilio en Zona Norte, en Vicente López y La Lucila. Vamos, vemos el equipo donde está y te explicamos qué tiene.\n\nY si el problema es de programas o de configuración, muchas veces ni hace falta ir: se resuelve en remoto, a todo el país.\n\nEl diagnóstico es sin cargo y el presupuesto, antes de tocar nada.\n\n💬 Escribinos por WhatsApp: 11 2655-3546\n📍 Zona Norte (Vicente López y La Lucila) · a domicilio · remoto a todo el país\n\n#serviciotecnico #adomicilio #vicentelopez #lalucila #zonanorte"
+}
