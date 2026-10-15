@@ -1,0 +1,32 @@
+{
+  "id": "31-cerrado-o-por-hora",
+  "fecha": "2026-10-20",
+  "hora": "19:00",
+  "pilar": "claridad",
+  "plantilla": "comparacion",
+  "visual": {
+    "eyebrow": "/ CÓMO SE COTIZA",
+    "titulo": [
+      "¿Cerrado o",
+      "por hora?"
+    ],
+    "izquierda": {
+      "titulo": "Cerrado",
+      "items": [
+        "El total se sabe antes de empezar.",
+        "Lo que incluye queda por escrito.",
+        "Lo nuevo se cotiza aparte."
+      ]
+    },
+    "derecha": {
+      "titulo": "Por hora",
+      "items": [
+        "El total se sabe al final.",
+        "Sirve para tareas chicas o sueltas.",
+        "Hay que seguir las horas de cerca."
+      ]
+    },
+    "bajada": "Lo importante es saber desde el principio cuál es."
+  },
+  "caption": "Hay dos formas comunes de cotizar un desarrollo, y conviene saber cuál se está aceptando.\n\n📌 PRESUPUESTO CERRADO\nSe define qué se va a hacer y cuánto cuesta antes de empezar. El total no cambia mientras el pedido no cambie. Si aparece algo nuevo en el camino, se cotiza aparte y se decide si se suma.\n\n⏱️ POR HORA\nSe paga el tiempo que lleve. Sirve para tareas chicas o pedidos sueltos, donde es difícil estimar de antemano. El riesgo es que el total recién se conoce al final.\n\nNinguna es mala en sí. Lo importante es que esté claro desde el principio cuál es y qué incluye.\n\nEn Raudal Dev los proyectos se cotizan con presupuesto cerrado y por escrito.\n\nraudaldev.com\n\n#presupuesto #desarrolloweb #pymes #emprendedores #vicentelopez"
+}
