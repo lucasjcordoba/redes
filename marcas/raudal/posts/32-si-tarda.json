@@ -1,0 +1,18 @@
+{
+  "id": "32-si-tarda",
+  "fecha": "2026-10-21",
+  "hora": "19:00",
+  "pilar": "dolor",
+  "plantilla": "declaracion",
+  "visual": {
+    "eyebrow": "/ LA ESPERA",
+    "titulo": [
+      "Si tarda",
+      "en cargar,",
+      "ya se fueron"
+    ],
+    "destacar": 2,
+    "bajada": "Vuelve atrás y entra a la siguiente."
+  },
+  "caption": "Alguien busca un negocio, toca el primer resultado y la página queda en blanco. Uno, dos, tres segundos. Vuelve atrás y entra al siguiente.\n\nNo hubo un rechazo: ni siquiera llegó a ver el sitio.\n\nLas causas más comunes no son misteriosas:\n\n🖼️ Fotos subidas en tamaño original, mucho más pesadas de lo necesario.\n🧩 Complementos y agregados que se fueron sumando y nadie sacó.\n🗄️ Un alojamiento que ya no alcanza para lo que el sitio tiene.\n\nCasi siempre tiene arreglo sin rehacer todo. El primer paso es medirlo: abrir la web en un celular con datos, no con el wifi de la oficina, y ver cuánto tarda de verdad.\n\nraudaldev.com\n\n#paginasweb #velocidad #pymes #emprendedores #zonanorte"
+}
