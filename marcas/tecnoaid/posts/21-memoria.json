@@ -1,0 +1,48 @@
+{
+  "id": "21-memoria",
+  "fecha": "2026-10-21",
+  "hora": "19:00",
+  "pilar": "sintoma",
+  "diapositivas": [
+    {
+      "plantilla": "declaracion",
+      "visual": {
+        "etiqueta": "Síntoma",
+        "titulo": [
+          "¿Se traba",
+          "con muchas",
+          "pestañas?"
+        ],
+        "destacar": 2,
+        "bajada": "Puede que le falte memoria. Deslizá →"
+      }
+    },
+    {
+      "plantilla": "lista",
+      "visual": {
+        "etiqueta": "Señales",
+        "titulo": [
+          "Le falta",
+          "memoria si..."
+        ],
+        "items": [
+          "Se pone lenta cuando abrís varias cosas a la vez.",
+          "Las pestañas del navegador se recargan solas.",
+          "Pasar de un programa a otro tarda una eternidad.",
+          "Arranca bien, pero se va trabando con el uso."
+        ]
+      }
+    },
+    {
+      "plantilla": "cierre",
+      "visual": {
+        "titulo": [
+          "Muchas veces",
+          "se amplía."
+        ],
+        "bajada": "Te decimos si la tuya se puede, sin cargo."
+      }
+    }
+  ],
+  "caption": "Arranca bien, pero cuando abrís el navegador con varias pestañas, una planilla y una videollamada, todo se pone lento. No siempre es que la compu está vieja: muchas veces le falta memoria RAM.\n\nSeñales de que puede ser eso:\n\n1️⃣ Se pone lenta cuando abrís varias cosas a la vez.\n2️⃣ Las pestañas del navegador se recargan solas cuando volvés a ellas.\n3️⃣ Pasar de un programa a otro tarda una eternidad.\n4️⃣ Arranca bien, pero se va trabando con el uso.\n\nEn muchos equipos la memoria se puede ampliar; en algunos viene soldada y no. Te lo decimos con el diagnóstico, que es sin cargo, antes de que gastes nada.\n\n💬 Escribinos por WhatsApp: 11 2655-3546\n📍 Zona Norte (Vicente López y La Lucila) · a domicilio · remoto a todo el país\n\n#serviciotecnico #notebook #memoriaram #vicentelopez #zonanorte"
+}
