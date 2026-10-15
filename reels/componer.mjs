@@ -95,7 +95,13 @@ export async function componer({ id, guion, locucion }) {
   const total = duracion + CIERRE;
 
   const D = DISENOS[guion.diseno ?? "raudal"];
-  const fondo = await sharp(svgPng(D.fondo(guion))).png().toBuffer();
+  // El fondo lleva el dominio en la barra de la ventana; una escena puede
+  // mostrar otro sitio (`dominio` en la escena) y entonces cambia.
+  const fondos = new Map();
+  const fondoDe = async (dominio) => {
+    if (!fondos.has(dominio)) fondos.set(dominio, await sharp(svgPng(D.fondo({ ...guion, dominio }))).png().toBuffer());
+    return fondos.get(dominio);
+  };
   const celular = svgPng(D.celular());
   const mEsc = D.esc.radio ? mascara(D.esc.w, D.esc.h, D.esc.radio, D.esc.soloAbajo) : null;
   const mCel = mascara(D.cel.w, D.cel.h, D.cel.radio - D.cel.borde);
@@ -121,7 +127,7 @@ export async function componer({ id, guion, locucion }) {
       sharp(join(dir, "escritorio", cuadrosEsc[i])).resize(D.esc.w, D.esc.h).composite(mEsc ? [{ input: mEsc, blend: "dest-in" }] : []).png().toBuffer(),
       sharp(join(dir, "celular", cuadrosCel[i])).resize(D.cel.w, D.cel.h).composite([{ input: mCel, blend: "dest-in" }]).png().toBuffer(),
     ]);
-    ultimo = await sharp(fondo).composite([
+    ultimo = await sharp(await fondoDe(escena.dominio ?? guion.dominio)).composite([
       { input: esc_, left: D.esc.x, top: D.esc.y },
       { input: celular, left: 0, top: 0 },
       { input: cel, left: D.cel.x, top: D.cel.y },
