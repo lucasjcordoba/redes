@@ -1,0 +1,25 @@
+{
+  "id": "19-mochila",
+  "fecha": "2026-10-19",
+  "hora": "19:00",
+  "pilar": "tip",
+  "plantilla": "sino",
+  "visual": {
+    "etiqueta": "Tip",
+    "titulo": [
+      "La notebook",
+      "en la mochila"
+    ],
+    "si": [
+      "Apagada o suspendida antes de guardarla.",
+      "En un compartimento acolchado o con funda.",
+      "El cargador en un bolsillo aparte."
+    ],
+    "no": [
+      "Guardarla todavía caliente.",
+      "Cosas pesadas apoyadas sobre la tapa.",
+      "Dejarla en el auto al sol."
+    ]
+  },
+  "caption": "La notebook viaja todos los días: al trabajo, a la facu, de tu casa a lo de alguien. Y la mochila es donde más golpes se lleva.\n\n✅ Sí\n• Apagala o suspendela antes de guardarla.\n• Usá un compartimento acolchado o una funda.\n• Llevá el cargador en un bolsillo aparte, sin enrollar el cable apretado.\n\n❌ No\n• Guardarla todavía caliente: el calor queda encerrado.\n• Apoyar cosas pesadas sobre la tapa: la pantalla es lo más frágil.\n• Dejarla en el auto al sol.\n\nSon costumbres chicas que le alargan la vida al equipo.\n\n💬 Escribinos por WhatsApp: 11 2655-3546\n📍 Zona Norte (Vicente López y La Lucila) · a domicilio · remoto a todo el país\n\n#notebook #tips #cuidados #vicentelopez #zonanorte"
+}
