@@ -1,0 +1,18 @@
+{
+  "id": "27-sitio-huerfano",
+  "fecha": "2026-10-15",
+  "hora": "19:00",
+  "pilar": "servicio",
+  "plantilla": "declaracion",
+  "visual": {
+    "eyebrow": "/ SITIOS HUÉRFANOS",
+    "titulo": [
+      "Quien hizo",
+      "la web",
+      "ya no responde"
+    ],
+    "destacar": 2,
+    "bajada": "Se puede retomar sin empezar de cero."
+  },
+  "caption": "Hay que sumar un servicio nuevo a la web. Se le escribe a quien la hizo, como siempre. Esta vez no contesta.\n\nPasa más de lo que parece: la persona cambió de trabajo, se mudó o dejó de hacer sitios. Y con ella se fueron las claves, el acceso al dominio y el conocimiento de cómo estaba armado todo.\n\nNo es motivo para tirar todo y empezar de nuevo. Lo primero es ordenar:\n\n🔑 A nombre de quién está el dominio y cómo recuperar el acceso.\n🗄️ Dónde está alojado el sitio y quién paga ese servicio.\n🧩 Cómo está construido, y si conviene mantenerlo o rehacerlo.\n\nCon eso claro, el sitio vuelve a tener quien lo cuide.\n\nraudaldev.com\n\n#paginasweb #mantenimientoweb #pymes #emprendedores #vicentelopez"
+}
