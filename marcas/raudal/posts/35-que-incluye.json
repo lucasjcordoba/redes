@@ -1,0 +1,43 @@
+{
+  "id": "35-que-incluye",
+  "fecha": "2026-10-25",
+  "hora": "19:00",
+  "pilar": "servicio",
+  "diapositivas": [
+    {
+      "plantilla": "declaracion",
+      "visual": {
+        "eyebrow": "/ LANDING · USD 250",
+        "titulo": ["Qué incluye", "una landing", "de USD 250"],
+        "destacar": 2,
+        "bajada": "Todo, por escrito antes de empezar.  →"
+      }
+    },
+    {
+      "plantilla": "pasos",
+      "visual": {
+        "eyebrow": "/ LANDING · USD 250",
+        "titulo": "Qué incluye",
+        "pasos": [
+          { "titulo": "Hasta 6 secciones", "texto": "En una página, para celular y computadora." },
+          { "titulo": "WhatsApp y formulario", "texto": "Las consultas llegan al celular o al mail." },
+          { "titulo": "Dominio y publicación", "texto": "Incluidos el primer año, a nombre del cliente." },
+          { "titulo": "Una ronda de cambios", "texto": "Para ajustar lo que haga falta antes de publicar." },
+          { "titulo": "Plazo cerrado", "texto": "7 días hábiles desde que llega el material." }
+        ],
+        "bajada": "Precio cerrado: USD 250."
+      }
+    },
+    {
+      "plantilla": "comparacion",
+      "visual": {
+        "eyebrow": "/ LANDING · USD 250",
+        "titulo": ["Quién pone", "cada cosa"],
+        "izquierda": { "titulo": "Raudal Dev", "items": ["Diseño y desarrollo.", "Dominio y publicación el primer año.", "Boceto sin cargo en 48 horas."] },
+        "derecha": { "titulo": "El cliente", "items": ["Textos e imágenes del negocio.", "Aprobación del boceto.", "Renovación del dominio desde el segundo año."] },
+        "bajada": "Sin sorpresas en el medio."
+      }
+    }
+  ],
+  "caption": "Una landing de USD 250 no es una plantilla con el nombre cambiado. Es una página hecha para el negocio, con todo detallado antes de empezar.\n\n📄 Hasta 6 secciones en una sola página, adaptada a celular y computadora\n💬 Botón de WhatsApp y formulario que llega por mail\n🌐 Dominio y publicación incluidos el primer año, registrados a nombre del cliente\n✏️ Una ronda de cambios antes de publicar\n📅 7 días hábiles desde que llega el material\n\nEl cliente aporta los textos e imágenes del negocio, que se adaptan a partir de lo que pase. Desde el segundo año, la renovación del dominio queda a su cargo.\n\nBoceto de la portada sin cargo en 48 horas: raudaldev.com/landing\n\n#landingpage #paginasweb #emprendedores #pymes #vicentelopez"
+}
