@@ -37,7 +37,7 @@ export const marca = {
     prueba: "Un trabajo entregado, con captura real. Sólo con material real: no se inventan casos.",
   },
 
-  // Oferta vigente (confirmada por el dueño el 15/10/2026). Es lo único que
+  // Oferta vigente (confirmada por el dueño el 15/10/2026; sin cupos). Es lo único que
   // se puede afirmar sobre precios y plazos; la misma oferta está en
   // raudaldev.com/landing (raudal-dev/src/lib/site.ts → oferta).
   oferta: {
@@ -46,7 +46,6 @@ export const marca = {
     plazo: "7 días hábiles desde que llega el material",
     boceto: "Boceto de la portada sin cargo y sin compromiso, en 48 horas",
     pago: "50 % al aprobar el diseño y 50 % al publicar",
-    cupos: "4 por mes",
     incluye: [
       "Una página con hasta 6 secciones, adaptada a celular y computadora",
       "Botón de WhatsApp y formulario que llega por mail",
