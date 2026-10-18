@@ -1,0 +1,47 @@
+{
+  "id": "16-copias",
+  "fecha": "2026-10-16",
+  "hora": "19:00",
+  "pilar": "tip",
+  "diapositivas": [
+    {
+      "plantilla": "declaracion",
+      "visual": {
+        "etiqueta": "Tip",
+        "titulo": [
+          "¿Dónde están",
+          "tus fotos?"
+        ],
+        "destacar": 1,
+        "bajada": "Si la compu fallara hoy, ¿las tenés en otro lado? Deslizá →"
+      }
+    },
+    {
+      "plantilla": "lista",
+      "visual": {
+        "etiqueta": "Copias",
+        "titulo": [
+          "Para no",
+          "perderlas"
+        ],
+        "items": [
+          "Un disco externo o un pendrive, actualizado cada tanto.",
+          "La nube: Google Drive, OneDrive o iCloud, la que ya uses.",
+          "Lo más importante, en los dos lugares.",
+          "Una vez por mes, fijate que la copia abra bien."
+        ]
+      }
+    },
+    {
+      "plantilla": "cierre",
+      "visual": {
+        "titulo": [
+          "Mejor copiar",
+          "que lamentar."
+        ],
+        "bajada": "Cualquier duda, escribinos."
+      }
+    }
+  ],
+  "caption": "Una pregunta incómoda: si tu compu dejara de prender hoy, ¿dónde estarían tus fotos, tus documentos, tus trabajos?\n\nMuchas veces los archivos se pueden rescatar. Pero no siempre, y nunca conviene depender de eso. Una copia de seguridad es lo más simple que podés hacer por tus cosas:\n\n1️⃣ Un disco externo o un pendrive, actualizado cada tanto.\n2️⃣ La nube: Google Drive, OneDrive o iCloud, la que ya uses.\n3️⃣ Lo más importante, en los dos lugares.\n4️⃣ Una vez por mes, fijate que la copia abra bien. Una copia que no abre no es copia.\n\nNo hace falta saber de computadoras: con que lo hagas de vez en cuando, ya estás mucho mejor cubierto.\n\n💬 Escribinos por WhatsApp: 11 2655-3546\n📍 Zona Norte (Vicente López y La Lucila) · a domicilio · remoto a todo el país\n\n#serviciotecnico #backup #tips #vicentelopez #zonanorte"
+}
