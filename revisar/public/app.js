@@ -45,6 +45,24 @@ function toast(texto) {
   setTimeout(() => t.remove(), 3200);
 }
 
+/**
+ * Pantalla de espera: bloquea toda la app (no se puede tocar nada) mientras
+ * una acción se procesa. Devuelve { texto(t), cerrar() }.
+ */
+function bloquear(texto) {
+  const capa = document.createElement("div");
+  capa.className = "bloqueo";
+  capa.setAttribute("role", "alertdialog");
+  capa.setAttribute("aria-busy", "true");
+  capa.innerHTML = `<div class="bloqueo-caja"><span class="spinner" aria-hidden="true"></span><p></p></div>`;
+  const $t = capa.querySelector("p");
+  $t.textContent = texto;
+  document.body.append(capa);
+  return { texto: (t) => ($t.textContent = t), cerrar: () => capa.remove() };
+}
+
+const esperar = (ms) => new Promise((r) => setTimeout(r, ms));
+
 const marca = (k) => app.datos.marcas[k];
 const chip = (estado) => `<span class="chip ${estado}">${ESTADO[estado]}</span>`;
 const chipEditada = (p) => (p.ediciones.length ? `<span class="chip editada">Editada ×${p.ediciones.length}</span>` : "");
@@ -89,8 +107,8 @@ async function accion(p, tipo, $msg) {
     cancelar: `¿Cancelar "${p.titulo}"? No se va a publicar.`,
   };
   if (!confirm(preguntas[tipo])) return;
-  $msg.className = "mensaje";
-  $msg.textContent = "Un momento…";
+  $msg.textContent = "";
+  const espera = bloquear(tipo === "aprobar" ? "Aprobando la publicación…" : "Cancelando la publicación…");
   try {
     const res = await fetch("/api/accion", {
       method: "POST",
@@ -98,10 +116,24 @@ async function accion(p, tipo, $msg) {
       body: JSON.stringify({ pr: p.pr, sha: p.sha, accion: tipo }),
     });
     const r = await res.json();
-    $msg.className = `mensaje ${r.ok ? "ok" : "error"}`;
-    $msg.textContent = r.mensaje;
-    if (r.ok) setTimeout(() => cargar({ fresco: true }), 800);
+    if (!r.ok) {
+      espera.cerrar();
+      $msg.className = "mensaje error";
+      $msg.textContent = r.mensaje;
+      return;
+    }
+    // La pantalla sigue bloqueada hasta que la publicación figura con su
+    // estado nuevo: GitHub puede tardar unos segundos en reflejar el merge.
+    espera.texto("Actualizando…");
+    for (let i = 0; i < 6; i++) {
+      await cargar({ fresco: true });
+      if (app.datos?.posts.find((x) => x.pr === p.pr)?.estado !== "pendiente") break;
+      await esperar(1500);
+    }
+    espera.cerrar();
+    toast(r.mensaje);
   } catch {
+    espera.cerrar();
     $msg.className = "mensaje error";
     $msg.textContent = "No hubo conexión. Probá de nuevo.";
   }
