@@ -1,0 +1,48 @@
+{
+  "id": "24-vender-regalar",
+  "fecha": "2026-10-24",
+  "hora": "19:00",
+  "pilar": "tip",
+  "diapositivas": [
+    {
+      "plantilla": "declaracion",
+      "visual": {
+        "etiqueta": "Tip",
+        "titulo": [
+          "¿Vas a vender",
+          "o regalar",
+          "la compu?"
+        ],
+        "destacar": 2,
+        "bajada": "Antes, cuatro cosas. Deslizá →"
+      }
+    },
+    {
+      "plantilla": "lista",
+      "visual": {
+        "etiqueta": "Checklist",
+        "titulo": [
+          "Antes de",
+          "entregarla"
+        ],
+        "items": [
+          "Hacé una copia de tus archivos en otro lado.",
+          "Cerrá sesión en el mail, el navegador y las redes.",
+          "Desvinculá tus cuentas: Microsoft, Apple o Google.",
+          "Restablecé el equipo de fábrica, así arranca limpio."
+        ]
+      }
+    },
+    {
+      "plantilla": "cierre",
+      "visual": {
+        "titulo": [
+          "Tus cosas,",
+          "con vos."
+        ],
+        "bajada": "Si tenés dudas, escribinos."
+      }
+    }
+  ],
+  "caption": "Cambiaste de compu y la vieja va a pasar a otra persona: un familiar, alguien que la compra, una donación. Antes de entregarla, conviene que no se lleve nada tuyo adentro.\n\n1️⃣ Hacé una copia de tus archivos en un disco externo o en la nube.\n2️⃣ Cerrá sesión en el mail, el navegador y las redes sociales.\n3️⃣ Desvinculá el equipo de tus cuentas de Microsoft, Apple o Google.\n4️⃣ Restablecé la compu de fábrica, así arranca limpia para la próxima persona.\n\nSon veinte minutos que te ahorran más de un dolor de cabeza. Y si algo de esto no te sale, escribinos.\n\n💬 Escribinos por WhatsApp: 11 2655-3546\n📍 Zona Norte (Vicente López y La Lucila) · a domicilio · remoto a todo el país\n\n#notebook #tips #seguridad #vicentelopez #zonanorte"
+}
