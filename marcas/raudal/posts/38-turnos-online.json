@@ -1,0 +1,24 @@
+{
+  "id": "38-turnos-online",
+  "fecha": "2026-10-26",
+  "hora": "19:00",
+  "pilar": "servicio",
+  "plantilla": "chat",
+  "visual": {
+    "eyebrow": "/ LA AGENDA",
+    "mensajes": [
+      "¿Tenés turno el jueves?",
+      "¿Y a la tarde?",
+      "¿Me pasás los horarios?",
+      "Mejor el viernes, ¿puede ser?"
+    ],
+    "titulo": [
+      "Turnos que",
+      "se sacan",
+      "solos"
+    ],
+    "destacar": 2,
+    "bajada": "Con la agenda a la vista, cada uno elige el suyo."
+  },
+  "caption": "\"¿Tenés turno el jueves?\" \"¿Y a la tarde?\" \"¿Me pasás los horarios?\"\n\nCualquier negocio que trabaja con turnos conoce esa conversación. Se repite con cada cliente, interrumpe el trabajo y a veces termina en dos personas anotadas a la misma hora.\n\nUn sistema de turnos online lo ordena:\n\n📅 La agenda muestra solo los horarios libres.\n✅ Cada cliente elige y confirma el suyo, a cualquier hora.\n🔔 Llega un aviso antes del turno, para que no se olvide.\n\nEl negocio deja de coordinar por mensaje y vuelve a usar ese tiempo en atender.\n\nraudaldev.com\n\n#turnos #sistemasdegestion #emprendedores #pymes #zonanorte"
+}
