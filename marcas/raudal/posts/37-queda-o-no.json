@@ -1,0 +1,19 @@
+{
+  "id": "37-queda-o-no",
+  "fecha": "2026-10-24",
+  "hora": "19:00",
+  "pilar": "dolor",
+  "plantilla": "frase",
+  "visual": {
+    "eyebrow": "/ EL STOCK A OJO",
+    "frase": [
+      "Fijate",
+      "si queda",
+      "en el",
+      "depósito."
+    ],
+    "destacar": 3,
+    "bajada": "Y alguien tiene que ir a mirar."
+  },
+  "caption": "\"Fijate si queda en el depósito.\"\n\nEl cliente espera del otro lado del mostrador, o del otro lado del chat. Alguien va, cuenta, vuelve. A veces había. A veces se vendió la última ayer y nadie lo anotó.\n\nCuando el stock se lleva de memoria o en una planilla que se actualiza \"cuando se puede\", cada consulta cuesta una caminata, y cada error cuesta una venta o un cliente enojado.\n\nUn sistema de gestión cambia eso: cada venta descuenta del stock en el momento, y cualquiera del equipo ve cuánto queda desde la compu o el celular, sin ir a mirar.\n\nraudaldev.com\n\n#sistemasdegestion #stock #comercios #pymes #vicentelopez"
+}
