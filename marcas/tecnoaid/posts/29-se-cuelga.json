@@ -1,0 +1,25 @@
+{
+  "id": "29-se-cuelga",
+  "fecha": "2026-10-29",
+  "hora": "19:00",
+  "pilar": "tip",
+  "plantilla": "sino",
+  "visual": {
+    "etiqueta": "Tip",
+    "titulo": [
+      "Cuando la",
+      "compu se cuelga"
+    ],
+    "si": [
+      "Esperá unos minutos: a veces se destraba sola.",
+      "Si responde, guardá lo que estabas haciendo.",
+      "Reiniciá desde el menú, no del botón."
+    ],
+    "no": [
+      "Apagarla de golpe una y otra vez.",
+      "Desenchufarla mientras se actualiza.",
+      "Golpearla o sacudirla."
+    ]
+  },
+  "caption": "La pantalla se congela, el mouse no responde y el reloj no avanza. Antes de apretar el botón de apagado, ojo:\n\n✅ Sí\n• Esperá unos minutos: muchas veces se destraba sola.\n• Si vuelve a responder, guardá lo que estabas haciendo.\n• Reiniciá desde el menú, no manteniendo el botón.\n\n❌ No\n• Apagarla de golpe una y otra vez.\n• Desenchufarla mientras dice que se está actualizando.\n• Golpearla o sacudirla.\n\nSi se cuelga seguido, no es normal y conviene revisarla. El diagnóstico es sin cargo.\n\n💬 Escribinos por WhatsApp: 11 2655-3546\n📍 Zona Norte (Vicente López y La Lucila) · a domicilio · remoto a todo el país\n\n#notebook #tips #pc #vicentelopez #zonanorte"
+}
