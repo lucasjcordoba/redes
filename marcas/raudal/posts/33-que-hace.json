@@ -1,0 +1,27 @@
+{
+  "id": "33-que-hace",
+  "fecha": "2026-10-22",
+  "hora": "19:00",
+  "pilar": "presentacion",
+  "plantilla": "pasos",
+  "visual": {
+    "eyebrow": "/ QUÉ HACE RAUDAL DEV",
+    "titulo": "Tres cosas",
+    "bajada": "A medida, para pymes y emprendedores.",
+    "pasos": [
+      {
+        "titulo": "Sitios web",
+        "texto": "Para que el negocio se encuentre y se elija."
+      },
+      {
+        "titulo": "Sistemas de gestión",
+        "texto": "Stock, clientes y pedidos en un solo lugar."
+      },
+      {
+        "titulo": "Aplicaciones móviles",
+        "texto": "Para clientes que vuelven seguido."
+      }
+    ]
+  },
+  "caption": "Para quien llegó hace poco: Raudal Dev desarrolla tres tipos de cosas, siempre a medida.\n\n🌐 Sitios web. Para que un negocio aparezca cuando lo buscan y quien llega encuentre lo que necesita: qué hace, cuánto cuesta, cómo contactarlo.\n\n🗂️ Sistemas de gestión. Para lo que pasa adentro: stock, clientes, pedidos y turnos en un solo lugar, en vez de planillas y chats sueltos.\n\n📲 Aplicaciones móviles. Para negocios con clientes que vuelven seguido y necesitan pedir o reservar con un toque.\n\nRaudal Dev está en Zona Norte (Vicente López) y trabaja con pymes y emprendedores. Presupuesto cerrado, primera reunión sin costo y trato directo con quien desarrolla.\n\nraudaldev.com\n\n#desarrolloweb #sistemasdegestion #appmovil #pymes #vicentelopez"
+}
