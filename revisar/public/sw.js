@@ -5,7 +5,7 @@
  * Los datos (/api/*) nunca se cachean: una publicación aprobada tiene que
  * verse aprobada, no como estaba la última vez.
  */
-const VERSION = "redes-v1";
+const VERSION = "redes-v2";
 const CASCARA = ["/", "/app.css", "/app.js", "/manifest.webmanifest", "/icono-192.png", "/avatar-raudal.jpg", "/avatar-tecnoaid.jpg"];
 
 self.addEventListener("install", (e) => {
