@@ -1,0 +1,18 @@
+{
+  "id": "23-pantalla-parpadea",
+  "fecha": "2026-10-23",
+  "hora": "19:00",
+  "pilar": "sintoma",
+  "plantilla": "declaracion",
+  "visual": {
+    "etiqueta": "Síntoma",
+    "titulo": [
+      "¿La pantalla",
+      "parpadea o",
+      "se ve oscura?"
+    ],
+    "destacar": 2,
+    "bajada": "No siempre es la pantalla. Muchas veces es una conexión, y tiene arreglo."
+  },
+  "caption": "La imagen titila, aparecen líneas cuando movés la tapa, o la pantalla se ve tan oscura que casi no se distingue nada aunque el brillo esté al máximo.\n\nAntes de pensar en cambiarla entera, hay cosas que podés probar:\n\n1️⃣ Conectá la notebook a un monitor o a la tele. Si ahí se ve bien, el problema está en la pantalla o en su conexión, no en el resto del equipo.\n2️⃣ Mové la tapa despacio y mirá si la falla cambia. Si cambia, suele ser el cable que une la pantalla con la base.\n3️⃣ Revisá que el brillo no esté en automático o en ahorro de energía.\n\nSea lo que sea, el diagnóstico es sin cargo y te pasamos el presupuesto antes de tocar nada.\n\n💬 Escribinos por WhatsApp: 11 2655-3546\n📍 Zona Norte (Vicente López y La Lucila) · a domicilio · remoto a todo el país\n\n#serviciotecnico #notebook #pantalla #vicentelopez #zonanorte"
+}
