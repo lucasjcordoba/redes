@@ -1,0 +1,21 @@
+{
+  "id": "25-pc-no-arranca",
+  "fecha": "2026-10-25",
+  "hora": "19:00",
+  "pilar": "sintoma",
+  "plantilla": "lista",
+  "visual": {
+    "etiqueta": "Síntoma",
+    "titulo": [
+      "¿La PC de",
+      "escritorio no prende?"
+    ],
+    "items": [
+      "Fijate que la zapatilla esté encendida y el cable bien firme.",
+      "Revisá que el monitor esté prendido y en la entrada correcta.",
+      "Mirá si se prende alguna luz o se escucha algún ventilador.",
+      "Si nada de eso, no la abras: traela o te vamos a ver."
+    ]
+  },
+  "caption": "Apretás el botón y no pasa nada. O se escuchan los ventiladores pero el monitor sigue en negro. Antes de asustarte, hay cosas fáciles de revisar:\n\n1️⃣ La zapatilla: que esté encendida y que el cable de la PC esté bien firme de los dos lados.\n2️⃣ El monitor: que esté prendido y en la entrada correcta (HDMI, DisplayPort o VGA).\n3️⃣ Las señales: si se prende alguna luz o se escucha algún ventilador, ya sabemos que algo de energía llega.\n\nSi con eso no arranca, no hace falta abrirla. Traela al taller o coordinamos para verla a domicilio en Zona Norte. El diagnóstico es sin cargo.\n\n💬 Escribinos por WhatsApp: 11 2655-3546\n📍 Zona Norte (Vicente López y La Lucila) · a domicilio · remoto a todo el país\n\n#serviciotecnico #pc #computadora #vicentelopez #zonanorte"
+}
