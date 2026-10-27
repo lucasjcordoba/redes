@@ -1,0 +1,18 @@
+{
+  "id": "41-catalogo-pedido",
+  "fecha": "2026-10-30",
+  "hora": "19:00",
+  "pilar": "servicio",
+  "plantilla": "declaracion",
+  "visual": {
+    "eyebrow": "/ CATÁLOGO ONLINE",
+    "titulo": [
+      "El pedido",
+      "llega",
+      "armado"
+    ],
+    "destacar": 2,
+    "bajada": "El cliente elige y el pedido llega por WhatsApp."
+  },
+  "caption": "Para muchos negocios, vender por WhatsApp funciona. Lo que cansa es armar cada pedido a mano: mandar fotos, pasar precios, preguntar talles, sumar.\n\nUn catálogo online lo ordena sin cambiar la forma de vender:\n\n🛍️ El cliente ve los productos con foto, precio y variantes.\n🧾 Elige lo que quiere y arma su pedido.\n💬 El pedido llega por WhatsApp, completo y listo para confirmar.\n\nEl negocio sigue atendiendo por el mismo canal, pero cada conversación empieza con el pedido ya hecho.\n\nraudaldev.com\n\n#catalogo #ventasonline #emprendedores #pymes #zonanorte"
+}
