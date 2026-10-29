@@ -1,0 +1,31 @@
+{
+  "id": "36-boceto-sin-cargo",
+  "fecha": "2026-10-27",
+  "hora": "19:00",
+  "pilar": "proceso",
+  "plantilla": "pasos",
+  "visual": {
+    "eyebrow": "/ BOCETO SIN CARGO",
+    "titulo": "Antes de decidir",
+    "pasos": [
+      {
+        "titulo": "Pedido del boceto",
+        "texto": "Nombre del negocio, rubro y qué mostrar."
+      },
+      {
+        "titulo": "Boceto en 48 horas",
+        "texto": "La portada diseñada, sin cargo."
+      },
+      {
+        "titulo": "Aprobación y 50 %",
+        "texto": "Con el diseño aprobado empieza el desarrollo."
+      },
+      {
+        "titulo": "Publicación en 7 días",
+        "texto": "La página en línea. El otro 50 %, al publicar."
+      }
+    ],
+    "bajada": "Boceto sin cargo en raudaldev.com/landing"
+  },
+  "caption": "Contratar una página sin saber cómo va a quedar es lo que más frena a un negocio. Por eso, antes de decidir, está el boceto.\n\n1️⃣ Se pide el boceto con el nombre del negocio, el rubro y qué tiene que mostrar la página.\n2️⃣ En 48 horas llega la portada diseñada, sin cargo y sin compromiso.\n3️⃣ Con el diseño aprobado se abona el 50 % y empieza el desarrollo.\n4️⃣ En 7 días hábiles la página queda publicada con su dominio. El 50 % restante, al publicar.\n\nLanding page completa: USD 250, dominio incluido el primer año.\n\nEl boceto se pide en raudaldev.com/landing\n\n#landingpage #paginasweb #emprendedores #pymes #zonanorte"
+}
