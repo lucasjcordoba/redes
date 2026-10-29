@@ -1,0 +1,27 @@
+{
+  "id": "39-antes-del-presupuesto",
+  "fecha": "2026-10-28",
+  "hora": "19:00",
+  "pilar": "claridad",
+  "plantilla": "pasos",
+  "visual": {
+    "eyebrow": "/ ANTES DE PEDIR PRESUPUESTO",
+    "titulo": "Tres respuestas",
+    "bajada": "No hace falta saber de tecnología para darlas.",
+    "pasos": [
+      {
+        "titulo": "¿Para qué es?",
+        "texto": "Vender, recibir consultas, mostrar trabajos."
+      },
+      {
+        "titulo": "¿Qué tiene que mostrar?",
+        "texto": "Servicios, catálogo, precios, ubicación."
+      },
+      {
+        "titulo": "¿Qué sitios le gustan?",
+        "texto": "Dos o tres de referencia, de cualquier rubro."
+      }
+    ]
+  },
+  "caption": "Un presupuesto claro empieza por un pedido claro. Y para eso no hace falta saber de tecnología: alcanza con responder tres preguntas.\n\n1️⃣ ¿Para qué es? Vender en línea, recibir consultas, mostrar trabajos hechos, dar turnos. El objetivo cambia todo lo demás.\n\n2️⃣ ¿Qué tiene que mostrar? Servicios, catálogo, precios, ubicación, preguntas frecuentes. Una lista simple alcanza.\n\n3️⃣ ¿Qué sitios le gustan? Dos o tres de referencia, aunque sean de otro rubro. Ayudan más que cualquier descripción.\n\nCon esas respuestas, el presupuesto puede ser cerrado y por escrito, sin \"depende\" en el medio.\n\nraudaldev.com\n\n#presupuesto #paginasweb #emprendedores #pymes #vicentelopez"
+}
