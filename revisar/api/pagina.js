@@ -153,6 +153,12 @@ body {
   font: 14px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 main { max-width: 470px; margin: 0 auto; padding: 16px 0 40px; }
+.bloqueo { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; background: rgb(0 0 0 / .45); backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px); }
+.bloqueo-caja { display: flex; flex-direction: column; align-items: center; gap: 14px; background: var(--tarjeta); color: var(--texto); border-radius: 16px; padding: 24px 28px; min-width: 220px; box-shadow: 0 10px 40px rgb(0 0 0 / .25); }
+.bloqueo-caja p { margin: 0; font-size: 15px; font-weight: 600; }
+.spinner { width: 36px; height: 36px; border-radius: 50%; border: 3px solid var(--borde); border-top-color: var(--azul); animation: girar .8s linear infinite; }
+@keyframes girar { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .spinner { animation-duration: 2.4s; } }
 .volver { display: inline-block; margin: 0 16px 8px; color: var(--azul); text-decoration: none; font-weight: 600; }
 .programado { margin: 0 16px 12px; color: var(--tenue); font-size: 13px; }
 .chip { display: inline-block; padding: 2px 8px; border-radius: 999px; font-weight: 600; font-size: 12px; margin-right: 4px; }
@@ -243,8 +249,15 @@ const cliente = `
     if (PREGUNTAS[accion] && !confirm(PREGUNTAS[accion])) return;
 
     botones.forEach((b) => (b.disabled = true));
-    mensaje.className = "mensaje";
-    mensaje.textContent = "Un momento…";
+    mensaje.textContent = "";
+    // Pantalla de espera que bloquea todo hasta que llega la respuesta.
+    const capa = document.createElement("div");
+    capa.className = "bloqueo";
+    capa.setAttribute("role", "alertdialog");
+    capa.setAttribute("aria-busy", "true");
+    capa.innerHTML = '<div class="bloqueo-caja"><span class="spinner" aria-hidden="true"></span><p></p></div>';
+    capa.querySelector("p").textContent = accion === "aprobar" ? "Aprobando la publicación…" : "Cancelando la publicación…";
+    document.body.append(capa);
     try {
       const res = await fetch("/api/accion", {
         method: "POST",
@@ -256,7 +269,9 @@ const cliente = `
       mensaje.className = "mensaje " + (r.ok ? "ok" : "error");
       if (r.ok) seccion.querySelector(".botones").remove();
       else botones.forEach((b) => (b.disabled = false));
+      capa.remove();
     } catch {
+      capa.remove();
       mensaje.textContent = "No hubo conexión. Probá de nuevo.";
       mensaje.className = "mensaje error";
       botones.forEach((b) => (b.disabled = false));
