@@ -1,0 +1,48 @@
+{
+  "id": "30-disco-avisa",
+  "fecha": "2026-10-30",
+  "hora": "19:00",
+  "pilar": "sintoma",
+  "diapositivas": [
+    {
+      "plantilla": "declaracion",
+      "visual": {
+        "etiqueta": "Síntoma",
+        "titulo": [
+          "Cuando el",
+          "disco avisa",
+          "que se va"
+        ],
+        "destacar": 2,
+        "bajada": "Casi siempre da señales antes de fallar. Deslizá →"
+      }
+    },
+    {
+      "plantilla": "lista",
+      "visual": {
+        "etiqueta": "Señales",
+        "titulo": [
+          "Prestá",
+          "atención si..."
+        ],
+        "items": [
+          "Se escucha un clic o un zumbido que antes no estaba.",
+          "De un día para otro, todo tarda mucho más.",
+          "Hay archivos que no abren o carpetas que desaparecen.",
+          "Aparecen avisos de error al arrancar."
+        ]
+      }
+    },
+    {
+      "plantilla": "cierre",
+      "visual": {
+        "titulo": [
+          "Primero,",
+          "la copia."
+        ],
+        "bajada": "Después, lo revisamos sin cargo."
+      }
+    }
+  ],
+  "caption": "Un disco que empieza a fallar casi nunca se apaga de golpe: avisa. El problema es que los avisos parecen cosas menores.\n\nSeñales para tener en cuenta:\n\n1️⃣ Un clic o un zumbido que antes no estaba.\n2️⃣ De un día para otro, todo tarda mucho más en abrir.\n3️⃣ Archivos que no abren o carpetas que desaparecen.\n4️⃣ Mensajes de error al arrancar la compu.\n\nSi te pasa algo de esto, lo primero es hacer una copia de tus archivos importantes, ya mismo. Después, traela: el diagnóstico es sin cargo, y si hace falta cambiar el disco, migramos tus cosas al nuevo.\n\n💬 Escribinos por WhatsApp: 11 2655-3546\n📍 Zona Norte (Vicente López y La Lucila) · a domicilio · remoto a todo el país\n\n#serviciotecnico #disco #notebook #vicentelopez #zonanorte"
+}
