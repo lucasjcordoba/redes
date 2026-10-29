@@ -1,0 +1,21 @@
+{
+  "id": "28-que-hacemos",
+  "fecha": "2026-10-28",
+  "hora": "19:00",
+  "pilar": "presentacion",
+  "plantilla": "lista",
+  "visual": {
+    "etiqueta": "Hola",
+    "titulo": [
+      "Qué hacemos",
+      "en TecnoAid"
+    ],
+    "items": [
+      "Reparamos notebooks y PCs: pantallas, teclados, baterías y más.",
+      "Limpieza y mejoras: SSD, memoria y migración de archivos.",
+      "Equipos reacondicionados, armados para lo que hacés.",
+      "Soporte para escuelas y pequeños negocios."
+    ]
+  },
+  "caption": "Para quien llegó hace poco: esto es TecnoAid.\n\n🔧 Reparamos notebooks y PCs: pantallas, teclados, baterías, limpieza.\n⚡ Mejoras que le dan otra vida al equipo: disco SSD, más memoria y migración de tus archivos.\n💻 Equipos reacondicionados, elegidos para lo que necesitás.\n🏫 Soporte para escuelas y pequeños negocios.\n\nTe atendemos en el taller, a domicilio en Zona Norte o en remoto a todo el país. Diagnóstico sin cargo, presupuesto antes de tocar nada y repuestos con garantía.\n\n💬 Escribinos por WhatsApp: 11 2655-3546\n📍 Zona Norte (Vicente López y La Lucila) · a domicilio · remoto a todo el país\n\n#serviciotecnico #notebook #pc #vicentelopez #zonanorte"
+}
