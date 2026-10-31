@@ -7,15 +7,20 @@
  *   GITHUB_TOKEN     token fine-grained con Contents, Pull requests e Issues
  *                    en lectura y escritura sobre el repo
  *   REVISION_CLAVE   clave con la que se firma la cookie de sesión
- *   REVISION_PASSWORD la contraseña para entrar, que elige el dueño
+ *   REVISION_PASSWORD la contraseña del dueño: ve y aprueba todas las marcas
+ *   REVISION_PASSWORD_<MARCA>  opcional, la de un moderador de esa marca
+ *                    (ej. REVISION_PASSWORD_TECNOAID): ve, aprueba, cancela y
+ *                    pide cambios sólo en los posts de esa marca
  *
  * Los links que llegan por mail no llevan ningún secreto: /p/<nº de PR>. Lo que
  * protege las acciones es la sesión, que se abre una vez con la contraseña y
- * dura un año en ese navegador.
+ * dura un año en ese navegador. La sesión lleva su alcance ("todo" o una
+ * marca) y cada endpoint filtra por él: un moderador no ve ni toca las otras.
  */
 import { createHmac, timingSafeEqual } from "node:crypto";
 
 export const REPO = "lucasjcordoba/redes";
+const DUENO = REPO.split("/")[0];
 
 export const MARCAS = {
   // `hora`: la de su calendario (marcas/<marca>/marca.mjs), para las ideas nuevas.
@@ -41,32 +46,63 @@ const iguales = (a, b) => {
   return x.length === y.length && timingSafeEqual(x, y);
 };
 
+/** La contraseña de cada alcance: "todo" es el dueño, si no, una marca. */
+function passwordDe(alcance) {
+  const p = alcance === "todo" ? process.env.REVISION_PASSWORD : process.env[`REVISION_PASSWORD_${alcance.toUpperCase()}`];
+  return p && p.length >= 8 ? p : null;
+}
+
 /**
- * El valor de la cookie depende de la contraseña: si se cambia
- * REVISION_PASSWORD, todas las sesiones abiertas dejan de valer.
+ * El valor de la cookie depende de la contraseña: si se cambia la de un
+ * alcance, sus sesiones abiertas dejan de valer (las demás siguen). La del
+ * dueño no lleva prefijo, como antes de que hubiera moderadores.
  */
-function tokenSesion() {
-  return createHmac("sha256", process.env.REVISION_CLAVE)
-    .update(`sesion:${process.env.REVISION_PASSWORD}`)
-    .digest("hex");
+function tokenSesion(alcance) {
+  const base = alcance === "todo" ? `sesion:${passwordDe("todo")}` : `sesion:${alcance}:${passwordDe(alcance)}`;
+  return createHmac("sha256", process.env.REVISION_CLAVE).update(base).digest("hex");
 }
 
-export function passwordCorrecta(intento) {
-  const real = process.env.REVISION_PASSWORD;
-  return Boolean(real && process.env.REVISION_CLAVE && typeof intento === "string" && iguales(intento, real));
+/** A qué alcance corresponde la contraseña ingresada: "todo", una marca o null. */
+export function alcanceDe(intento) {
+  if (!process.env.REVISION_CLAVE || typeof intento !== "string") return null;
+  return ["todo", ...Object.keys(MARCAS)].find((a) => passwordDe(a) && iguales(intento, passwordDe(a))) ?? null;
 }
 
-export function cookieSesion() {
-  return `${COOKIE}=${tokenSesion()}; Path=/; Max-Age=${DURACION_SESION}; HttpOnly; Secure; SameSite=Lax`;
+export function cookieSesion(alcance) {
+  const valor = alcance === "todo" ? tokenSesion("todo") : `${alcance}.${tokenSesion(alcance)}`;
+  return `${COOKIE}=${valor}; Path=/; Max-Age=${DURACION_SESION}; HttpOnly; Secure; SameSite=Lax`;
 }
 
-export function sesionValida(req) {
-  if (!process.env.REVISION_CLAVE || !process.env.REVISION_PASSWORD) return false;
+/** La sesión del pedido: { alcance } o null si no hay una válida. */
+export function sesion(req) {
+  if (!process.env.REVISION_CLAVE) return null;
   const valor = (req.headers.cookie ?? "")
     .split(";")
     .map((c) => c.trim().split("="))
     .find(([k]) => k === COOKIE)?.[1];
-  return Boolean(valor) && iguales(valor, tokenSesion());
+  if (!valor) return null;
+  const [alcance, token] = valor.includes(".") ? valor.split(".") : ["todo", valor];
+  if (alcance !== "todo" && !MARCAS[alcance]) return null;
+  if (!passwordDe(alcance) || !iguales(token, tokenSesion(alcance))) return null;
+  return { alcance };
+}
+
+/** Si la sesión puede ver y actuar sobre los posts de una marca. */
+export const puedeVer = (s, marca) => s.alcance === "todo" || s.alcance === marca;
+
+/**
+ * El último pedido de cambios de un PR que todavía no se aplicó (es posterior
+ * al último commit), o null. Sólo cuentan los comentarios de la app, que
+ * comenta con el token del dueño del repo: el repo es público y cualquiera
+ * podría escribir un comentario con la marca.
+ *   → { fecha, texto, de }
+ */
+export function pedidoPendiente(comentarios, fechaCommit) {
+  const ultimo = comentarios.filter((c) => c.body?.includes(MARCA_CAMBIOS) && c.user?.login === DUENO).at(-1);
+  if (!ultimo || new Date(ultimo.created_at) <= new Date(fechaCommit)) return null;
+  const texto = ultimo.body.split("\n").filter((l) => l.startsWith(">")).map((l) => l.replace(/^> ?/, "")).join("\n");
+  const de = ultimo.body.match(/<!-- de: ([a-z]+) -->/)?.[1] ?? "todo";
+  return { fecha: ultimo.created_at, texto, de };
 }
 
 export async function gh(metodo, ruta, cuerpo) {
@@ -88,6 +124,7 @@ export async function gh(metodo, ruta, cuerpo) {
 /**
  * Todo lo que hace falta para mostrar o actuar sobre un PR de post:
  * { pr, estado, marca, id, rama, sha, post, imagenes, cambiosPendientes }
+ * (cambiosPendientes: ver pedidoPendiente)
  *
  * estado: "abierto" | "aprobado" | "descartado". Sólo se aceptan ramas
  * post/<marca>/<id>: cualquier otro PR del repo queda fuera de alcance.
@@ -118,10 +155,7 @@ export async function cargar(pr) {
       gh("GET", `/repos/${REPO}/issues/${pr}/comments?per_page=100`),
       gh("GET", `/repos/${REPO}/commits/${sha}`),
     ]);
-    const ultimo = comentarios.filter((c) => c.body?.includes(MARCA_CAMBIOS)).at(-1);
-    if (ultimo && new Date(ultimo.created_at) > new Date(commit.commit.committer.date)) {
-      cambiosPendientes = ultimo.created_at;
-    }
+    cambiosPendientes = pedidoPendiente(comentarios, commit.commit.committer.date);
   }
 
   return {
