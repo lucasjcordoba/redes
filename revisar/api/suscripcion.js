@@ -3,13 +3,15 @@
  *   GET    /api/suscripcion  → { clavePublica } para suscribirse
  *   POST   /api/suscripcion  { endpoint, keys } → alta
  *   DELETE /api/suscripcion  { endpoint } → baja
- * Requiere sesión.
+ * Requiere sesión. El dispositivo queda con el alcance de la sesión: el de un
+ * moderador sólo recibe avisos de su marca.
  */
-import { sesionValida } from "./_lib.js";
+import { sesion } from "./_lib.js";
 import { agregar, quitar } from "./_push.js";
 
 export default async function handler(req, res) {
-  if (!sesionValida(req)) return res.status(401).json({ ok: false, mensaje: "Sesión vencida" });
+  const s = sesion(req);
+  if (!s) return res.status(401).json({ ok: false, mensaje: "Sesión vencida" });
   if (req.method === "GET") return res.json({ ok: true, clavePublica: process.env.VAPID_PUBLIC });
 
   const { endpoint, keys } = req.body ?? {};
@@ -19,7 +21,7 @@ export default async function handler(req, res) {
   try {
     if (req.method === "POST") {
       if (!keys?.p256dh || !keys?.auth) return res.status(400).json({ ok: false, mensaje: "Suscripción inválida" });
-      await agregar({ endpoint, keys: { p256dh: keys.p256dh, auth: keys.auth } });
+      await agregar({ endpoint, keys: { p256dh: keys.p256dh, auth: keys.auth }, ...(s.alcance === "todo" ? {} : { marca: s.alcance }) });
       return res.json({ ok: true, mensaje: "Avisos activados en este dispositivo." });
     }
     if (req.method === "DELETE") {
