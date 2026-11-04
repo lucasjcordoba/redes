@@ -26,8 +26,8 @@ jobs:
           case "$marca" in raudal) nombre="Raudal Dev";; tecnoaid) nombre="TecnoAid";; *) nombre="$marca";; esac
           if [ "$ACCION" = "synchronize" ]; then titulo="$nombre: versión nueva para revisar"; else titulo="$nombre: nueva publicación para revisar"; fi
           cuerpo=$(echo "$TITULO_PR" | sed -E 's/^\[[^]]*\] //')
-          jq -n --arg t "$titulo" --arg c "$cuerpo" --arg u "/p/$PR" --arg e "pr-$PR" \
-            '{titulo:$t, cuerpo:$c, url:$u, etiqueta:$e}' \
+          jq -n --arg t "$titulo" --arg c "$cuerpo" --arg u "/p/$PR" --arg e "pr-$PR" --arg m "$marca" \
+            '{titulo:$t, cuerpo:$c, url:$u, etiqueta:$e, marca:$m}' \
           | curl -sf -X POST https://redes-revisar.vercel.app/api/avisar \
               -H "Content-Type: application/json" -H "x-avisar-clave: $AVISAR_CLAVE" --data @- \
           || echo "::warning::No se pudo mandar el aviso"

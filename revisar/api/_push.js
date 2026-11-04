@@ -6,6 +6,9 @@
  * en datos/suscripciones.enc. El repo es público: el archivo va cifrado con
  * AES-256-GCM usando REVISION_CLAVE, y sólo esta app puede leerlo.
  *
+ * Cada suscripción del dueño no tiene marca y recibe todo. La de un moderador
+ * lleva `marca` y sólo recibe los avisos de esa marca.
+ *
  * Variables de entorno:
  *   VAPID_PUBLIC, VAPID_PRIVATE   par de claves de Web Push
  *   REVISION_CLAVE                para cifrar el archivo
@@ -55,8 +58,11 @@ async function escribir(suscripciones, sha, mensaje) {
 
 export async function agregar(sub) {
   const { suscripciones, sha } = await leer();
-  if (suscripciones.some((s) => s.endpoint === sub.endpoint)) return;
-  await escribir([...suscripciones, { ...sub, alta: new Date().toISOString() }], sha, "chore: dispositivo nuevo para avisos");
+  const previa = suscripciones.find((s) => s.endpoint === sub.endpoint);
+  // Si el dispositivo ya estaba, se reemplaza: puede haber entrado con otra contraseña.
+  if (previa && previa.marca === sub.marca) return;
+  const otras = suscripciones.filter((s) => s.endpoint !== sub.endpoint);
+  await escribir([...otras, { ...sub, alta: new Date().toISOString() }], sha, "chore: dispositivo nuevo para avisos");
 }
 
 export async function quitar(endpoint) {
@@ -66,17 +72,21 @@ export async function quitar(endpoint) {
 }
 
 /**
- * Manda un aviso a todos los dispositivos. Los que el navegador dio de baja
- * (410/404) se sacan de la lista.
+ * Manda un aviso. Los dispositivos que el navegador dio de baja (410/404) se
+ * sacan de la lista.
  *   aviso: { titulo, cuerpo, url, etiqueta }
+ *   marca: sin marca, sólo al dueño; con marca, al dueño y a los moderadores
+ *          de esa marca
+ *   soloModeradores: con marca, sólo a sus moderadores
  */
-export async function avisar(aviso) {
+export async function avisar(aviso, { marca, soloModeradores = false } = {}) {
   webpush.setVapidDetails("mailto:lucasjcordoba@gmail.com", process.env.VAPID_PUBLIC, process.env.VAPID_PRIVATE);
   const { suscripciones, sha } = await leer();
+  const destino = suscripciones.filter((s) => (s.marca ? s.marca === marca : !soloModeradores));
   const muertas = [];
   let enviados = 0;
 
-  await Promise.all(suscripciones.map(async (s) => {
+  await Promise.all(destino.map(async (s) => {
     try {
       await webpush.sendNotification(s, JSON.stringify(aviso), { TTL: 12 * 3600 });
       enviados++;
@@ -89,5 +99,5 @@ export async function avisar(aviso) {
   if (muertas.length) {
     await escribir(suscripciones.filter((s) => !muertas.includes(s.endpoint)), sha, "chore: bajas de dispositivos que ya no reciben avisos");
   }
-  return { enviados, dispositivos: suscripciones.length };
+  return { enviados, dispositivos: destino.length };
 }

@@ -1,9 +1,11 @@
 /**
- * Redes — app de revisión de publicaciones de Raudal Dev y TecnoAid.
+ * Redes — app de revisión de las publicaciones de Instagram.
  *
  * Cuatro vistas sobre los mismos datos (/api/estado): Hoy, Calendario,
- * Historial y Avisos. Aprobar y cancelar van a /api/accion; los cambios se
- * piden en el chat de la tarea diaria de Claude, que es quien los aplica.
+ * Historial y Avisos. Aprobar y cancelar van a /api/accion. El dueño pide los
+ * cambios en el chat de la tarea diaria de Claude; un moderador (que ve sólo
+ * su marca, el servidor ya filtra los datos) los escribe en la tarjeta y van
+ * a /api/accion como pedido.
  */
 
 const CHAT = "https://claude.ai/code/session_01K781KudNVPpkw47drWk5Zo";
@@ -64,6 +66,8 @@ function bloquear(texto) {
 const esperar = (ms) => new Promise((r) => setTimeout(r, ms));
 
 const marca = (k) => app.datos.marcas[k];
+const colorDe = (k) => MARCA_COLOR[k] ?? "var(--tenue)";
+const esDueno = () => app.datos.alcance === "todo";
 const chip = (estado) => `<span class="chip ${estado}">${ESTADO[estado]}</span>`;
 const chipEditada = (p) => (p.ediciones.length ? `<span class="chip editada">Editada ×${p.ediciones.length}</span>` : "");
 
@@ -101,19 +105,19 @@ function mostrarEntrar() {
     </form>`;
 }
 
-async function accion(p, tipo, $msg) {
+async function accion(p, tipo, $msg, cambios) {
   const preguntas = {
     aprobar: `¿Aprobar "${p.titulo}"? Sale el ${fechaCorta(p.fecha)} a las ${p.hora}.`,
     cancelar: `¿Cancelar "${p.titulo}"? No se va a publicar.`,
   };
-  if (!confirm(preguntas[tipo])) return;
+  if (preguntas[tipo] && !confirm(preguntas[tipo])) return;
   $msg.textContent = "";
-  const espera = bloquear(tipo === "aprobar" ? "Aprobando la publicación…" : "Cancelando la publicación…");
+  const espera = bloquear({ aprobar: "Aprobando la publicación…", cancelar: "Cancelando la publicación…", cambios: "Enviando el pedido…" }[tipo]);
   try {
     const res = await fetch("/api/accion", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ pr: p.pr, sha: p.sha, accion: tipo }),
+      body: JSON.stringify({ pr: p.pr, sha: p.sha, accion: tipo, cambios }),
     });
     const r = await res.json();
     if (!r.ok) {
@@ -125,9 +129,10 @@ async function accion(p, tipo, $msg) {
     // La pantalla sigue bloqueada hasta que la publicación figura con su
     // estado nuevo: GitHub puede tardar unos segundos en reflejar el merge.
     espera.texto("Actualizando…");
+    const listo = (x) => (tipo === "cambios" ? x?.cambiosPedidos : x?.estado !== "pendiente");
     for (let i = 0; i < 6; i++) {
       await cargar({ fresco: true });
-      if (app.datos?.posts.find((x) => x.pr === p.pr)?.estado !== "pendiente") break;
+      if (listo(app.datos?.posts.find((x) => x.pr === p.pr))) break;
       await esperar(1500);
     }
     espera.cerrar();
@@ -137,6 +142,24 @@ async function accion(p, tipo, $msg) {
     $msg.className = "mensaje error";
     $msg.textContent = "No hubo conexión. Probá de nuevo.";
   }
+}
+
+/** Moderador: el cuadro para escribir el pedido, debajo de los botones. */
+function cuadroCambios(p, el, $msg) {
+  if (el.querySelector(".pedir")) return el.querySelector(".pedir textarea").focus();
+  const f = document.createElement("div");
+  f.className = "pedir";
+  f.innerHTML = `
+    <textarea maxlength="2000" placeholder="Qué querés cambiar y cómo. Ej.: cambiar el título por…" aria-label="Cambios"></textarea>
+    <button class="btn btn-primario">Enviar pedido</button>`;
+  el.querySelector(".acciones").after(f);
+  const $t = f.querySelector("textarea");
+  $t.focus();
+  f.querySelector("button").addEventListener("click", () => {
+    const texto = $t.value.trim();
+    if (!texto) return $t.focus();
+    accion(p, "cambios", $msg, texto);
+  });
 }
 
 async function pedirCambios(p) {
@@ -166,7 +189,7 @@ function tarjeta(p) {
   const pendiente = p.estado === "pendiente";
   const el = document.createElement("article");
   el.className = "tarjeta";
-  el.style.setProperty("--marca", MARCA_COLOR[p.marca]);
+  el.style.setProperty("--marca", colorDe(p.marca));
   el.innerHTML = `
     <div class="tarjeta-cab">
       <img class="avatar" src="${m.avatar}" alt="">
@@ -177,8 +200,12 @@ function tarjeta(p) {
     <div class="tarjeta-cuerpo">
       <h3>${esc(p.titulo)}</h3>
       <p>${esc(p.resumen)}</p>
+      ${p.cambiosPedidos ? `<p class="pedido"><b>Cambios pedidos${p.cambiosPedidos.de === "todo" ? "" : " por el moderador"}:</b> ${esc(p.cambiosPedidos.texto)}<small>Se aplican en la próxima revisión.</small></p>` : ""}
       <div class="acciones">
-        ${pendiente ? `
+        ${pendiente && p.cambiosPedidos ? `
+          <a class="btn btn-secundario ancho" href="/p/${p.pr}">Ver como en Instagram</a>
+          <button class="btn btn-peligro ancho" data-a="cancelar">Cancelar publicación</button>`
+        : pendiente ? `
           <button class="btn btn-secundario" data-a="cambios">Pedir cambios</button>
           <button class="btn btn-primario" data-a="aprobar">Aprobar</button>
           <a class="btn btn-secundario ancho" href="/p/${p.pr}">Ver como en Instagram</a>
@@ -191,7 +218,7 @@ function tarjeta(p) {
   const $msg = el.querySelector(".mensaje");
   el.querySelector('[data-a="aprobar"]')?.addEventListener("click", () => accion(p, "aprobar", $msg));
   el.querySelector('[data-a="cancelar"]')?.addEventListener("click", () => accion(p, "cancelar", $msg));
-  el.querySelector('[data-a="cambios"]')?.addEventListener("click", () => pedirCambios(p));
+  el.querySelector('[data-a="cambios"]')?.addEventListener("click", () => (esDueno() ? pedirCambios(p) : cuadroCambios(p, el, $msg)));
   return el;
 }
 
@@ -199,12 +226,12 @@ function sinPost(k) {
   const m = marca(k);
   const el = document.createElement("article");
   el.className = "tarjeta";
-  el.style.setProperty("--marca", MARCA_COLOR[k]);
+  el.style.setProperty("--marca", colorDe(k));
   el.innerHTML = `
     <div class="tarjeta-cab"><img class="avatar" src="${m.avatar}" alt=""><div class="quien"><b>${esc(m.usuario)}</b></div></div>
     <div class="sin-post">
       <span>Hoy no hay nada programado.</span>
-      <a class="btn btn-secundario" href="${CHAT}" target="_blank" rel="noopener">Proponer una idea en el chat</a>
+      ${esDueno() ? `<a class="btn btn-secundario" href="${CHAT}" target="_blank" rel="noopener">Proponer una idea en el chat</a>` : ""}
     </div>`;
   return el;
 }
@@ -235,7 +262,7 @@ function fila(p, alTocar) {
   const m = marca(p.marca);
   const b = document.createElement("button");
   b.className = "fila";
-  b.style.setProperty("--marca", MARCA_COLOR[p.marca]);
+  b.style.setProperty("--marca", colorDe(p.marca));
   b.innerHTML = `
     <img src="${esc(p.imagen)}" alt="" loading="lazy">
     <div class="info">
@@ -262,7 +289,7 @@ function vistaCalendario() {
   for (let d = 1; d <= diasMes; d++) {
     const f = `${app.mes}-${String(d).padStart(2, "0")}`;
     const puntos = (porDia[f] ?? [])
-      .map((p) => `<i class="punto ${p.estado}" style="--marca:${MARCA_COLOR[p.marca]}"></i>`)
+      .map((p) => `<i class="punto ${p.estado}" style="--marca:${colorDe(p.marca)}"></i>`)
       .join("");
     const clases = ["celda", f === hoy && "hoy", f === app.diaElegido && "elegida", f < hoy && "pasado"].filter(Boolean).join(" ");
     celdas += `<button class="${clases}" data-f="${f}"><span>${d}</span><span class="puntos">${puntos}</span></button>`;
@@ -279,8 +306,7 @@ function vistaCalendario() {
       ${celdas}
     </div>
     <div class="leyenda">
-      <span><i class="punto" style="--marca:var(--raudal)"></i>Raudal</span>
-      <span><i class="punto" style="--marca:var(--tecnoaid)"></i>TecnoAid</span>
+      ${Object.entries(app.datos.marcas).map(([k, m]) => `<span><i class="punto" style="--marca:${colorDe(k)}"></i>${esc(m.nombre)}</span>`).join("")}
       <span><i class="punto pendiente" style="--marca:var(--tenue)"></i>Pendiente</span>
     </div>
     <h2 class="seccion">${esc(fechaLarga(app.diaElegido))}</h2>
@@ -334,7 +360,8 @@ function detalle(p) {
 
 function vistaHistorial() {
   const { posts } = app.datos;
-  const filtrosMarca = [["todas", "Todas"], ...Object.entries(app.datos.marcas).map(([k, m]) => [k, m.nombre])];
+  const marcas = Object.entries(app.datos.marcas);
+  const filtrosMarca = marcas.length > 1 ? [["todas", "Todas"], ...marcas.map(([k, m]) => [k, m.nombre])] : [];
   const filtrosEstado = [["todos", "Todos"], ...Object.entries(ESTADO), ["editada", "Editadas"]];
 
   const lista = posts
@@ -343,7 +370,7 @@ function vistaHistorial() {
     .sort((a, b) => `${b.fecha}${b.hora}`.localeCompare(`${a.fecha}${a.hora}`));
 
   $vista.innerHTML = `
-    <div class="filtros">${filtrosMarca.map(([k, n]) => `<button class="filtro" data-marca="${k}" aria-pressed="${app.filtroMarca === k}">${esc(n)}</button>`).join("")}</div>
+    ${filtrosMarca.length ? `<div class="filtros">${filtrosMarca.map(([k, n]) => `<button class="filtro" data-marca="${k}" aria-pressed="${app.filtroMarca === k}">${esc(n)}</button>`).join("")}</div>` : ""}
     <div class="filtros">${filtrosEstado.map(([k, n]) => `<button class="filtro" data-estado="${k}" aria-pressed="${app.filtroEstado === k}">${esc(n)}</button>`).join("")}</div>
     <div id="lista"></div>`;
 
@@ -411,18 +438,18 @@ async function vistaAjustes() {
     const sub = await suscripcionActual().catch(() => null);
     estadoPush = sub
       ? `<p>✅ Los avisos están activados en este dispositivo.</p><button class="btn btn-secundario" id="push-off">Desactivar en este dispositivo</button>`
-      : `<p>Recibí un aviso a las 9:00 con las publicaciones del día, cuando haya algo nuevo para revisar y cuando se publique algo, de las dos marcas.</p><button class="btn btn-primario" id="push-on">Activar avisos</button>`;
+      : `<p>Recibí un aviso a las 9:00 con las publicaciones del día, cuando haya algo nuevo para revisar y cuando se publique algo${esDueno() ? ", de todas las marcas" : ""}.</p><button class="btn btn-primario" id="push-on">Activar avisos</button>`;
   }
   $vista.innerHTML = `
     <section class="panel"><h2>Notificaciones</h2>${estadoPush}</section>
     ${!instalada ? `<section class="panel"><h2>Instalar la app</h2><p>${esIOS
       ? "Compartir → Agregar a inicio."
       : "En el menú del navegador, elegí <b>Instalar app</b> o <b>Agregar a la pantalla principal</b>."}</p></section>` : ""}
-    <section class="panel">
+    ${esDueno() ? `<section class="panel">
       <h2>Chat con Claude</h2>
       <p>Para pedir cambios o proponer una publicación nueva. Claude la arma y te avisa cuando está lista para revisar.</p>
       <a class="btn btn-secundario" href="${CHAT}" target="_blank" rel="noopener">Abrir el chat</a>
-    </section>`;
+    </section>` : ""}`;
   document.getElementById("push-on")?.addEventListener("click", () => activarAvisos().catch(() => toast("No se pudo activar")));
   document.getElementById("push-off")?.addEventListener("click", () => desactivarAvisos().catch(() => toast("No se pudo desactivar")));
 }

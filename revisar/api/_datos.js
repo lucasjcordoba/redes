@@ -13,7 +13,7 @@
  * Cada commit después del primero es una edición. Para mostrar qué cambió se
  * compara el JSON del post antes y después de ese commit.
  */
-import { REPO, MARCAS, gh } from "./_lib.js";
+import { REPO, MARCAS, gh, pedidoPendiente } from "./_lib.js";
 
 /** El historial arranca con el calendario del 24/09/2026; lo anterior fueron pruebas. */
 const DESDE_PR = 15;
@@ -73,7 +73,7 @@ async function armar(pr) {
 
   const [commits, comentarios] = await Promise.all([
     gh("GET", `/repos/${REPO}/pulls/${pr.number}/commits?per_page=100`),
-    pr.merged_at ? gh("GET", `/repos/${REPO}/issues/${pr.number}/comments?per_page=100`) : [],
+    pr.merged_at || pr.state === "open" ? gh("GET", `/repos/${REPO}/issues/${pr.number}/comments?per_page=100`) : [],
   ]);
 
   const sha = pr.head.sha;
@@ -111,6 +111,8 @@ async function armar(pr) {
     resumen: post.caption.split("\n").find(Boolean),
     imagen: imagenesDe(post, sha, marca)[0],
     ediciones,
+    // Pedido de cambios que Claude todavía no aplicó (ver pedidoPendiente).
+    cambiosPedidos: pr.state === "open" ? pedidoPendiente(comentarios, commits.at(-1)?.commit.committer.date ?? pr.created_at) : null,
     permalink: publicado?.permalink ?? null,
     creada: pr.created_at,
     resuelta: pr.merged_at ?? pr.closed_at,
