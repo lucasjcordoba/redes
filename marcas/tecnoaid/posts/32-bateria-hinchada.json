@@ -1,0 +1,18 @@
+{
+  "id": "32-bateria-hinchada",
+  "fecha": "2026-11-01",
+  "hora": "19:00",
+  "pilar": "sintoma",
+  "plantilla": "declaracion",
+  "visual": {
+    "etiqueta": "Atención",
+    "titulo": [
+      "¿El touchpad",
+      "se levanta",
+      "solo?"
+    ],
+    "destacar": 2,
+    "bajada": "Puede ser la batería hinchada. No la sigas usando: tiene arreglo, pero hay que cambiarla."
+  },
+  "caption": "El touchpad se levanta, la tapa no cierra bien o la notebook ya no apoya derecha sobre la mesa. Muchas veces es la batería: con los años, algunas se hinchan.\n\nNo es para asustarse, pero sí para tomarlo en serio:\n\n❌ No la sigas usando enchufada todo el día.\n❌ No apretes la carcasa para que cierre.\n❌ No intentes sacarla ni pincharla.\n✅ Apagala, desenchufala y escribinos.\n\nLa batería se cambia y la notebook sigue andando. El diagnóstico es sin cargo y el presupuesto, antes de tocar nada.\n\n💬 Escribinos por WhatsApp: 11 2655-3546\n📍 Zona Norte (Vicente López y La Lucila) · a domicilio · remoto a todo el país\n\n#serviciotecnico #bateria #notebook #vicentelopez #zonanorte"
+}
