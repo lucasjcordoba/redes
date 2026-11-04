@@ -1,0 +1,25 @@
+{
+  "id": "33-programas",
+  "fecha": "2026-11-02",
+  "hora": "19:00",
+  "pilar": "tip",
+  "plantilla": "sino",
+  "visual": {
+    "etiqueta": "Tip",
+    "titulo": [
+      "Programas:",
+      "de dónde bajarlos"
+    ],
+    "si": [
+      "Desde la página oficial del programa.",
+      "Desde la tienda de Windows o de Apple.",
+      "Leyendo cada paso antes de tocar “Siguiente”."
+    ],
+    "no": [
+      "Versiones “gratis” de programas pagos.",
+      "Instaladores que llegan por mail o por chat.",
+      "Aceptar todo lo que se instala de yapa."
+    ]
+  },
+  "caption": "Muchas compus lentas o llenas de publicidad empiezan igual: un programa bajado de cualquier lado.\n\n✅ Sí\n• Bajalo de la página oficial del programa.\n• O de la tienda de Windows o de Apple.\n• Leé cada paso de la instalación antes de tocar \"Siguiente\".\n\n❌ No\n• Versiones \"gratis\" de programas que son pagos.\n• Instaladores que te llegan por mail o por chat.\n• Aceptar todo lo que se instala \"de yapa\".\n\nSi ya pasó y la compu quedó rara, escribinos: muchas veces se resuelve en remoto.\n\n💬 Escribinos por WhatsApp: 11 2655-3546\n📍 Zona Norte (Vicente López y La Lucila) · a domicilio · remoto a todo el país\n\n#tips #seguridad #notebook #vicentelopez #zonanorte"
+}
