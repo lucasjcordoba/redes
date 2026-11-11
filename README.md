@@ -1,6 +1,6 @@
 # redes
 
-Publicación automática en Instagram para **Raudal Dev** y **TecnoAid**.
+Publicación automática en Instagram para **Raudal Dev**, **TecnoAid** y **Gesta Manager**.
 
 ```
 9:00, todos los días ──► la tarea diaria de Claude escribe en su chat:
@@ -14,7 +14,7 @@ Lo aprobado lo publica GitHub Actions a su hora.
 
 - **App "Redes"** (PWA): https://redes-revisar.vercel.app (código en `revisar/`).
   Instalable en el celular. Pestañas Hoy, Calendario, Historial (estado de cada
-  post y qué se editó) y Avisos. Notificaciones push de las dos marcas: resumen
+  post y qué se editó) y Avisos. Notificaciones push de las marcas: resumen
   a las 9:00 (cron de Vercel), post nuevo o versión nueva para revisar
   (`.github/workflows/avisar.yml`) y publicación hecha (`scripts/publicar.mjs`).
   Aprobar y Cancelar se hacen ahí; los cambios, en el chat de la tarea.

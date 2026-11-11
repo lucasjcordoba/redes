@@ -30,9 +30,10 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_PAT_SECRETS }}
           IG_TOKEN_RAUDAL: ${{ secrets.IG_TOKEN_RAUDAL }}
           IG_TOKEN_TECNOAID: ${{ secrets.IG_TOKEN_TECNOAID }}
+          IG_TOKEN_GESTA: ${{ secrets.IG_TOKEN_GESTA }}
         run: |
           set -euo pipefail
-          for marca in raudal tecnoaid; do
+          for marca in raudal tecnoaid gesta; do
             secreto="IG_TOKEN_$(echo "$marca" | tr a-z A-Z)"
             if [ -z "${!secreto:-}" ]; then echo "○ $marca: sin token, se saltea"; continue; fi
             nuevo="$(node scripts/refrescar-token.mjs "$marca")"

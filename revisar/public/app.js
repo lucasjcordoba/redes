@@ -7,7 +7,7 @@
  */
 
 const CHAT = "https://claude.ai/code/session_01K781KudNVPpkw47drWk5Zo";
-const MARCA_COLOR = { raudal: "var(--raudal)", tecnoaid: "var(--tecnoaid)" };
+const MARCA_COLOR = { raudal: "var(--raudal)", tecnoaid: "var(--tecnoaid)", gesta: "var(--gesta)" };
 const ESTADO = { pendiente: "Pendiente", aprobada: "Aprobada", publicada: "Publicada", cancelada: "Cancelada" };
 const TITULOS = { hoy: "Hoy", calendario: "Calendario", historial: "Historial", ajustes: "Avisos" };
 
