@@ -10,7 +10,7 @@
 export const marca = {
   id: "gesta",
   nombre: "Gesta Manager",
-  usuario: "@gestamanager", // TODO: confirmar el usuario real de la cuenta
+  usuario: "@gestamanager",
   sitio: "gestamanager.com",
   token: "IG_TOKEN_GESTA",
 
