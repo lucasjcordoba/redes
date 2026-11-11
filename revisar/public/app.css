@@ -1,7 +1,7 @@
 :root {
   --fondo: #fafafa; --tarjeta: #fff; --texto: #0c1014; --tenue: #737373; --borde: #dbdbdb; --suave: #efefef;
   --azul: #0095f6; --rojo: #ed4956;
-  --raudal: #10b5b8; --tecnoaid: #e4241f;
+  --raudal: #10b5b8; --tecnoaid: #e4241f; --gesta: #c9a227;
   --pendiente: #b26b00; --pendiente-fondo: #fff4d6;
   --aprobada: #0a66c2; --aprobada-fondo: #e3f0ff;
   --publicada: #1a7f37; --publicada-fondo: #dafbe1;
@@ -12,7 +12,7 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --fondo: #000; --tarjeta: #0c1014; --texto: #f5f5f5; --tenue: #a8a8a8; --borde: #262626; --suave: #1a1d21;
-    --raudal: #24dfe1;
+    --raudal: #24dfe1; --gesta: #e4c13c;
     --pendiente: #f2b84b; --pendiente-fondo: #2e2505;
     --aprobada: #6cb4ff; --aprobada-fondo: #0d2138;
     --publicada: #4ac26b; --publicada-fondo: #0f2a17;
