@@ -1,0 +1,31 @@
+{
+  "id": "46-del-boceto-a-la-web",
+  "fecha": "2026-11-16",
+  "hora": "19:00",
+  "pilar": "proceso",
+  "plantilla": "pasos",
+  "visual": {
+    "eyebrow": "/ LANDING · USD 250",
+    "titulo": "Del boceto a la web",
+    "pasos": [
+      {
+        "titulo": "Boceto de la portada",
+        "texto": "Sin cargo y sin compromiso, en 48 horas."
+      },
+      {
+        "titulo": "Aprobación",
+        "texto": "Se aprueba el diseño y se paga el 50 %."
+      },
+      {
+        "titulo": "Desarrollo",
+        "texto": "7 días hábiles desde que llega el material."
+      },
+      {
+        "titulo": "Cambios y publicación",
+        "texto": "Una ronda de cambios y el otro 50 % al publicar."
+      }
+    ],
+    "bajada": "Cada etapa, con fecha y sin sorpresas."
+  },
+  "caption": "Cómo es armar una landing con Raudal Dev, de principio a fin:\n\n1️⃣ Boceto de la portada sin cargo y sin compromiso, en 48 horas.\n2️⃣ Si convence, se aprueba el diseño y se paga el 50 %.\n3️⃣ Desarrollo: 7 días hábiles desde que llega el material (textos e imágenes).\n4️⃣ Una ronda de cambios y, al publicar, el otro 50 %.\n\nUSD 250, con dominio incluido el primer año, a nombre del cliente.\n\nPara pedir el boceto: raudaldev.com/landing\n\n#landingpage #paginasweb #emprendedores #pymes #zonanorte"
+}
