@@ -1,0 +1,60 @@
+{
+  "id": "08-ensayos",
+  "fecha": "2026-11-20",
+  "hora": "19:00",
+  "pilar": "modulo",
+  "diapositivas": [
+    {
+      "plantilla": "declaracion",
+      "visual": {
+        "etiqueta": "Ensayos",
+        "titulo": [
+          "Los ensayos,",
+          "también",
+          "en Gesta."
+        ],
+        "destacar": 2,
+        "bajada": "Sala, convocatoria con confirmación, repertorio, equipo, grabaciones y reporte en PDF."
+      }
+    },
+    {
+      "plantilla": "captura",
+      "visual": {
+        "etiqueta": "Convocatoria",
+        "titulo": [
+          "Quién viene,",
+          "confirmado"
+        ],
+        "destacar": 1,
+        "bajada": "Cada ensayo con su sala, su horario y la confirmación de cada integrante.",
+        "captura": "ensayo.png"
+      }
+    },
+    {
+      "plantilla": "captura",
+      "visual": {
+        "etiqueta": "Repertorio",
+        "titulo": [
+          "Los temas",
+          "de la banda"
+        ],
+        "destacar": 1,
+        "bajada": "Tonalidad, bpm y duración de cada tema, y cuántas veces se ensayó.",
+        "captura": "repertorio.png"
+      }
+    },
+    {
+      "plantilla": "cierre",
+      "visual": {
+        "etiqueta": "Ensayos",
+        "titulo": [
+          "Del ensayo",
+          "al show"
+        ],
+        "destacar": 1,
+        "bajada": "Grabaciones y reporte en PDF de cada ensayo."
+      }
+    }
+  ],
+  "caption": "La gira empieza en la sala de ensayo, y Gesta Manager también.\n\n🎚️ La sala y el horario de cada ensayo\n✅ Convocatoria con confirmación de cada integrante\n🎵 El repertorio: tonalidad, bpm y duración de cada tema\n🎙️ Grabaciones y reporte en PDF del ensayo\n\nDeslizá para verlo 👉\n\ngestamanager.com\n\n#gestamanager #ensayo #banda #musicaenvivo #produccion"
+}
