@@ -1,0 +1,19 @@
+{
+  "id": "03-day-sheet",
+  "fecha": "2026-11-15",
+  "hora": "19:00",
+  "pilar": "funcion",
+  "plantilla": "captura",
+  "visual": {
+    "etiqueta": "Day sheet",
+    "titulo": [
+      "La hoja de ruta",
+      "del día"
+    ],
+    "destacar": 1,
+    "bajada": "Citación, prueba de sonido, puertas y show. Siempre actualizada y compartible con un link.",
+    "captura": "itinerario.png",
+    "desde": 560
+  },
+  "caption": "El day sheet que circulaba en PDF y a las dos horas ya estaba viejo, en Gesta Manager está siempre al día.\n\nCada fecha tiene su hoja de ruta: citación, prueba de sonido, puertas, show, con el venue y los contactos. Si cambiás un horario, el equipo recibe el aviso al instante.\n\nY se comparte con un link, para quien no esté en el sistema.\n\n👉 gestamanager.com\n\n#gestamanager #daysheet #tourmanagement #produccion #giras"
+}
