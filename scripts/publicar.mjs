@@ -98,6 +98,7 @@ for (const id of values.marca ? [values.marca] : MARCAS) {
       cuerpo: post.caption.split("\n").find(Boolean).slice(0, 120),
       url: "/",
       etiqueta: `publicado-${id}-${post.id}`,
+      marca: id,
     }).catch((e) => log(m, `(no se pudo avisar: ${e.message})`));
   } catch (e) {
     fallas++;
