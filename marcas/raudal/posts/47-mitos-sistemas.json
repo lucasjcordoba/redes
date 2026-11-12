@@ -1,0 +1,73 @@
+{
+  "id": "47-mitos-sistemas",
+  "fecha": "2026-11-17",
+  "hora": "19:00",
+  "pilar": "claridad",
+  "diapositivas": [
+    {
+      "plantilla": "declaracion",
+      "visual": {
+        "eyebrow": "/ SISTEMAS DE GESTIÓN",
+        "titulo": [
+          "Tres mitos",
+          "sobre un",
+          "sistema propio"
+        ],
+        "destacar": 2,
+        "bajada": "Lo que suele frenar la decisión, y lo que pasa en realidad."
+      }
+    },
+    {
+      "plantilla": "mito",
+      "visual": {
+        "eyebrow": "/ TRES MITOS",
+        "numero": 1,
+        "mito": [
+          "Es cosa de empresas",
+          "grandes."
+        ],
+        "realidad": [
+          "Un negocio chico también",
+          "pierde tiempo con datos",
+          "repartidos. Se empieza",
+          "por lo que más duele."
+        ]
+      }
+    },
+    {
+      "plantilla": "mito",
+      "visual": {
+        "eyebrow": "/ TRES MITOS",
+        "numero": 2,
+        "mito": [
+          "Con una planilla",
+          "compartida alcanza."
+        ],
+        "realidad": [
+          "Alcanza hasta que dos",
+          "personas la editan a la",
+          "vez, o alguien borra",
+          "una fila sin querer."
+        ]
+      }
+    },
+    {
+      "plantilla": "mito",
+      "visual": {
+        "eyebrow": "/ TRES MITOS",
+        "numero": 3,
+        "mito": [
+          "Hay que cambiar toda",
+          "la forma de trabajar."
+        ],
+        "realidad": [
+          "Un sistema a medida se",
+          "arma alrededor de cómo",
+          "ya trabaja el negocio,",
+          "no al revés."
+        ]
+      }
+    }
+  ],
+  "caption": "Tres ideas que suelen frenar la decisión de tener un sistema propio, y lo que pasa en realidad 👉\n\n1️⃣ \"Es cosa de empresas grandes.\" Un negocio chico también pierde horas con datos repartidos. No hace falta resolver todo de una vez: se empieza por lo que más duele.\n\n2️⃣ \"Con una planilla compartida alcanza.\" Hasta que dos personas la editan al mismo tiempo, o alguien borra una fila sin querer.\n\n3️⃣ \"Hay que cambiar toda la forma de trabajar.\" Un sistema a medida se arma alrededor de cómo ya trabaja el negocio, no al revés.\n\nraudaldev.com\n\n#gestion #sistemas #pymes #emprendedores #vicentelopez"
+}
