@@ -1,0 +1,23 @@
+{
+  "id": "04-hoteles-y-traslados",
+  "fecha": "2026-11-16",
+  "hora": "19:00",
+  "pilar": "funcion",
+  "plantilla": "lista",
+  "visual": {
+    "etiqueta": "Logística",
+    "titulo": [
+      "Hoteles",
+      "y traslados"
+    ],
+    "destacar": 1,
+    "items": [
+      "Hoteles de cada fecha",
+      "Rooming list que se genera sola",
+      "Vuelos",
+      "Autos y traslados",
+      "Todo en la gira, a la vista del equipo"
+    ]
+  },
+  "caption": "Armar el rooming a mano, cruzar quién viaja en qué vuelo, avisar de nuevo cuando cambia algo. Eso lo resolvemos.\n\nEn Gesta Manager cargás los hoteles, los vuelos y los autos de cada fecha, y la rooming list se genera sola. Todo queda en la gira, así el equipo sabe dónde duerme y cómo llega sin preguntar en el grupo.\n\n👉 gestamanager.com\n\n#gestamanager #rooming #logistica #tourmanagement #giras"
+}
