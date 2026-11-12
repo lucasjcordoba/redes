@@ -1,0 +1,18 @@
+{
+  "id": "51-trato-directo",
+  "fecha": "2026-11-21",
+  "hora": "19:00",
+  "pilar": "presentacion",
+  "plantilla": "declaracion",
+  "visual": {
+    "eyebrow": "/ CÓMO TRABAJA RAUDAL",
+    "titulo": [
+      "Se habla",
+      "con quien",
+      "lo desarrolla"
+    ],
+    "destacar": 2,
+    "bajada": "Sin intermediarios entre la idea y el código."
+  },
+  "caption": "En Raudal Dev, el trato es directo con quien desarrolla el proyecto. Las preguntas se responden sin pasar por intermediarios, y lo que se acuerda en una reunión es lo que se construye.\n\nAsí trabaja Raudal:\n\n💬 Primera reunión sin costo, para entender qué necesita el negocio.\n📄 Presupuesto cerrado, antes de empezar.\n🛠️ Desarrollo de sitios web, sistemas de gestión y aplicaciones, a medida.\n\nPara pymes y emprendedores, desde Vicente López.\n\nraudaldev.com\n\n#desarrolloweb #pymes #emprendedores #vicentelopez #zonanorte"
+}
