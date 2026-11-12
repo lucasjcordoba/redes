@@ -1,0 +1,32 @@
+{
+  "id": "43-link-en-la-bio",
+  "fecha": "2026-11-13",
+  "hora": "19:00",
+  "pilar": "claridad",
+  "plantilla": "comparacion",
+  "visual": {
+    "eyebrow": "/ LINK EN LA BIO",
+    "titulo": [
+      "¿Lista de links",
+      "o página propia?"
+    ],
+    "izquierda": {
+      "titulo": "Lista de links",
+      "items": [
+        "Sirve para juntar redes.",
+        "Se arma en minutos.",
+        "No explica qué hace el negocio."
+      ]
+    },
+    "derecha": {
+      "titulo": "Página propia",
+      "items": [
+        "Dice qué hace, dónde y para quién.",
+        "Aparece cuando alguien busca.",
+        "Lleva directo a WhatsApp."
+      ]
+    },
+    "bajada": "Una no reemplaza a la otra, pero no responden lo mismo."
+  },
+  "caption": "El link de la bio suele ser una lista: Instagram, WhatsApp, Facebook, la tienda. Sirve para ordenar, pero quien llega ahí todavía no sabe qué hace el negocio ni si atiende en su zona.\n\nUna página propia responde eso antes de que haga falta preguntar:\n\n📄 Qué hace el negocio y para quién.\n📍 Dónde atiende.\n💬 Cómo pedir presupuesto, con un botón directo a WhatsApp.\n\nY además aparece cuando alguien busca el rubro en Google, cosa que una lista de links no hace.\n\nraudaldev.com\n\n#paginasweb #emprendedores #pymes #instagram #vicentelopez"
+}
