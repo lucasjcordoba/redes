@@ -67,6 +67,38 @@ function diferencias(antes, despues) {
   return cambios;
 }
 
+/**
+ * Lo armado de cada PR, por número y fecha de actualización: si el PR no
+ * cambió, no se vuelve a consultar a GitHub. Vive mientras viva la instancia.
+ */
+const armados = new Map();
+
+/**
+ * Corre `fn` sobre `items` de a `n` por vez. GitHub corta con un "secondary
+ * rate limit" cuando le llegan demasiadas consultas en paralelo, y con ~80
+ * publicaciones, todas juntas son unas 150.
+ */
+async function deAPocos(items, n, fn) {
+  const resultados = new Array(items.length);
+  let siguiente = 0;
+  const trabajador = async () => {
+    while (siguiente < items.length) {
+      const i = siguiente++;
+      resultados[i] = await fn(items[i]);
+    }
+  };
+  await Promise.all(Array.from({ length: Math.min(n, items.length) }, trabajador));
+  return resultados;
+}
+
+async function armarConCache(pr) {
+  const clave = `${pr.number}:${pr.updated_at}`;
+  if (armados.has(clave)) return armados.get(clave);
+  const armado = await armar(pr);
+  armados.set(clave, armado);
+  return armado;
+}
+
 async function armar(pr) {
   const [, marca, id] = pr.head.ref.split("/");
   const estadoBase = pr.merged_at ? "aprobada" : pr.state === "open" ? "pendiente" : "cancelada";
@@ -123,9 +155,19 @@ let cache = null;
 export async function estado({ fresco = false } = {}) {
   if (!fresco && cache && Date.now() - cache.en < 60_000) return cache.datos;
 
-  const prs = await gh("GET", `/repos/${REPO}/pulls?state=all&per_page=100&sort=created&direction=desc`);
-  const deposts = prs.filter((p) => p.number >= DESDE_PR && p.head.ref.startsWith("post/") && MARCAS[p.head.ref.split("/")[1]]);
-  const posts = (await Promise.all(deposts.map(armar))).filter(Boolean);
+  let posts;
+  try {
+    const prs = await gh("GET", `/repos/${REPO}/pulls?state=all&per_page=100&sort=created&direction=desc`);
+    const deposts = prs.filter((p) => p.number >= DESDE_PR && p.head.ref.startsWith("post/") && MARCAS[p.head.ref.split("/")[1]]);
+    posts = (await deAPocos(deposts, 8, armarConCache)).filter(Boolean);
+  } catch (e) {
+    // Si GitHub corta (límite de consultas), mejor la última foto que una pantalla de error.
+    if (cache) {
+      console.error("estado: se sirve la última versión leída:", e.message);
+      return cache.datos;
+    }
+    throw e;
+  }
 
   const datos = {
     generado: new Date().toISOString(),
