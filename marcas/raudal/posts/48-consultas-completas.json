@@ -1,0 +1,24 @@
+{
+  "id": "48-consultas-completas",
+  "fecha": "2026-11-18",
+  "hora": "19:00",
+  "pilar": "servicio",
+  "plantilla": "chat",
+  "visual": {
+    "eyebrow": "/ FORMULARIO",
+    "mensajes": [
+      "Hola",
+      "Info",
+      "¿Precio?",
+      "?"
+    ],
+    "titulo": [
+      "Consultas",
+      "que llegan",
+      "completas"
+    ],
+    "destacar": 2,
+    "bajada": "Un formulario que pide lo necesario y llega por mail."
+  },
+  "caption": "\"Hola.\" \"Info.\" \"¿Precio?\" Y después, cinco mensajes para saber qué necesita la persona, para cuándo y dónde.\n\nUn formulario en la web ordena la primera consulta: pide nombre, contacto y lo que hace falta saber para responder bien. La consulta llega por mail, completa, y se contesta de una.\n\nEl botón de WhatsApp sigue estando para quien prefiere escribir directo. El formulario es para que nada importante quede en el aire.\n\nraudaldev.com\n\n#paginasweb #formulario #pymes #emprendedores #zonanorte"
+}
