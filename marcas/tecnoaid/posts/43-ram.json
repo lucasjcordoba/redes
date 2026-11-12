@@ -1,0 +1,18 @@
+{
+  "id": "43-ram",
+  "fecha": "2026-11-22",
+  "hora": "19:00",
+  "pilar": "servicio",
+  "plantilla": "declaracion",
+  "visual": {
+    "etiqueta": "Upgrade",
+    "titulo": [
+      "Más memoria,",
+      "menos",
+      "esperas."
+    ],
+    "destacar": 2,
+    "bajada": "Si se traba con varias cosas abiertas, sumar RAM puede alcanzar."
+  },
+  "caption": "Tenés el navegador con varias pestañas, la música y un documento, y la compu empieza a ir lenta.\n\nMuchas veces no hace falta cambiarla: si el equipo lo permite, sumarle memoria RAM le da aire para tener más cosas abiertas a la vez.\n\nTe decimos primero si tu compu admite el upgrade y si vale la pena. El diagnóstico es sin cargo y el presupuesto, antes de tocar nada.\n\n💬 Escribinos por WhatsApp: 11 2655-3546\n📍 Zona Norte (Vicente López y La Lucila) · a domicilio · remoto a todo el país\n\n#ram #upgrade #notebook #serviciotecnico #vicentelopez"
+}
