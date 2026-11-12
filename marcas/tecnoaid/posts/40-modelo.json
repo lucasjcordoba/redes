@@ -1,0 +1,21 @@
+{
+  "id": "40-modelo",
+  "fecha": "2026-11-19",
+  "hora": "19:00",
+  "pilar": "tip",
+  "plantilla": "lista",
+  "visual": {
+    "etiqueta": "Tip",
+    "titulo": [
+      "¿Qué modelo",
+      "es tu compu?"
+    ],
+    "items": [
+      "Mirá la etiqueta de abajo de la notebook: marca y modelo están ahí.",
+      "Si no se lee, buscá “Acerca de” en la configuración del equipo.",
+      "Sacale una foto a la etiqueta: sirve más que copiar a mano.",
+      "Mandanos esa foto junto con lo que le pasa."
+    ]
+  },
+  "caption": "Antes de escribirnos, un dato ayuda mucho: el modelo de tu compu.\n\n1. En las notebooks está en la etiqueta de abajo, con la marca y el modelo.\n2. Si no se lee, buscá \"Acerca de\" en la configuración del equipo.\n3. Sacale una foto a la etiqueta: es más fácil que copiar letras y números.\n4. Mandanos la foto junto con lo que le pasa.\n\nCon eso te respondemos más rápido y más claro.\n\n💬 Escribinos por WhatsApp: 11 2655-3546\n📍 Zona Norte (Vicente López y La Lucila) · a domicilio · remoto a todo el país\n\n#notebook #tips #serviciotecnico #vicentelopez #zonanorte"
+}
