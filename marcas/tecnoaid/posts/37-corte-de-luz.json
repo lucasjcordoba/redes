@@ -1,0 +1,25 @@
+{
+  "id": "37-corte-de-luz",
+  "fecha": "2026-11-16",
+  "hora": "19:00",
+  "pilar": "tip",
+  "plantilla": "sino",
+  "visual": {
+    "etiqueta": "Tip",
+    "titulo": [
+      "Cuando se",
+      "corta la luz"
+    ],
+    "si": [
+      "Desenchufar la PC hasta que vuelva estable.",
+      "Esperar unos minutos antes de prenderla.",
+      "Usar una zapatilla con protección."
+    ],
+    "no": [
+      "Prenderla apenas vuelve la luz.",
+      "Dejarla enchufada en plena tormenta.",
+      "Seguir usándola si huele a quemado."
+    ]
+  },
+  "caption": "Los cortes de luz y los picos de tensión son de las cosas que más castigan a una PC de escritorio.\n\n✅ Cuando se corta, desenchufala hasta que la luz vuelva estable.\n✅ Esperá unos minutos antes de prenderla.\n✅ Usá una zapatilla con protección.\n\n❌ No la prendas apenas vuelve la luz.\n❌ No la dejes enchufada en plena tormenta.\n❌ Si huele a quemado o no prende, no insistas.\n\nSi después de un corte no arranca, traela: la revisamos sin cargo.\n\n💬 Escribinos por WhatsApp: 11 2655-3546\n📍 Zona Norte (Vicente López y La Lucila) · a domicilio · remoto a todo el país\n\n#pc #cortedeluz #tips #serviciotecnico #vicentelopez"
+}
