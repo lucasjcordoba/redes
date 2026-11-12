@@ -1,0 +1,18 @@
+{
+  "id": "44-quien-debe",
+  "fecha": "2026-11-14",
+  "hora": "19:00",
+  "pilar": "dolor",
+  "plantilla": "declaracion",
+  "visual": {
+    "eyebrow": "/ CUENTAS CORRIENTES",
+    "titulo": [
+      "¿Quién nos",
+      "debe plata",
+      "este mes?"
+    ],
+    "destacar": 2,
+    "bajada": "Si está en un cuaderno, nadie lo sabe del todo."
+  },
+  "caption": "Fiado, cuenta corriente, \"te lo paso a fin de mes\". En muchos negocios funciona así, y está bien. El problema aparece cuando hay que saber cuánto se debe en total, quién está atrasado o qué se cobró ayer.\n\nSi todo eso vive en un cuaderno o en una planilla que se actualiza cuando se puede, la respuesta tarda, y a veces no coincide con lo que dice el cliente.\n\nUn sistema de gestión simple lo resuelve: cada venta y cada pago quedan registrados, y el saldo de cada cliente está a la vista en el momento.\n\nraudaldev.com\n\n#gestion #pymes #comercio #emprendedores #zonanorte"
+}
