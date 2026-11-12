@@ -1,0 +1,72 @@
+{
+  "id": "02-todo-en-un-lugar",
+  "fecha": "2026-11-14",
+  "hora": "19:00",
+  "pilar": "presentacion",
+  "diapositivas": [
+    {
+      "plantilla": "declaracion",
+      "visual": {
+        "etiqueta": "Qué es Gesta",
+        "titulo": [
+          "El manager",
+          "digital de tu",
+          "producción."
+        ],
+        "destacar": 2,
+        "bajada": "Un sistema para gestionar giras musicales, teatro y rodajes de punta a punta. Deslizá para ver qué tiene."
+      }
+    },
+    {
+      "plantilla": "lista",
+      "visual": {
+        "etiqueta": "Todo en un lugar",
+        "titulo": [
+          "Lo que la",
+          "producción necesita"
+        ],
+        "destacar": 1,
+        "items": [
+          "Fechas con venue, horarios, contactos y estado",
+          "Day sheet con la hoja de ruta del día",
+          "Hoteles, rooming, vuelos y autos",
+          "Chat por gira y mensajes directos",
+          "Tareas con responsables y recordatorios",
+          "Borderó, gastos y liquidación por show",
+          "Riders, contratos y planos por fecha"
+        ]
+      }
+    },
+    {
+      "plantilla": "lista",
+      "visual": {
+        "etiqueta": "Y además",
+        "titulo": [
+          "Para todo",
+          "el equipo"
+        ],
+        "destacar": 1,
+        "items": [
+          "Notificaciones push de cada cambio",
+          "Roles: cada uno ve lo suyo",
+          "Ensayos con convocatoria y repertorio",
+          "Merch con stock y puesto de venta en cada fecha",
+          "Web, Android y iPhone con la misma cuenta"
+        ]
+      }
+    },
+    {
+      "plantilla": "cierre",
+      "visual": {
+        "etiqueta": "Probalo",
+        "titulo": [
+          "Todo en",
+          "un lugar"
+        ],
+        "destacar": 1,
+        "bajada": "Prueba gratis, sin límites, durante toda la prueba."
+      }
+    }
+  ],
+  "caption": "Gesta Manager es un sistema de gestión para producciones en vivo y audiovisuales. Deslizá para ver todo lo que tiene 👉\n\n📅 Fechas con venue, horarios, contactos y estado\n🗒️ Day sheet con la hoja de ruta del día, compartible con un link\n🏨 Hoteles, rooming, vuelos y autos\n💬 Chat por gira y mensajes directos\n✅ Tareas con responsables y recordatorios\n💰 Borderó, gastos, per diems y liquidación por show\n📎 Riders, contratos y planos por gira y por fecha\n🔔 Notificaciones push de cada cambio\n\nY también ensayos y merch. Cada rol ve lo suyo.\n\nProbalo gratis en gestamanager.com\n\n#gestamanager #tourmanagement #produccion #giras #teatro #rodaje"
+}
