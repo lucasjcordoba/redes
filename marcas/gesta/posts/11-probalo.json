@@ -1,0 +1,16 @@
+{
+  "id": "11-probalo",
+  "fecha": "2026-11-23",
+  "hora": "19:00",
+  "pilar": "invitacion",
+  "plantilla": "cierre",
+  "visual": {
+    "etiqueta": "Probalo",
+    "titulo": [
+      "Probalo gratis"
+    ],
+    "destacar": 0,
+    "bajada": "Todo Gesta Manager, sin límites, durante toda la prueba. Web, Android y iPhone con la misma cuenta."
+  },
+  "caption": "Si llegaste hasta acá, probalo con tu próxima gira.\n\nLa prueba es gratis y sin límites: todo Gesta Manager, durante toda la prueba. Funciona en la web, en Android y en iPhone con la misma cuenta.\n\nLa pedís en gestamanager.com\n\n#gestamanager #tourmanagement #produccion #giras #musicaenvivo"
+}
