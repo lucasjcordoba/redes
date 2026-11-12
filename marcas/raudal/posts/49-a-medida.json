@@ -1,0 +1,18 @@
+{
+  "id": "49-a-medida",
+  "fecha": "2026-11-19",
+  "hora": "19:00",
+  "pilar": "servicio",
+  "plantilla": "declaracion",
+  "visual": {
+    "eyebrow": "/ SISTEMAS A MEDIDA",
+    "titulo": [
+      "Hecho para",
+      "cómo trabaja",
+      "el negocio"
+    ],
+    "destacar": 2,
+    "bajada": "Clientes, pedidos, stock o turnos: lo que hace falta."
+  },
+  "caption": "Hay programas de gestión listos para usar, y para muchos negocios andan bien. Pero a veces el negocio termina adaptándose al programa: campos que no se usan, pasos de más, y lo importante anotado aparte.\n\nUn sistema a medida se arma al revés: primero se entiende cómo trabaja el negocio, y después se construye lo que hace falta. Clientes, pedidos, stock, turnos o lo que corresponda, con la información donde se la necesita.\n\nLa primera reunión es sin costo y el presupuesto es cerrado.\n\nraudaldev.com\n\n#sistemas #gestion #pymes #desarrollo #vicentelopez"
+}
