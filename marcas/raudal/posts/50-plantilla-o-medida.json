@@ -1,0 +1,32 @@
+{
+  "id": "50-plantilla-o-medida",
+  "fecha": "2026-11-20",
+  "hora": "19:00",
+  "pilar": "claridad",
+  "plantilla": "comparacion",
+  "visual": {
+    "eyebrow": "/ ANTES DE ELEGIR",
+    "titulo": [
+      "¿Plantilla",
+      "o a medida?"
+    ],
+    "izquierda": {
+      "titulo": "Plantilla",
+      "items": [
+        "Para mostrar lo básico.",
+        "Si el negocio cabe en el molde.",
+        "Si alcanza con algo estándar."
+      ]
+    },
+    "derecha": {
+      "titulo": "A medida",
+      "items": [
+        "Si el negocio tiene su forma de vender.",
+        "Si necesita turnos, pedidos o gestión.",
+        "Si tiene que crecer con el tiempo."
+      ]
+    },
+    "bajada": "Las dos opciones son válidas. Depende de para qué sea."
+  },
+  "caption": "No todo negocio necesita un desarrollo a medida. A veces una plantilla bien armada alcanza para mostrar lo básico.\n\nConviene ir a medida cuando el negocio no entra en el molde: tiene su propia forma de vender, necesita turnos, pedidos o gestión, o va a tener que crecer.\n\nLa pregunta para hacerse antes de decidir es simple: ¿para qué tiene que servir la web dentro de un año?\n\nraudaldev.com\n\n#paginasweb #desarrollo #emprendedores #pymes #zonanorte"
+}
