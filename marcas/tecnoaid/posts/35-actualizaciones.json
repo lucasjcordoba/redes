@@ -1,0 +1,24 @@
+{
+  "id": "35-actualizaciones",
+  "fecha": "2026-11-14",
+  "hora": "19:00",
+  "pilar": "tip",
+  "plantilla": "sino",
+  "visual": {
+    "etiqueta": "Tip",
+    "titulo": [
+      "Actualizaciones"
+    ],
+    "si": [
+      "Dejarlas instalar con la compu enchufada.",
+      "Reiniciar cuando lo pide, al final del día.",
+      "Hacer una copia antes de las grandes."
+    ],
+    "no": [
+      "Apagarla a la fuerza mientras se actualiza.",
+      "Postergarlas meses.",
+      "Bajar “actualizadores” de páginas raras."
+    ]
+  },
+  "caption": "\"Actualizando… no apague el equipo.\" Ese cartel aparece siempre en el peor momento, pero conviene hacerle caso.\n\n✅ Dejala actualizar enchufada.\n✅ Reiniciá cuando te lo pide, al terminar el día.\n✅ Antes de una actualización grande, hacé una copia de tus cosas.\n\n❌ No la apagues a la fuerza a mitad de camino.\n❌ No las postergues meses.\n❌ No bajes \"actualizadores\" de páginas que no son la oficial.\n\nSi se quedó trabada en la actualización, no la fuerces: escribinos.\n\n💬 Escribinos por WhatsApp: 11 2655-3546\n📍 Zona Norte (Vicente López y La Lucila) · a domicilio · remoto a todo el país\n\n#windows #notebook #tips #serviciotecnico #vicentelopez"
+}
