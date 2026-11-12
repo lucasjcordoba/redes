@@ -6,7 +6,7 @@
  * verse aprobada, no como estaba la última vez.
  */
 const VERSION = "redes-v3";
-const CASCARA = ["/", "/app.css", "/app.js", "/manifest.webmanifest", "/icono-192.png", "/avatar-raudal.jpg", "/avatar-tecnoaid.jpg"];
+const CASCARA = ["/", "/app.css", "/app.js", "/manifest.webmanifest", "/icono-192.png", "/avatar-raudal.jpg", "/avatar-tecnoaid.jpg", "/avatar-gesta.jpg"];
 
 self.addEventListener("install", (e) => {
   e.waitUntil(caches.open(VERSION).then((c) => c.addAll(CASCARA)).then(() => self.skipWaiting()));

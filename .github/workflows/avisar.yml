@@ -23,7 +23,7 @@ jobs:
           PR: ${{ github.event.pull_request.number }}
         run: |
           marca=$(echo "$RAMA" | cut -d/ -f2)
-          case "$marca" in raudal) nombre="Raudal Dev";; tecnoaid) nombre="TecnoAid";; *) nombre="$marca";; esac
+          case "$marca" in raudal) nombre="Raudal Dev";; tecnoaid) nombre="TecnoAid";; gesta) nombre="Gesta Manager";; *) nombre="$marca";; esac
           if [ "$ACCION" = "synchronize" ]; then titulo="$nombre: versión nueva para revisar"; else titulo="$nombre: nueva publicación para revisar"; fi
           cuerpo=$(echo "$TITULO_PR" | sed -E 's/^\[[^]]*\] //')
           jq -n --arg t "$titulo" --arg c "$cuerpo" --arg u "/p/$PR" --arg e "pr-$PR" --arg m "$marca" \
