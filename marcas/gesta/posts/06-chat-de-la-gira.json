@@ -1,0 +1,18 @@
+{
+  "id": "06-chat-de-la-gira",
+  "fecha": "2026-11-18",
+  "hora": "19:00",
+  "pilar": "funcion",
+  "plantilla": "captura",
+  "visual": {
+    "etiqueta": "Chat y avisos",
+    "titulo": [
+      "El equipo,",
+      "en la misma página"
+    ],
+    "destacar": 1,
+    "bajada": "Chat por gira y mensajes directos, con notas de voz, fotos y archivos.",
+    "captura": "chat.png"
+  },
+  "caption": "Cada gira tiene su chat, al lado de las fechas, los horarios y los archivos. Y mensajes directos para lo que es de a dos.\n\nNotas de voz, fotos y archivos, como siempre, pero sin mezclarse con el grupo de la familia. Y cuando algo cambia en la gira, cada uno recibe una notificación push.\n\n👉 gestamanager.com\n\n#gestamanager #tourmanagement #produccion #giras #equipo"
+}
