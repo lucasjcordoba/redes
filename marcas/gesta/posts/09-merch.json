@@ -1,0 +1,60 @@
+{
+  "id": "09-merch",
+  "fecha": "2026-11-21",
+  "hora": "19:00",
+  "pilar": "modulo",
+  "diapositivas": [
+    {
+      "plantilla": "declaracion",
+      "visual": {
+        "etiqueta": "Merch",
+        "titulo": [
+          "El puesto",
+          "de merch,",
+          "bajo control."
+        ],
+        "destacar": 2,
+        "bajada": "Catálogo con precios, stock y costos, y un puesto de venta en cada fecha."
+      }
+    },
+    {
+      "plantilla": "captura",
+      "visual": {
+        "etiqueta": "En la fecha",
+        "titulo": [
+          "Vendés con",
+          "un toque"
+        ],
+        "destacar": 1,
+        "bajada": "Elegís el medio de pago y tocás + por cada venta. Los totales se calculan solos.",
+        "captura": "puesto-auditorium.png"
+      }
+    },
+    {
+      "plantilla": "captura",
+      "visual": {
+        "etiqueta": "Al cerrar",
+        "titulo": [
+          "El cierre,",
+          "listo"
+        ],
+        "destacar": 1,
+        "bajada": "Unidades, cobrado por medio de pago y el resumen de la fecha en PDF.",
+        "captura": "puesto-niceto.png"
+      }
+    },
+    {
+      "plantilla": "cierre",
+      "visual": {
+        "etiqueta": "Merch",
+        "titulo": [
+          "Cada venta,",
+          "contada"
+        ],
+        "destacar": 1,
+        "bajada": "Efectivo, Mercado Pago, transferencia y regalos, por fecha."
+      }
+    }
+  ],
+  "caption": "Remeras, vinilos, buzos: el merch también se gestiona en Gesta Manager.\n\n🛍️ Catálogo con precios, stock y costos\n📍 Un puesto de venta en cada fecha\n💳 Ventas por medio de pago: efectivo, Mercado Pago, transferencia o regalo\n📄 Cierre en PDF con lo vendido y lo cobrado\n\nDeslizá para verlo 👉\n\ngestamanager.com\n\n#gestamanager #merch #musicaenvivo #giras #produccion"
+}
