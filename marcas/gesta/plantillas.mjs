@@ -121,12 +121,13 @@ export function lista({ etiqueta, titulo, destacar, items }) {
   const yTitulo = 300;
   const tSize = 96;
   const tLeading = 94;
-  const tamItem = items.length > 5 ? 34 : 38;
+  // Con pocos ítems la letra crece y el aire también, para no dejar la placa vacía abajo.
+  const tamItem = items.length > 5 ? 34 : items.length > 4 ? 42 : 46;
   const interlinea = tamItem * 1.3;
   const bloques = items.map((t) => ajustar(t, W - 2 * M - 70, tamItem, 0.5));
   const inicio = yTitulo + (titulo.length - 1) * tLeading + 120;
   const altoTexto = bloques.reduce((s, l) => s + l.length * interlinea, 0);
-  const aire = Math.min(56, (1150 - inicio - altoTexto) / Math.max(1, items.length - 1));
+  const aire = Math.min(items.length > 5 ? 56 : 84, (1150 - inicio - altoTexto) / Math.max(1, items.length - 1));
   let cursor = inicio;
 
   const filas = bloques.map((lineas) => {
@@ -181,7 +182,6 @@ export function captura({ etiqueta, titulo, destacar, bajada, captura: archivo, 
       <image x="${tx + borde}" y="${ty + borde - desde * escala}" width="${pw}" height="${alto * escala}"
         xlink:href="data:image/png;base64,${png.toString("base64")}" preserveAspectRatio="none"/>
     </g>
-    <rect x="${tx + tw / 2 - 60}" y="${ty + borde + 14}" width="120" height="34" rx="17" fill="#000"/>
     <rect x="0" y="${H - 250}" width="${W}" height="250" fill="url(#fundido)"/>
     <text x="${M}" y="${H - 72}" font-family="${MONO}" font-size="30" font-weight="700" fill="${C.ambar}">gestamanager.com</text>
     <text x="${W - M}" y="${H - 72}" text-anchor="end" font-family="${TEXTO}" font-size="26" fill="${C.tenue}">Web · Android · iPhone</text>`,
