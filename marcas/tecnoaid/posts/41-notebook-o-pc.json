@@ -1,0 +1,32 @@
+{
+  "id": "41-notebook-o-pc",
+  "fecha": "2026-11-20",
+  "hora": "19:00",
+  "pilar": "servicio",
+  "plantilla": "comparacion",
+  "visual": {
+    "etiqueta": "Reacondicionados",
+    "titulo": [
+      "¿Notebook",
+      "o PC?"
+    ],
+    "izquierda": {
+      "titulo": "Notebook",
+      "items": [
+        "Si la usás en distintos lugares.",
+        "Si tenés poco espacio.",
+        "Para estudiar o trabajar en movimiento."
+      ]
+    },
+    "derecha": {
+      "titulo": "PC de escritorio",
+      "items": [
+        "Si siempre está en el mismo lugar.",
+        "Si querés pantalla grande.",
+        "Si después querés mejorarla."
+      ]
+    },
+    "bajada": "Te ayudamos a elegir y te armamos el equipo reacondicionado a medida."
+  },
+  "caption": "Antes de elegir una compu, la primera pregunta no es el procesador: es dónde y cómo la vas a usar.\n\n💼 Notebook: si la llevás de un lado a otro, si tenés poco espacio o la usás para estudiar o trabajar en movimiento.\n🖥️ PC de escritorio: si siempre va a estar en el mismo lugar, si querés una pantalla grande o pensás mejorarla más adelante.\n\nEn TecnoAid vendemos equipos reacondicionados a medida: nos contás para qué la querés y te armamos la que te sirve, sin pagar de más.\n\n💬 Escribinos por WhatsApp: 11 2655-3546\n📍 Zona Norte (Vicente López y La Lucila) · a domicilio · remoto a todo el país\n\n#reacondicionados #notebook #pc #vicentelopez #zonanorte"
+}
