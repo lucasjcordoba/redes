@@ -1,0 +1,23 @@
+{
+  "id": "10-para-quien",
+  "fecha": "2026-11-22",
+  "hora": "19:00",
+  "pilar": "audiencia",
+  "plantilla": "lista",
+  "visual": {
+    "etiqueta": "Para quién",
+    "titulo": [
+      "Hecho para",
+      "producciones en vivo"
+    ],
+    "destacar": 1,
+    "items": [
+      "Giras musicales",
+      "Teatro",
+      "Rodajes",
+      "Managers, artistas, técnicos y elenco",
+      "Producciones de Argentina y la región"
+    ]
+  },
+  "caption": "Gesta Manager es para producciones en vivo y audiovisuales: giras musicales, teatro y rodajes.\n\nSi coordinás fechas, horarios, viajes, equipo y plata entre muchas personas, lo armamos para vos. Hecho para producciones de Argentina y la región, con pesos, dólares o euros.\n\n👉 gestamanager.com\n\n#gestamanager #tourmanagement #teatro #rodaje #produccion"
+}
