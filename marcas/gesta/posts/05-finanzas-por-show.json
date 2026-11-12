@@ -1,0 +1,54 @@
+{
+  "id": "05-finanzas-por-show",
+  "fecha": "2026-11-17",
+  "hora": "19:00",
+  "pilar": "funcion",
+  "diapositivas": [
+    {
+      "plantilla": "declaracion",
+      "visual": {
+        "etiqueta": "Finanzas",
+        "titulo": [
+          "Cada show,",
+          "con sus",
+          "números claros."
+        ],
+        "destacar": 2,
+        "bajada": "Borderó, gastos, per diems y liquidación por show, en pesos, dólares o euros."
+      }
+    },
+    {
+      "plantilla": "captura",
+      "visual": {
+        "etiqueta": "Por fecha",
+        "titulo": [
+          "El cachet",
+          "y el balance"
+        ],
+        "destacar": 1,
+        "bajada": "Cada fecha tiene su pago, sus gastos y lo que queda neto para el artista.",
+        "captura": "show.png",
+        "desde": 900
+      }
+    },
+    {
+      "plantilla": "lista",
+      "visual": {
+        "etiqueta": "Finanzas",
+        "titulo": [
+          "Lo que se",
+          "carga por show"
+        ],
+        "destacar": 1,
+        "items": [
+          "Borderó",
+          "Gastos de la fecha y generales de la gira",
+          "Per diems del equipo",
+          "Liquidación por show",
+          "Pesos, dólares o euros"
+        ]
+      }
+    }
+  ],
+  "caption": "Las cuentas de la gira, sin planillas sueltas.\n\nEn Gesta Manager cada show tiene sus números: el borderó, los gastos, los per diems y la liquidación. Los gastos generales de la gira se suman a los de cada fecha, y todo se lleva en pesos, dólares o euros.\n\nAl cerrar la fecha ya sabés cuánto quedó. Deslizá para verlo 👉\n\ngestamanager.com\n\n#gestamanager #bordero #liquidacion #tourmanagement #produccion"
+}
