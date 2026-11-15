@@ -18,7 +18,7 @@ for (const id of MARCAS) {
     continue;
   }
   try {
-    const ig = cliente(token);
+    const ig = cliente(token, { api: m.api, userId: m.igUserId });
     const { user_id, username } = await ig.cuenta();
     const [ultima] = await ig.recientes(user_id, 1);
     console.log(`✓ ${m.nombre}: conectado como @${username}`);

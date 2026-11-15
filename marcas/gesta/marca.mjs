@@ -13,6 +13,10 @@ export const marca = {
   usuario: "@gestamanager",
   sitio: "gestamanager.com",
   token: "IG_TOKEN_GESTA",
+  // El token es de "usuario del sistema" (empieza con EAA): va contra la API de
+  // Facebook y la cuenta se identifica por su ID. Ver lib/instagram.mjs.
+  api: "facebook",
+  igUserId: "17841412081371401",
 
   queHace:
     "Sistema de gestión para producciones en vivo y audiovisuales: giras musicales, " +
