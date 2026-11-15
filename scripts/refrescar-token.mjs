@@ -16,6 +16,12 @@ if (!id) {
   process.exit(2);
 }
 const m = await cargarMarca(id);
+if (m.api === "facebook") {
+  // Token de usuario del sistema: no vence y no se refresca. El workflow
+  // reconoce este código de salida y sigue con la próxima marca.
+  console.error(`○ ${m.nombre}: token sin vencimiento, no se renueva`);
+  process.exit(3);
+}
 const actual = process.env[m.token];
 if (!actual) {
   console.error(`Falta ${m.token}`);

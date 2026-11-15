@@ -72,7 +72,7 @@ for (const id of values.marca ? [values.marca] : MARCAS) {
   }
 
   try {
-    const ig = cliente(token);
+    const ig = cliente(token, { api: m.api, userId: m.igUserId });
     const { user_id, username } = await ig.cuenta();
     const publicados = new Set((await ig.recientes(user_id)).map((r) => normalizar(r.caption)));
 
