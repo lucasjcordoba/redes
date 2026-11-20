@@ -78,6 +78,11 @@ main { max-width: 560px; margin: 0 auto; padding: 12px 12px 24px; }
 .mensaje { margin: 4px 0 0; font-size: 14px; text-align: center; }
 .mensaje.ok { color: var(--publicada); } .mensaje.error { color: var(--rojo); }
 
+.pedido { margin: 8px 0 0; padding: 10px 12px; border-radius: 8px; background: var(--pendiente-fondo); color: var(--texto); font-size: 14px; white-space: pre-line; }
+.pedido small { display: block; margin-top: 4px; color: var(--tenue); }
+.pedir { display: grid; gap: 8px; margin-top: 8px; }
+.pedir textarea { width: 100%; min-height: 84px; font: inherit; font-size: 16px; color: inherit; background: var(--tarjeta); border: 1px solid var(--borde); border-radius: 8px; padding: 10px 12px; resize: vertical; }
+.pedir textarea:focus { outline: 2px solid var(--azul); outline-offset: -1px; }
 .sin-post { padding: 16px 12px; display: grid; gap: 10px; text-align: center; color: var(--tenue); }
 
 /* Chips de estado */

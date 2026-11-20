@@ -4,24 +4,30 @@
  *   aprobar   mergea el PR (squash) y borra la rama. Desde ese momento el post
  *             está en main y el publicador lo saca a su hora.
  *   cancelar  cierra el PR sin mergear y borra la rama.
- *   cambios   deja el pedido como comentario en el PR. Ese comentario dispara
- *             la rutina de Claude que aplica los cambios y avisa por mail.
+ *   cambios   deja el pedido como comentario en el PR y avisa al dueño. Claude
+ *             lo aplica en la próxima revisión (ver CLAUDE.md); la versión
+ *             nueva dispara el aviso de siempre.
+ *
+ * Un moderador sólo puede actuar sobre los posts de su marca.
  *
  * `sha` es el commit que se estaba viendo en la página. Al aprobar se le pasa
  * a GitHub, que rechaza el merge si el PR cambió mientras tanto: nunca se
  * aprueba una versión distinta de la que se revisó.
  */
-import { REPO, MARCA_CAMBIOS, cargar, gh, sesionValida } from "./_lib.js";
+import { REPO, MARCAS, MARCA_CAMBIOS, cargar, gh, sesion, puedeVer } from "./_lib.js";
+import { avisar } from "./_push.js";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).json({ ok: false, mensaje: "Método no permitido" });
 
-  if (!sesionValida(req)) return res.status(401).json({ ok: false, mensaje: "La sesión venció. Recargá la página." });
+  const s = sesion(req);
+  if (!s) return res.status(401).json({ ok: false, mensaje: "La sesión venció. Recargá la página." });
   const { pr, accion, sha, cambios } = req.body ?? {};
   if (!/^\d+$/.test(String(pr))) return res.status(400).json({ ok: false, mensaje: "Publicación inválida" });
 
   try {
     const d = await cargar(pr);
+    if (!puedeVer(s, d.marca)) return res.status(404).json({ ok: false, mensaje: "No encontré esta publicación." });
     if (d.estado !== "abierto") {
       return res.status(409).json({ ok: false, mensaje: `Esta publicación ya fue ${d.estado}.` });
     }
@@ -53,13 +59,22 @@ export default async function handler(req, res) {
       if (!texto) return res.status(400).json({ ok: false, mensaje: "Escribí qué querés cambiar." });
       if (texto.length > 2000) return res.status(400).json({ ok: false, mensaje: "El pedido es demasiado largo." });
       const citado = texto.split("\n").map((l) => `> ${l}`).join("\n");
+      const quien = s.alcance === "todo" ? "el dueño" : `el moderador de ${MARCAS[d.marca].nombre}`;
       await gh("POST", `/repos/${REPO}/issues/${pr}/comments`, {
-        body: `${MARCA_CAMBIOS}\n**Cambios pedidos desde la página de revisión:**\n\n${citado}`,
+        body: `${MARCA_CAMBIOS}<!-- de: ${s.alcance} -->\n**Cambios pedidos por ${quien} desde la app de revisión:**\n\n${citado}`,
       });
+      if (s.alcance !== "todo") {
+        await avisar({
+          titulo: `${MARCAS[d.marca].nombre}: el moderador pidió cambios`,
+          cuerpo: texto.slice(0, 200),
+          url: `/p/${pr}`,
+          etiqueta: `cambios-${pr}`,
+        }).catch((e) => console.error(e));
+      }
       return res.json({
         ok: true,
         estado: "cambios",
-        mensaje: "Pedido enviado. Claude aplica los cambios y te manda la versión nueva por mail.",
+        mensaje: "Pedido enviado. Cuando esté la versión nueva llega un aviso para revisarla.",
       });
     }
 
