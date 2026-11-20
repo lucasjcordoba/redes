@@ -1,0 +1,31 @@
+{
+  "id": "53-para-quien-landing",
+  "fecha": "2026-11-23",
+  "hora": "19:00",
+  "pilar": "servicio",
+  "plantilla": "pasos",
+  "visual": {
+    "eyebrow": "/ LANDING PAGE",
+    "titulo": "¿Para quién sirve?",
+    "pasos": [
+      {
+        "titulo": "Profesionales",
+        "texto": "Qué hacen, dónde atienden y cómo pedir turno."
+      },
+      {
+        "titulo": "Comercios de barrio",
+        "texto": "Horarios, ubicación y un botón a WhatsApp."
+      },
+      {
+        "titulo": "Emprendimientos",
+        "texto": "Una presentación seria para mandar a clientes."
+      },
+      {
+        "titulo": "Servicios a domicilio",
+        "texto": "Zona de cobertura y presupuesto por formulario."
+      }
+    ],
+    "bajada": "Una página con hasta 6 secciones alcanza para empezar."
+  },
+  "caption": "Una landing es una sola página que dice lo esencial: qué hace el negocio, para quién, dónde y cómo contactarlo. Sirve sobre todo para:\n\n👩‍⚕️ Profesionales que quieren que los encuentren y pidan turno.\n🏪 Comercios de barrio que necesitan mostrar horarios y ubicación.\n🚀 Emprendimientos que necesitan una presentación seria.\n🚐 Servicios a domicilio que tienen que aclarar su zona.\n\nUSD 250, lista en 7 días hábiles, con dominio incluido el primer año y boceto de la portada sin cargo en 48 horas.\n\nraudaldev.com/landing\n\n#landingpage #paginasweb #emprendedores #pymes #zonanorte"
+}
