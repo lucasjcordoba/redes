@@ -1,0 +1,17 @@
+{
+  "id": "19-teatro",
+  "fecha": "2026-12-02",
+  "hora": "19:00",
+  "pilar": "audiencia",
+  "plantilla": "declaracion",
+  "visual": {
+    "etiqueta": "Teatro",
+    "titulo": [
+      "Cada función,",
+      "organizada."
+    ],
+    "destacar": 1,
+    "bajada": "Fechas, horarios, elenco, archivos y gastos de la temporada, en un solo lugar."
+  },
+  "caption": "Gesta Manager no es sólo para giras musicales. En teatro, cada función es una fecha: con su sala, sus horarios, la citación del elenco y los archivos que hacen falta.\n\nEl elenco y el equipo técnico ven lo suyo, la producción ve todo, incluidos los gastos y la liquidación.\n\n👉 gestamanager.com\n\n#gestamanager #teatro #produccion #elenco #funciones"
+}
