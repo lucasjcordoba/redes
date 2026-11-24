@@ -1,0 +1,18 @@
+{
+  "id": "13-fechas",
+  "fecha": "2026-11-26",
+  "hora": "19:00",
+  "pilar": "funcion",
+  "plantilla": "captura",
+  "visual": {
+    "etiqueta": "Fechas",
+    "titulo": [
+      "Cada fecha,",
+      "con su estado"
+    ],
+    "destacar": 1,
+    "bajada": "Venue, horarios, contactos y estado de cada show de la gira.",
+    "captura": "gira.png"
+  },
+  "caption": "Cada gira en Gesta Manager tiene sus fechas, y cada fecha tiene todo lo suyo: el venue, los horarios, los contactos y el estado del show.\n\nAsí ves de un vistazo qué está confirmado, qué ya se hizo y qué falta, sin abrir diez archivos distintos.\n\n👉 gestamanager.com\n\n#gestamanager #tourmanagement #produccion #giras #booking"
+}
