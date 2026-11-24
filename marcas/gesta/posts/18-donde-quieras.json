@@ -1,0 +1,22 @@
+{
+  "id": "18-donde-quieras",
+  "fecha": "2026-12-01",
+  "hora": "19:00",
+  "pilar": "presentacion",
+  "plantilla": "lista",
+  "visual": {
+    "etiqueta": "Web · Android · iPhone",
+    "titulo": [
+      "Desde donde",
+      "estés"
+    ],
+    "destacar": 1,
+    "items": [
+      "En la compu, desde la web",
+      "En el celular, con Android o iPhone",
+      "La misma cuenta en todos lados",
+      "Lo que cambiás en uno, aparece en el otro"
+    ]
+  },
+  "caption": "La producción se arma en la compu y se vive en el celular, en la ruta, en el camarín o en el hotel.\n\nGesta Manager funciona en la web, en Android y en iPhone con la misma cuenta. Lo que cargás en un lado lo ves en el otro, al instante.\n\n👉 gestamanager.com\n\n#gestamanager #tourmanagement #produccion #app #giras"
+}
