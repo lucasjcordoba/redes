@@ -1,0 +1,18 @@
+{
+  "id": "15-archivos",
+  "fecha": "2026-11-28",
+  "hora": "19:00",
+  "pilar": "funcion",
+  "plantilla": "declaracion",
+  "visual": {
+    "etiqueta": "Archivos",
+    "titulo": [
+      "El rider",
+      "que buscabas,",
+      "en la fecha."
+    ],
+    "destacar": 2,
+    "bajada": "Riders, contratos y planos, guardados por gira y por fecha."
+  },
+  "caption": "El rider de la versión anterior. El contrato en el mail de alguien que ya no está en la producción. El plano del escenario que nadie encuentra el día del show.\n\nEn Gesta Manager los riders, contratos y planos se guardan en la gira y en cada fecha, donde el equipo los va a buscar.\n\n👉 gestamanager.com\n\n#gestamanager #rider #tourmanagement #produccion #giras"
+}
