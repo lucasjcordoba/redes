@@ -1,0 +1,18 @@
+{
+  "id": "12-panel",
+  "fecha": "2026-11-25",
+  "hora": "19:00",
+  "pilar": "funcion",
+  "plantilla": "captura",
+  "visual": {
+    "etiqueta": "Panel de control",
+    "titulo": [
+      "Toda la gira,",
+      "de un vistazo"
+    ],
+    "destacar": 1,
+    "bajada": "Las giras, los shows y la próxima fecha, apenas entrás.",
+    "captura": "dashboard.png"
+  },
+  "caption": "Abrís Gesta Manager y ya sabés dónde estás parado: cuántas giras tenés, los shows confirmados y cuál es la próxima fecha, con su venue y cuántos días faltan.\n\nDesde ahí entrás a cada gira, a cada fecha y a todo lo que tiene adentro.\n\n👉 gestamanager.com\n\n#gestamanager #tourmanagement #produccion #giras #musicaenvivo"
+}
