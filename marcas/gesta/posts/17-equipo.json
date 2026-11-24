@@ -1,0 +1,18 @@
+{
+  "id": "17-equipo",
+  "fecha": "2026-11-30",
+  "hora": "19:00",
+  "pilar": "audiencia",
+  "plantilla": "captura",
+  "visual": {
+    "etiqueta": "Equipo",
+    "titulo": [
+      "Todo el equipo,",
+      "en un lugar"
+    ],
+    "destacar": 1,
+    "bajada": "Integrantes de la organización, cada uno con su rol.",
+    "captura": "equipo.png"
+  },
+  "caption": "Managers, artistas, técnicos, elenco: todos los integrantes de la producción en un solo lugar, cada uno con su rol.\n\nInvitás a cada persona, y entra con su propia cuenta a ver lo suyo, desde la web, Android o iPhone.\n\n👉 gestamanager.com\n\n#gestamanager #tourmanagement #produccion #equipo #giras"
+}
