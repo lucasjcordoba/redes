@@ -1,0 +1,18 @@
+{
+  "id": "20-rodajes",
+  "fecha": "2026-12-03",
+  "hora": "19:00",
+  "pilar": "audiencia",
+  "plantilla": "declaracion",
+  "visual": {
+    "etiqueta": "Rodajes",
+    "titulo": [
+      "Cada jornada",
+      "de rodaje,",
+      "en orden."
+    ],
+    "destacar": 2,
+    "bajada": "Citaciones, equipo, traslados y archivos, para todo el crew."
+  },
+  "caption": "Un rodaje también es una gira: jornadas en distintos lugares, citaciones, traslados, hoteles y mucha gente que tiene que saber dónde estar.\n\nEn Gesta Manager cada jornada tiene su hoja de ruta, con la citación y el equipo, y cada cambio le llega al crew como notificación.\n\n👉 gestamanager.com\n\n#gestamanager #rodaje #produccion #audiovisual #crew"
+}
