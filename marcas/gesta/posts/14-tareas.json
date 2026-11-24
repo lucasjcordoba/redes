@@ -1,0 +1,22 @@
+{
+  "id": "14-tareas",
+  "fecha": "2026-11-27",
+  "hora": "19:00",
+  "pilar": "funcion",
+  "plantilla": "lista",
+  "visual": {
+    "etiqueta": "Tareas",
+    "titulo": [
+      "Que no se",
+      "pase nada"
+    ],
+    "destacar": 1,
+    "items": [
+      "Tareas por gira y por fecha",
+      "Cada una con su responsable",
+      "Recordatorios para que no se olviden",
+      "El equipo ve lo que le toca hacer"
+    ]
+  },
+  "caption": "\"¿Quién se encargaba de mandar el rider?\" En una gira hay mil cosas que hacer, y la mitad se pierden en el chat.\n\nEn Gesta Manager cada tarea tiene su responsable y su recordatorio. Cada uno ve lo que le toca, y la producción ve qué está hecho y qué falta.\n\n👉 gestamanager.com\n\n#gestamanager #tourmanagement #produccion #organizacion #giras"
+}
