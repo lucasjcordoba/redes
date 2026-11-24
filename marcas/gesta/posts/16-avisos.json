@@ -1,0 +1,18 @@
+{
+  "id": "16-avisos",
+  "fecha": "2026-11-29",
+  "hora": "19:00",
+  "pilar": "funcion",
+  "plantilla": "declaracion",
+  "visual": {
+    "etiqueta": "Avisos",
+    "titulo": [
+      "Cambiaste",
+      "un horario.",
+      "Ya lo saben."
+    ],
+    "destacar": 2,
+    "bajada": "Cada cambio llega como notificación al celular del equipo."
+  },
+  "caption": "La prueba de sonido pasó de las 17 a las 16. Antes: avisar en el grupo, rezar que lo lean y volver a preguntar.\n\nEn Gesta Manager, cuando cambiás algo en la gira, el equipo recibe una notificación push al instante. Y la hoja de ruta del día ya está actualizada.\n\n👉 gestamanager.com\n\n#gestamanager #tourmanagement #produccion #giras #musicaenvivo"
+}
