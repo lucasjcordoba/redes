@@ -1,0 +1,17 @@
+{
+  "id": "21-tu-proxima-gira",
+  "fecha": "2026-12-04",
+  "hora": "19:00",
+  "pilar": "invitacion",
+  "plantilla": "cierre",
+  "visual": {
+    "etiqueta": "Probalo",
+    "titulo": [
+      "Tu próxima",
+      "gira, en Gesta"
+    ],
+    "destacar": 1,
+    "bajada": "Prueba gratis, sin límites, durante toda la prueba. Web, Android y iPhone."
+  },
+  "caption": "Si tenés una gira, una temporada o un rodaje por delante, es un buen momento para armarlo en Gesta Manager.\n\nLa prueba es gratis y sin límites: todo el sistema, durante toda la prueba, en la web, Android y iPhone con la misma cuenta.\n\nLa pedís en gestamanager.com\n\n#gestamanager #tourmanagement #produccion #giras #teatro"
+}
