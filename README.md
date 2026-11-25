@@ -47,6 +47,26 @@ Para publicar algo ya mismo sin esperar la hora, cambiale `fecha` y `hora` a
 algo ya pasado. Después, en GitHub: Actions → Publicar → Run workflow,
 destildando "Sólo mostrar qué publicaría".
 
+## Moderadores
+
+Para que otra persona revise una sola marca (por ejemplo, una cuenta
+compartida) sin ver las demás:
+
+1. En Vercel (proyecto de `revisar/`): Settings → Environment Variables, creá
+   `REVISION_PASSWORD_<MARCA>` (ej. `REVISION_PASSWORD_TECNOAID`) con una
+   contraseña de 8 caracteres o más, distinta de la tuya, y volvé a desplegar.
+2. Pasale a esa persona https://redes-revisar.vercel.app y la contraseña.
+
+Con esa contraseña ve sólo esa marca: Hoy, Calendario, Historial, la página
+de cada post y los avisos push. Puede aprobar, cancelar y pedir cambios con un
+cuadro de texto. El pedido te llega por aviso y Claude lo aplica en la
+revisión diaria de las 9:00 (o antes, si se lo pedís en el chat). Para sacarle
+el acceso, cambiá o borrá la variable y volvé a desplegar: su sesión deja de
+valer en ese momento.
+
+Ojo: el repo es público, así que el contenido de todas las marcas, incluidos
+los borradores, se puede ver en GitHub.
+
 ## Cómo decide qué publicar
 
 Ver el comentario de `scripts/publicar.mjs`. En resumen:

@@ -1,12 +1,13 @@
 /**
  * GET /p/<pr>  — la publicación como se vería en Instagram, con los botones
- * para aprobarla o descartarla. Sin sesión, pide la contraseña. Los cambios se piden en el chat.
+ * para aprobarla o descartarla. Sin sesión, pide la contraseña. El dueño pide
+ * los cambios en el chat; un moderador, en el cuadro de esta página.
  *
  * Esta página no cambia nada por sí sola: los clientes de mail abren los links
  * para generar la vista previa, y un GET que aprobara publicaría sin que nadie
  * lo decidiera. Todo lo que modifica pasa por POST /api/accion.
  */
-import { MARCAS, cargar, sesionValida } from "./_lib.js";
+import { MARCAS, cargar, sesion, puedeVer } from "./_lib.js";
 import { cuando } from "./accion.js";
 
 export default async function handler(req, res) {
@@ -14,11 +15,13 @@ export default async function handler(req, res) {
   res.setHeader("Content-Type", "text/html; charset=utf-8");
   const { pr, error } = req.query;
   if (!/^\d+$/.test(String(pr))) return res.status(404).send(pagina("No encontrada", aviso("No encontré esta publicación.")));
-  if (!sesionValida(req)) return res.status(401).send(pagina("Entrar", entrar(`/p/${pr}`, error)));
+  const s = sesion(req);
+  if (!s) return res.status(401).send(pagina("Entrar", entrar(`/p/${pr}`, error)));
 
   let d;
   try {
     d = await cargar(pr);
+    if (!puedeVer(s, d.marca)) throw new Error(`#${pr} es de ${d.marca}, fuera del alcance de la sesión`);
   } catch (e) {
     console.error(e);
     return res.status(404).send(pagina("No encontrada", aviso("No encontré esta publicación.")));
@@ -30,7 +33,7 @@ export default async function handler(req, res) {
     <a class="volver" href="/">‹ Redes</a>
     <p class="programado">${estadoTexto(d)}</p>
     ${publicacion(m, d)}
-    ${d.estado === "abierto" ? formulario(d) : ""}
+    ${d.estado === "abierto" ? formulario(d, s) : ""}
     <p class="pie">${esc(m.nombre)} · ${esc(d.id)} · ${esc(d.post.pilar)} · PR #${d.pr}</p>
     <script>window.REVISION = ${JSON.stringify(datos)};</script>
     <script>${cliente}</script>`));
@@ -39,7 +42,7 @@ export default async function handler(req, res) {
 function estadoTexto(d) {
   if (d.estado === "aprobado") return `<span class="chip ok">Aprobada</span> sale el ${cuando(d.post)}`;
   if (d.estado === "descartado") return `<span class="chip no">Descartada</span> no se va a publicar`;
-  if (d.cambiosPendientes) return `<span class="chip espera">Cambios en curso</span> Claude está aplicando tu pedido`;
+  if (d.cambiosPendientes) return `<span class="chip espera">Cambios pedidos</span> se aplican en la próxima revisión`;
   return `Se publica el ${cuando(d.post)}`;
 }
 
@@ -75,15 +78,27 @@ function publicacion(m, d) {
   </article>`;
 }
 
-function formulario(d) {
-  // Los cambios se piden en el chat de la tarea diaria de Claude, que los
-  // aplica en el momento. Acá quedan las dos decisiones que no necesitan a nadie.
+function formulario(d, s) {
+  // El dueño pide los cambios en el chat de la tarea diaria de Claude, que los
+  // aplica en el momento. Un moderador no tiene ese chat: los escribe acá y
+  // quedan en el PR hasta la próxima revisión.
+  const pedido = d.cambiosPendientes
+    ? `<p class="pedido"><b>Cambios pedidos:</b> ${esc(d.cambiosPendientes.texto)}</p>`
+    : "";
+  const cambios = s.alcance === "todo"
+    ? `<p class="nota-chat">¿Querés cambiar algo? Pedíselo a Claude en el chat de la tarea diaria.</p>`
+    : d.cambiosPendientes
+      ? ""
+      : `<label for="cambios">¿Querés cambiar algo? <span>Escribí qué y cómo.</span></label>
+    <textarea id="cambios" maxlength="2000" placeholder="Ej.: cambiar el título por…"></textarea>
+    <button type="button" data-accion="cambios" class="secundario">Pedir cambios</button>`;
   return `
   <section class="revision" id="revision">
-    <p class="nota-chat">¿Querés cambiar algo? Pedíselo a Claude en el chat de la tarea diaria.</p>
+    ${pedido}
+    ${cambios}
     <div class="botones">
       <button type="button" data-accion="cancelar" class="secundario">Cancelar</button>
-      <button type="button" data-accion="aprobar" class="primario">Aprobar</button>
+      ${d.cambiosPendientes ? "" : `<button type="button" data-accion="aprobar" class="primario">Aprobar</button>`}
     </div>
     <p class="mensaje" id="mensaje" role="status"></p>
   </section>`;
@@ -206,6 +221,7 @@ button:disabled { opacity: .45; cursor: default; }
 .mensaje { margin: 0; min-height: 20px; text-align: center; }
 .mensaje.ok { color: var(--ok); } .mensaje.error { color: var(--rojo); }
 .nota-chat { margin: 0; color: var(--tenue); text-align: center; }
+.pedido { margin: 0; padding: 10px 12px; border-radius: 8px; background: var(--espera-fondo); white-space: pre-line; }
 .nota { margin: 0; padding: 10px 12px; border-radius: 8px; background: var(--espera-fondo); color: var(--espera); }
 .pie { margin: 20px 16px 0; color: var(--tenue); font-size: 12px; text-align: center; }
 .aviso { margin: 40px 16px; text-align: center; color: var(--tenue); font-size: 16px; }
@@ -242,11 +258,18 @@ const cliente = `
   const mensaje = document.getElementById("mensaje");
   const botones = seccion.querySelectorAll("button");
   const PREGUNTAS = { cancelar: "¿Cancelar esta publicación? No se va a publicar." };
+  const ESPERA = { aprobar: "Aprobando la publicación…", cancelar: "Cancelando la publicación…", cambios: "Enviando el pedido…" };
 
   seccion.addEventListener("click", async (e) => {
     const accion = e.target.closest("button")?.dataset.accion;
     if (!accion) return;
     if (PREGUNTAS[accion] && !confirm(PREGUNTAS[accion])) return;
+    const cambios = document.getElementById("cambios")?.value.trim() ?? "";
+    if (accion === "cambios" && !cambios) {
+      mensaje.textContent = "Escribí qué querés cambiar.";
+      mensaje.className = "mensaje error";
+      return;
+    }
 
     botones.forEach((b) => (b.disabled = true));
     mensaje.textContent = "";
@@ -256,17 +279,18 @@ const cliente = `
     capa.setAttribute("role", "alertdialog");
     capa.setAttribute("aria-busy", "true");
     capa.innerHTML = '<div class="bloqueo-caja"><span class="spinner" aria-hidden="true"></span><p></p></div>';
-    capa.querySelector("p").textContent = accion === "aprobar" ? "Aprobando la publicación…" : "Cancelando la publicación…";
+    capa.querySelector("p").textContent = ESPERA[accion];
     document.body.append(capa);
     try {
       const res = await fetch("/api/accion", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ pr: R.pr, sha: R.sha, accion }),
+        body: JSON.stringify({ pr: R.pr, sha: R.sha, accion, cambios }),
       });
       const r = await res.json();
       mensaje.textContent = r.mensaje;
       mensaje.className = "mensaje " + (r.ok ? "ok" : "error");
+      if (r.ok && accion === "cambios") return location.reload();
       if (r.ok) seccion.querySelector(".botones").remove();
       else botones.forEach((b) => (b.disabled = false));
       capa.remove();
